@@ -1,0 +1,151 @@
+.card{
+    border: 1px solid red;
+	width: 50vw;
+	margin: auto;
+
+	@media(max-width: 800px){
+		width: 80vw;
+	}    
+}
+
+#image{
+    width: 50vw;
+	height: 50vh;
+
+	@media(max-width: 800px){
+		width: 80vw;
+		height: 40vh;
+	}
+
+	@media(max-width: 800px){
+		height: 50vh;
+	}
+}
+
+.card-products{
+    display: flex;
+	justify-content: space-between;
+	align-items: center;
+	border: 1px solid;
+	border-radius: 10px;
+	margin: 10px;
+
+    @media(max-width: 600px){
+		text-align: center;
+		flex-direction: column;
+	}
+}
+
+.card-products h4{
+    color: red;
+    margin-bottom: -10px;
+}
+
+.card-products button{
+    background-color: #e8222e;
+	border: none;
+	box-shadow: 0 0 4px;
+    border-radius: 10px;
+    cursor: pointer;
+    margin-right: 10px;
+	transition: .3s;
+
+	@media(max-width: 600px){
+		width: 60vw;
+		margin-bottom: 10px;
+	}
+}
+
+.card-products button:hover{
+	background-color: #ee0918;
+	box-shadow: 0 0 8px;
+}
+
+.card-products button:active{
+	transform: scale(.9);
+}
+
+.card-products .picture{
+    width: 100px;
+	height: 130px;	
+	border-radius: 10px;
+
+	@media(max-width: 600px){
+		width: 73vw;
+		height: 25vh;
+	}
+}
+
+#modalContainer{	
+	position: fixed;
+	display: none;
+	top: 25%;
+	left: 50%;
+	transform: translate(-50%);
+	box-shadow: 3px 3px 7px black;
+	border: 1px solid;
+	width: 38vw;
+	height: 15vh;
+	border-radius: 20px;
+	text-align: center;
+	padding: 10px;
+	transition: .5s;
+	pointer-events: auto;
+	
+	@media(max-width: 800px){
+		height: 20vh;
+		width: 60vw;
+	}
+
+	@media(max-width: 600px){
+		height: 15vh;
+		width: 80vw;
+	}
+}
+
+.request{
+	display: flex;
+	justify-content: space-between;
+	align-items: center;
+	margin: 20px;
+}
+
+.request .btnContainer{
+	display: flex;
+	align-items: center;
+	justify-content: space-between;
+}
+
+.request button{
+	background-color: #e8222e;
+	border: none;
+	box-shadow: 0 0 4px;
+    border-radius: 10px;
+    cursor: pointer;
+    margin-right: 5px;
+	transition: .3s;
+}
+
+.request button:hover{
+	background-color: #ee0918;
+	box-shadow: 0 0 8px;
+}
+
+footer{
+	display: flex;
+	justify-content: space-between;
+	align-items: center;
+	margin: 10px;
+}
+
+footer .header-icon{
+	@media(max-width: 600px){
+		width: 30px;
+	}
+}
+
+footer img{
+	cursor: pointer;
+	width: 35px;
+}
+

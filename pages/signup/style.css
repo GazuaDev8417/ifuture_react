@@ -1,0 +1,45 @@
+.container{
+    text-align: center;
+    margin-top: 5vh ;
+}
+
+.title{
+    font-size: 1.5rem;
+    margin: 5vh 0 5vh;
+}
+
+form{
+    line-height: 10px;
+}
+
+.input{
+    width: 30vw;
+    margin: auto;
+
+    @media(max-width: 800px){
+        width: 80vw;
+    }
+}
+
+.btn-container{
+	display: flex;
+	flex-direction: column;
+	margin: auto;
+	width: 30vw;
+
+	@media(max-width: 800px){
+		width: 80vw;
+	}
+}
+
+button{
+    width: 30vw;
+
+    @media(max-width: 800px){
+        width: 80vw;
+    }    
+}
+
+p{
+    margin-top: 5vh;
+}

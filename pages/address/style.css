@@ -1,0 +1,53 @@
+header{
+    display: flex;
+	align-items: center;
+	justify-content: space-between;
+	margin: 10px 0 10vh;
+}
+
+header img{
+    width: 50px;
+    cursor: pointer;
+
+    @media(max-width: 600px){
+        width: 30px;
+    }
+}
+
+header h1{
+    @media(max-width: 600px){
+        font-size: 20px;
+    }
+}
+
+form{
+    line-height: 10px;
+
+	@media(max-width: 800px){
+		line-height: 8px;
+	}
+}
+
+form .input{
+    width: 30vw;
+    margin: auto;
+
+    @media(max-width: 800px){
+        width: 70vw;
+        height: 6vh;
+    }
+}
+
+form button{
+    width: 30vw;
+    cursor: pointer;
+
+    @media(max-width: 800px){
+        width: 70vw;
+        font-size: 12pt;
+    }
+}
+
+form button:hover{
+    color: white;
+}
