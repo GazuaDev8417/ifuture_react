@@ -17,7 +17,7 @@ const Login:FC = ()=>{
     const navigate = useNavigate()
     const [showPass, setShowPass] = useState<boolean>(false)
     const [form, setForm] = useState<FormData>({
-        email:'astrodev@future4.com',
+        email:'visitante@email.com',
         password:'123456'
     })
 
@@ -50,7 +50,7 @@ const Login:FC = ()=>{
             localStorage.setItem('user', JSON.stringify(res.data.user))
             navigate('/feed')
         }).catch(e=>{
-            alert(e.response.data)
+            alert(e.response.data.message)
         })
     }
     

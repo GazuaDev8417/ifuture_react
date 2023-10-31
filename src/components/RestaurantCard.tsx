@@ -29,6 +29,13 @@ const Card = styled.div`
         justify-content: space-between;
         align-items: center;
     }
+
+/* MEDIA QUERIES */
+    @media(max-width: 830px){
+        .image{
+            height: 95%;
+        }
+    }
 `
 
 

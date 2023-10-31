@@ -82,8 +82,8 @@ const Detail:FC = ()=>{
                     <div className="rest-name">{menu.category}</div>
                     <p>{menu.description}</p>
                     <div className="time">
-                        <span>{menu.deliveryTime} - {menu.deliveryTime + 10} min</span>
                         <span>Frete: R$ {menu.shipping.toFixed(2)}</span>
+                        <span>{menu.deliveryTime} - {menu.deliveryTime + 10} min</span>
                     </div>
                     <p>{menu.address}</p>
                 </div>
@@ -101,7 +101,8 @@ const Detail:FC = ()=>{
                                 <div>R$ {product.price.toFixed(2)}</div>
                             </div>
                             <div className="select-btn-container">
-                                <select value={qnt[index]} onChange={(e)=>handleSelect(e, index)}>
+                                <select className="select" 
+                                    value={qnt[index]} onChange={(e)=>handleSelect(e, index)}>
                                     <option defaultValue={1}>1</option>
                                     <option>2</option>
                                     <option>3</option>

@@ -75,6 +75,7 @@ const Feed:FC = ()=>{
             }
         }
     }
+   
     
 
 
@@ -94,7 +95,7 @@ const Feed:FC = ()=>{
                     type="search"
                     onChange={handleInput}/>
             </div>
-            <div className="categories" id="cat">
+            <div className="categories">
                 {restaurants && restaurants.map(rest=>(
                     <div className="card-category" key={rest.id}
                         onClick={()=> categoryFilter(rest.category)}>
