@@ -35,7 +35,7 @@ const Address2:FC = ()=>{
         const token = localStorage.getItem('token')
 
         if(!token){
-            navigate('/')
+            navigate('/ifuture_react')
         }
     }, [])
 

@@ -15,15 +15,15 @@ import EditProfile from "../pages/editProfile/EditProfile"
 const Router:FC = ()=>{
     return(
         <Routes>
-            <Route path="/signup" element={<Signup/>} />
-            <Route path="/" element={<Login/>} />
-            <Route path="/feed" element={<Feed/>} />
-            <Route path="/detail" element={<Detail/>} />
-            <Route path="/cart" element={<Cart/>} />
-            <Route path="/profile" element={<Profile/>} />
-            <Route path="/address" element={<Address/>} />
-            <Route path="/update-address" element={<Address2/>} />
-            <Route path="/edit-profile" element={<EditProfile/>} />
+            <Route path="/ifuture_react/signup" element={<Signup/>} />
+            <Route path="/ifuture_react" element={<Login/>} />
+            <Route path="/ifuture_react/feed" element={<Feed/>} />
+            <Route path="/ifuture_react/detail" element={<Detail/>} />
+            <Route path="/ifuture_react/cart" element={<Cart/>} />
+            <Route path="/ifuture_react/profile" element={<Profile/>} />
+            <Route path="/ifuture_react/address" element={<Address/>} />
+            <Route path="/ifuture_react/update-address" element={<Address2/>} />
+            <Route path="/ifuture_react/edit-profile" element={<EditProfile/>} />
         </Routes>
     )
 }

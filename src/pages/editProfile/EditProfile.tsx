@@ -30,7 +30,7 @@ const EditProfile:FC = ()=>{
         const token = localStorage.getItem('token')
 
         if(!token){
-            navigate('/')
+            navigate('/ifuture_react')
         }
     }, [])
 
@@ -52,7 +52,7 @@ const EditProfile:FC = ()=>{
             headers: { auth: localStorage.getItem('token') }
         }
         axios.put(`${BASE_URL}/profile`, body, headers).then(()=>{
-            navigate('/profile')
+            navigate('/ifuture_react/profile')
         }).catch(e=>{
             alert(e.response.data.message)
         })
@@ -61,7 +61,7 @@ const EditProfile:FC = ()=>{
 
     const handleKeyPress = (e: React.KeyboardEvent<HTMLInputElement>) => {
         if (e.charCode < 48 || e.charCode > 57) {
-          e.preventDefault() // Prevent input of non-numeric characters
+          e.preventDefault()
         }
     }
 

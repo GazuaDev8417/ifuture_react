@@ -27,7 +27,7 @@ const Feed:FC = ()=>{
         getRestaurants()
 
         if(!localStorage.getItem('token')){
-            navigate('/')
+            navigate('/ifuture_react')
         }
     }, [])
     
@@ -47,7 +47,7 @@ const Feed:FC = ()=>{
             headers: { auth: localStorage.getItem('token') || '' }
         }).then(res=>{
             setMenu(res.data.restaurant)    
-            navigate('/detail')        
+            navigate('/ifuture_react/detail')        
         }).catch(e=>{
             alert(e.response.data.message)
         })
@@ -83,10 +83,10 @@ const Feed:FC = ()=>{
         <>
         <Header
             leftIcon={
-                <AiFillHome className="header-icon" onClick={()=> navigate('/feed')} />
+                <AiFillHome className="header-icon" onClick={()=> navigate('/ifuture_react/feed')} />
             }
             rightIcon={
-                <BsFillPersonFill className="header-icon" onClick={()=> navigate('/profile')} />
+                <BsFillPersonFill className="header-icon" onClick={()=> navigate('/ifuture_react/profile')} />
             }/>
         <Container>
             <div className="input-container">

@@ -35,7 +35,7 @@ const Address:FC = ()=>{
         const token = localStorage.getItem('token')
 
         if(token){
-            navigate('/feed')
+            navigate('/ifuture_react/feed')
         }
     }, [])
 
@@ -60,7 +60,7 @@ const Address:FC = ()=>{
             headers: { auth: localStorage.getItem('token') }
         }
         axios.put(`${BASE_URL}/address`, body, headers).then(()=>{
-            navigate('/feed')
+            navigate('/ifuture_react/feed')
         }).catch(e=>{
             alert(e.response.data.message)
             console.log(e.response)

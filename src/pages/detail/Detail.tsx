@@ -21,7 +21,7 @@ const Detail:FC = ()=>{
         const token = localStorage.getItem('token')
 
         if(!token){
-            navigate('/')
+            navigate('/ifuture_react')
         }
     }, [])
     
@@ -51,7 +51,7 @@ const Detail:FC = ()=>{
             const decide = window.confirm(`Você adicionou ${duplicatedItem.name}, basta ir ao carrinho e fanilizar a compra. Deseja ir ao carrinho?`)
             
             if(decide){
-                navigate('/cart')
+                navigate('/ifuture_react/cart')
             }
 
             return
@@ -66,10 +66,10 @@ const Detail:FC = ()=>{
         <>
         <Header
             leftIcon={
-                <AiOutlineShoppingCart className="header-icon" onClick={()=> navigate('/cart')} />
+                <AiOutlineShoppingCart className="header-icon" onClick={()=> navigate('/ifuture_react/cart')} />
             }
             rightIcon={
-                <BsFillPersonFill className="header-icon" onClick={()=> navigate('/profile')} />
+                <BsFillPersonFill className="header-icon" onClick={()=> navigate('/ifuture_react/profile')} />
             }/>
         <Container>
             <h1>{menu.name}</h1>

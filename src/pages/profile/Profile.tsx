@@ -25,7 +25,7 @@ const Profile = ()=>{
         const token = localStorage.getItem('token')
 
         if(!token){
-            navigate('/')
+            navigate('/ifuture_react')
         }
     }, [])
 
@@ -48,7 +48,7 @@ const Profile = ()=>{
 
         if(decide){
             localStorage.clear()
-            navigate('/')
+            navigate('/ifuture_react')
         }
     }
 
@@ -61,7 +61,7 @@ const Profile = ()=>{
                 <AiOutlineLogout className="header-icon" onClick={logout} />
             }
             leftIcon={
-                <AiOutlineShoppingCart className="header-icon" onClick={()=> navigate('/cart')}/>
+                <AiOutlineShoppingCart className="header-icon" onClick={()=> navigate('/ifuture_react/cart')}/>
             }/>        
         <Container>    
             <h1>Perfil do usuário</h1>            
@@ -71,13 +71,13 @@ const Profile = ()=>{
                     {user.email} <br />
                     {maskedCPF(String(user.cpf))}
                 </div>
-                <MdEdit className="icon" onClick={()=> navigate('/edit-profile')} />
+                <MdEdit className="icon" onClick={()=> navigate('/ifuture_react/edit-profile')} />
             </div>
             <div className="address-section">
                 <div>Endereço cadastrado: <br />
                     {user.address}
                 </div>
-                <MdEdit className="icon" onClick={()=> navigate('/update-address')}/>
+                <MdEdit className="icon" onClick={()=> navigate('/ifuture_react/update-address')}/>
             </div>
             <div className="addressAndName">
                 <div className="rest-name"></div>

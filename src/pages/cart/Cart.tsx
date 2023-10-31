@@ -33,7 +33,7 @@ const Cart:FC = ()=>{
         const token = localStorage.getItem('token')
         
         if(!token){
-            navigate('/')
+            navigate('/ifuture_react')
         }
 
         getProfile()
@@ -94,12 +94,12 @@ const Cart:FC = ()=>{
             leftIcon={
                 <AiFillHome 
                     className="header-icon"
-                    onClick={()=> navigate('/feed')} />
+                    onClick={()=> navigate('/ifuture_react/feed')} />
             }
             rightIcon={
                 <BsFillPersonFill 
                     className="header-icon"
-                    onClick={()=> navigate('/profile')} />
+                    onClick={()=> navigate('/ifuture_react/profile')} />
             }/>
         <Container>
             <h1>Meu Carrinho</h1>
@@ -108,7 +108,7 @@ const Cart:FC = ()=>{
                 <div>Endereço para entrega: <br />
                     {user.address}
                 </div>
-                <MdEdit className="icon" onClick={()=> navigate('/update-address')} />
+                <MdEdit className="icon" onClick={()=> navigate('/ifuture_react/update-address')} />
             </div>
             <div className="addressAndName">
                 <div className="rest-name">Seus produtos</div>

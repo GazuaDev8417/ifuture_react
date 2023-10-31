@@ -27,7 +27,7 @@ const Login:FC = ()=>{
         const token = localStorage.getItem('token')
         
         if(token){
-            navigate('/feed')
+            navigate('/ifuture_react/feed')
         }
     }, [])
 
@@ -48,7 +48,7 @@ const Login:FC = ()=>{
         axios.post(`${BASE_URL}/login`, body).then(res=>{
             localStorage.setItem('token', res.data.token)
             localStorage.setItem('user', JSON.stringify(res.data.user))
-            navigate('/feed')
+            navigate('/ifuture_react/feed')
         }).catch(e=>{
             alert(e.response.data.message)
         })
@@ -85,7 +85,7 @@ const Login:FC = ()=>{
                 <button>Entrar</button>
             </form>
             <p>
-                Não possui cadastro? clique <Link to='/signup'> aqui</Link>
+                Não possui cadastro? clique <Link to='/ifuture_react/signup'> aqui</Link>
             </p>
         </Container>
     )

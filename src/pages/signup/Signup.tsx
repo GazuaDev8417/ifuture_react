@@ -36,7 +36,7 @@ const Signup:FC = ()=>{
         const token = localStorage.getItem('token')
 
         if(token){
-            navigate('/feed')
+            navigate('/ifuture_react/feed')
         }
     }, [])
 
@@ -57,7 +57,7 @@ const Signup:FC = ()=>{
         }
         axios.post(`${BASE_URL}/signup`, body).then(res=>{
             localStorage.setItem('token',res.data.token)
-            navigate('/address')
+            navigate('/ifuture_react/address')
         }).catch(e=>{
             alert(e.response.data.message)
         })
@@ -148,7 +148,7 @@ const Signup:FC = ()=>{
                         <button type="submit">Registrar</button>
                     </div>
                     <button type="button"
-                        onClick={()=> navigate('/')}>Voltar para login</button>
+                        onClick={()=> navigate('/ifuture_react')}>Voltar para login</button>
                 </div>
             </form>
         </Container>
