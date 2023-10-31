@@ -16,7 +16,7 @@ const Router:FC = ()=>{
     return(
         <Routes>
             <Route path="/signup" element={<Signup/>} />
-            <Route path="/" element={<Login/>} />
+            <Route path="/ifuture_react" element={<Login/>} />
             <Route path="/feed" element={<Feed/>} />
             <Route path="/detail" element={<Detail/>} />
             <Route path="/cart" element={<Cart/>} />
