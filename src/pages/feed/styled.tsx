@@ -28,33 +28,17 @@ export const Container = styled.div`
         justify-content: center;
     }
 
-    .card{
-        display: flex;
-        flex-direction: column;
-        border: 1px solid red;
-        margin: 20px auto 50px;
-        width: 50vw;
-        cursor: pointer;
-    }
+/* MEDIA QUERIES */
+    @media(max-width: 760px){
+        .categories{
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            width: 50%;
+            margin: auto;            
+        }
 
-    .image{
-        height: 50vh;
-        width: 50vw;
-    }
-
-    .desc{
-        margin: 10px 20px;
-    }
-
-    .rest-name{
-        text-align: center;
-        font-size: 1.5rem;
-        margin: 10px;
-    }
-
-    .time{
-        display: flex;
-        justify-content: space-between;
-        align-items: center;
+        .card-category{
+            font-size: 80%;
+        }
     }
 `

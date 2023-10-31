@@ -32,6 +32,7 @@ export const Container = styled.div`
         display: flex;
         justify-content: space-between;
         align-items: center;
+        padding-top: 20px;
     }
 
     .products{
@@ -66,6 +67,49 @@ export const Container = styled.div`
     .products-card button{
         padding: 5px;
         color: #fff;
+    }
+
+/* MEDIA QUERIES */
+    @media(max-width: 830px){
+        .image{
+            height: 90%;
+        }
+
+        .desc{
+            font-size: 85%;
+        }
+
+        .products-card{
+            /* display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding-right: 20px;
+            border: 1px solid;
+            border-radius: 10px;
+            margin: 10px; */
+            flex-direction: column;
+        }
+
+        .product-image{
+            width: 100%;
+        }
+
+        .select-btn-container{
+            justify-content: space-between;
+            width: 100%;
+            padding: 5px 10px;
+            flex-direction: row-reverse;
+        }
+
+        .select{
+            width: 20%;
+        }
+    }
+
+    @media(max-width: 620px){
+        .image{
+            height: 80%;
+        }
     }
 
 `
