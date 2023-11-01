@@ -160,8 +160,8 @@ Error generating stack: `+i.message+`
 
     .eye-icon{
         position: absolute;
+        top: 45%;
         right: 36%;
-        top: 45.5%;
         font-size: 1.2rem;
         cursor: pointer;
     }
@@ -176,7 +176,159 @@ Error generating stack: `+i.message+`
     p{
         margin-top: 5vh;
     }
-`,dv=()=>{const e=ct(),[t,n]=k.useState(!1),[r,o]=k.useState({email:"visitante@email.com",password:"123456"});k.useEffect(()=>{localStorage.getItem("token")&&e("/ifuture_react/feed")},[]);const i=s=>{const{name:a,value:u}=s.target;o({...r,[a]:u})},l=s=>{s.preventDefault();const a={email:r.email,password:r.password};et.post(`${tt}/login`,a).then(u=>{localStorage.setItem("token",u.data.token),localStorage.setItem("user",JSON.stringify(u.data.user)),e("/ifuture_react/feed")}).catch(u=>{alert(u.response.data.message)})};return p.jsxs(cv,{children:[p.jsx("img",{src:ur,alt:"imagem"}),p.jsx("div",{className:"title",children:"Login"}),p.jsxs("form",{onSubmit:l,children:[p.jsx("input",{type:"email",className:"form-input",name:"email",value:r.email,onChange:i,placeholder:"name@email.com",required:!0}),p.jsx("input",{type:t?"text":"password",className:"form-input",name:"password",value:r.password,onChange:i,placeholder:"Mínimo de 6 caractéres",required:!0}),t?p.jsx(Vs,{onClick:()=>n(!1),className:"eye-icon"}):p.jsx(Hs,{onClick:()=>n(!0),className:"eye-icon"}),p.jsx("button",{children:"Entrar"})]}),p.jsxs("p",{children:["Não possui cadastro? clique ",p.jsx(Ug,{to:"/ifuture_react/signup",children:" aqui"})]})]})};function Xs(e){return Zt({tag:"svg",attr:{viewBox:"0 0 24 24"},child:[{tag:"path",attr:{fill:"none",d:"M0 0h24v24H0z"}},{tag:"path",attr:{d:"M3 17.25V21h3.75L17.81 9.94l-3.75-3.75L3 17.25zM20.71 7.04a.996.996 0 000-1.41l-2.34-2.34a.996.996 0 00-1.41 0l-1.83 1.83 3.75 3.75 1.83-1.83z"}}]})(e)}function ph(e){return Zt({tag:"svg",attr:{viewBox:"0 0 1024 1024"},child:[{tag:"path",attr:{d:"M946.5 505L534.6 93.4a31.93 31.93 0 0 0-45.2 0L77.5 505c-12 12-18.8 28.3-18.8 45.3 0 35.3 28.7 64 64 64h43.4V908c0 17.7 14.3 32 32 32H448V716h112v224h265.9c17.7 0 32-14.3 32-32V614.3h43.4c17 0 33.3-6.7 45.3-18.8 24.9-25 24.9-65.5-.1-90.5z"}}]})(e)}function fv(e){return Zt({tag:"svg",attr:{viewBox:"0 0 1024 1024"},child:[{tag:"path",attr:{d:"M868 732h-70.3c-4.8 0-9.3 2.1-12.3 5.8-7 8.5-14.5 16.7-22.4 24.5a353.84 353.84 0 0 1-112.7 75.9A352.8 352.8 0 0 1 512.4 866c-47.9 0-94.3-9.4-137.9-27.8a353.84 353.84 0 0 1-112.7-75.9 353.28 353.28 0 0 1-76-112.5C167.3 606.2 158 559.9 158 512s9.4-94.2 27.8-137.8c17.8-42.1 43.4-80 76-112.5s70.5-58.1 112.7-75.9c43.6-18.4 90-27.8 137.9-27.8 47.9 0 94.3 9.3 137.9 27.8 42.2 17.8 80.1 43.4 112.7 75.9 7.9 7.9 15.3 16.1 22.4 24.5 3 3.7 7.6 5.8 12.3 5.8H868c6.3 0 10.2-7 6.7-12.3C798 160.5 663.8 81.6 511.3 82 271.7 82.6 79.6 277.1 82 516.4 84.4 751.9 276.2 942 512.4 942c152.1 0 285.7-78.8 362.3-197.7 3.4-5.3-.4-12.3-6.7-12.3zm88.9-226.3L815 393.7c-5.3-4.2-13-.4-13 6.3v76H488c-4.4 0-8 3.6-8 8v56c0 4.4 3.6 8 8 8h314v76c0 6.7 7.8 10.5 13 6.3l141.9-112a8 8 0 0 0 0-12.6z"}}]})(e)}function hh(e){return Zt({tag:"svg",attr:{viewBox:"0 0 1024 1024"},child:[{tag:"path",attr:{d:"M922.9 701.9H327.4l29.9-60.9 496.8-.9c16.8 0 31.2-12 34.2-28.6l68.8-385.1c1.8-10.1-.9-20.5-7.5-28.4a34.99 34.99 0 0 0-26.6-12.5l-632-2.1-5.4-25.4c-3.4-16.2-18-28-34.6-28H96.5a35.3 35.3 0 1 0 0 70.6h125.9L246 312.8l58.1 281.3-74.8 122.1a34.96 34.96 0 0 0-3 36.8c6 11.9 18.1 19.4 31.5 19.4h62.8a102.43 102.43 0 0 0-20.6 61.7c0 56.6 46 102.6 102.6 102.6s102.6-46 102.6-102.6c0-22.3-7.4-44-20.6-61.7h161.1a102.43 102.43 0 0 0-20.6 61.7c0 56.6 46 102.6 102.6 102.6s102.6-46 102.6-102.6c0-22.3-7.4-44-20.6-61.7H923c19.4 0 35.3-15.8 35.3-35.3a35.42 35.42 0 0 0-35.4-35.2zM305.7 253l575.8 1.9-56.4 315.8-452.3.8L305.7 253zm96.9 612.7c-17.4 0-31.6-14.2-31.6-31.6 0-17.4 14.2-31.6 31.6-31.6s31.6 14.2 31.6 31.6a31.6 31.6 0 0 1-31.6 31.6zm325.1 0c-17.4 0-31.6-14.2-31.6-31.6 0-17.4 14.2-31.6 31.6-31.6s31.6 14.2 31.6 31.6a31.6 31.6 0 0 1-31.6 31.6z"}}]})(e)}const pv=Ae.div`
+
+/* MEDIA QUERY */
+    @media(max-width: 930px){
+        .form-input{
+            width: 40vw;
+        }
+
+        .eye-icon{
+            right: 31%;
+        }
+
+        button{
+            width: 40vw;
+        }
+    }
+
+    @media(max-width: 690px){
+        .form-input{
+            width: 50vw;
+        }
+
+        .eye-icon{
+            right: 26%;
+        }
+
+        button{
+            width: 50vw;
+        }
+    }
+
+    @media(max-width: 510px){
+        .form-input{
+            width: 65vw;
+        }
+
+        .eye-icon{
+            right: 21%;
+        }
+
+        button{
+            width: 65vw;
+        }
+    }
+
+/* HEIGTH */
+    @media(max-height: 2500px){
+        .eye-icon{
+            top: 30.5%;
+        }
+    }
+
+    @media(max-height: 2300px){
+        .eye-icon{
+            top: 31%;
+        }
+    }
+
+    @media(max-height: 2170px){
+        .eye-icon{
+            top: 31.5%;
+        }
+    }
+
+    @media(max-height: 1900px){
+        .eye-icon{
+            top: 32.5%;
+        }
+    }
+
+    @media(max-height: 1631px){
+        .eye-icon{
+            top: 34%;
+        }
+    }
+
+    @media(max-height: 1346px){
+        .eye-icon{
+            top: 35.5%;
+        }
+    }
+
+    @media(max-height: 1160px){
+        .eye-icon{
+            top: 37%;
+        }
+    }
+
+    @media(max-height: 992px){
+        .eye-icon{
+            top: 39%;
+        }
+    }
+
+    @media(max-height: 910px){
+        .eye-icon{
+            top: 40.5%;
+        }
+    }
+
+    @media(max-height: 780px){
+        .eye-icon{
+            top: 42.5%;
+        }
+    }
+/* ------------------------------ */
+    @media(max-height: 700px){
+        .eye-icon{
+            top: 45.5%;
+        }
+    }
+
+    @media(max-height: 605px){
+        .eye-icon{
+            top: 48%;
+        }
+    }
+
+    @media(max-height: 560px){
+        .eye-icon{
+            top: 50%;
+        }
+    }
+
+    @media(max-height: 500px){
+        .eye-icon{
+            top: 53%;
+        }
+    }
+
+    @media(max-height: 440px){
+        .eye-icon{
+            top: 56.5%;
+        }
+    }
+
+    @media(max-height: 409px){
+        .eye-icon{
+            top: 59%;
+        }
+    }
+
+    @media(max-height: 376px){
+        .eye-icon{
+            top: 62%;
+        }
+    }
+
+    @media(max-height: 348px){
+        .eye-icon{
+            top: 65%;
+        }
+    }
+`,dv=()=>{const e=ct(),[t,n]=k.useState(!1),[r,o]=k.useState({email:"visitante@email.com",password:"123456"});k.useEffect(()=>{localStorage.getItem("token")&&e("/ifuture_react/feed")},[]),k.useEffect(()=>{/iPhone|iPad|iPod|Android|webOS|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent)&&alert("Testando se é celular")},[]);const i=s=>{const{name:a,value:u}=s.target;o({...r,[a]:u})},l=s=>{s.preventDefault();const a={email:r.email,password:r.password};et.post(`${tt}/login`,a).then(u=>{localStorage.setItem("token",u.data.token),localStorage.setItem("user",JSON.stringify(u.data.user)),e("/ifuture_react/feed")}).catch(u=>{alert(u.response.data.message)})};return p.jsxs(cv,{children:[p.jsx("img",{src:ur,alt:"imagem"}),p.jsx("div",{className:"title",children:"Login"}),p.jsxs("form",{onSubmit:l,children:[p.jsx("input",{type:"email",className:"form-input",name:"email",value:r.email,onChange:i,placeholder:"name@email.com",required:!0}),t?p.jsx(Vs,{onClick:()=>n(!1),className:"eye-icon"}):p.jsx(Hs,{onClick:()=>n(!0),className:"eye-icon"}),p.jsx("input",{type:t?"text":"password",className:"form-input",name:"password",value:r.password,onChange:i,placeholder:"Mínimo de 6 caractéres",required:!0}),p.jsx("button",{children:"Entrar"})]}),p.jsxs("p",{children:["Não possui cadastro? clique ",p.jsx(Ug,{to:"/ifuture_react/signup",children:" aqui"})]})]})};function Xs(e){return Zt({tag:"svg",attr:{viewBox:"0 0 24 24"},child:[{tag:"path",attr:{fill:"none",d:"M0 0h24v24H0z"}},{tag:"path",attr:{d:"M3 17.25V21h3.75L17.81 9.94l-3.75-3.75L3 17.25zM20.71 7.04a.996.996 0 000-1.41l-2.34-2.34a.996.996 0 00-1.41 0l-1.83 1.83 3.75 3.75 1.83-1.83z"}}]})(e)}function ph(e){return Zt({tag:"svg",attr:{viewBox:"0 0 1024 1024"},child:[{tag:"path",attr:{d:"M946.5 505L534.6 93.4a31.93 31.93 0 0 0-45.2 0L77.5 505c-12 12-18.8 28.3-18.8 45.3 0 35.3 28.7 64 64 64h43.4V908c0 17.7 14.3 32 32 32H448V716h112v224h265.9c17.7 0 32-14.3 32-32V614.3h43.4c17 0 33.3-6.7 45.3-18.8 24.9-25 24.9-65.5-.1-90.5z"}}]})(e)}function fv(e){return Zt({tag:"svg",attr:{viewBox:"0 0 1024 1024"},child:[{tag:"path",attr:{d:"M868 732h-70.3c-4.8 0-9.3 2.1-12.3 5.8-7 8.5-14.5 16.7-22.4 24.5a353.84 353.84 0 0 1-112.7 75.9A352.8 352.8 0 0 1 512.4 866c-47.9 0-94.3-9.4-137.9-27.8a353.84 353.84 0 0 1-112.7-75.9 353.28 353.28 0 0 1-76-112.5C167.3 606.2 158 559.9 158 512s9.4-94.2 27.8-137.8c17.8-42.1 43.4-80 76-112.5s70.5-58.1 112.7-75.9c43.6-18.4 90-27.8 137.9-27.8 47.9 0 94.3 9.3 137.9 27.8 42.2 17.8 80.1 43.4 112.7 75.9 7.9 7.9 15.3 16.1 22.4 24.5 3 3.7 7.6 5.8 12.3 5.8H868c6.3 0 10.2-7 6.7-12.3C798 160.5 663.8 81.6 511.3 82 271.7 82.6 79.6 277.1 82 516.4 84.4 751.9 276.2 942 512.4 942c152.1 0 285.7-78.8 362.3-197.7 3.4-5.3-.4-12.3-6.7-12.3zm88.9-226.3L815 393.7c-5.3-4.2-13-.4-13 6.3v76H488c-4.4 0-8 3.6-8 8v56c0 4.4 3.6 8 8 8h314v76c0 6.7 7.8 10.5 13 6.3l141.9-112a8 8 0 0 0 0-12.6z"}}]})(e)}function hh(e){return Zt({tag:"svg",attr:{viewBox:"0 0 1024 1024"},child:[{tag:"path",attr:{d:"M922.9 701.9H327.4l29.9-60.9 496.8-.9c16.8 0 31.2-12 34.2-28.6l68.8-385.1c1.8-10.1-.9-20.5-7.5-28.4a34.99 34.99 0 0 0-26.6-12.5l-632-2.1-5.4-25.4c-3.4-16.2-18-28-34.6-28H96.5a35.3 35.3 0 1 0 0 70.6h125.9L246 312.8l58.1 281.3-74.8 122.1a34.96 34.96 0 0 0-3 36.8c6 11.9 18.1 19.4 31.5 19.4h62.8a102.43 102.43 0 0 0-20.6 61.7c0 56.6 46 102.6 102.6 102.6s102.6-46 102.6-102.6c0-22.3-7.4-44-20.6-61.7h161.1a102.43 102.43 0 0 0-20.6 61.7c0 56.6 46 102.6 102.6 102.6s102.6-46 102.6-102.6c0-22.3-7.4-44-20.6-61.7H923c19.4 0 35.3-15.8 35.3-35.3a35.42 35.42 0 0 0-35.4-35.2zM305.7 253l575.8 1.9-56.4 315.8-452.3.8L305.7 253zm96.9 612.7c-17.4 0-31.6-14.2-31.6-31.6 0-17.4 14.2-31.6 31.6-31.6s31.6 14.2 31.6 31.6a31.6 31.6 0 0 1-31.6 31.6zm325.1 0c-17.4 0-31.6-14.2-31.6-31.6 0-17.4 14.2-31.6 31.6-31.6s31.6 14.2 31.6 31.6a31.6 31.6 0 0 1-31.6 31.6z"}}]})(e)}const pv=Ae.div`
     position: fixed;
     top: 0;
     width: 100%;
