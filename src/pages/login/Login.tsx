@@ -31,6 +31,14 @@ const Login:FC = ()=>{
         }
     }, [])
 
+    useEffect(()=>{
+        const isMobileDevice = /iPhone|iPad|iPod|Android|webOS|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent)
+
+        if(isMobileDevice){
+            alert('Testando se é celular')
+        }
+    }, [])
+
 
     const onChange = (e:ChangeEvent<HTMLInputElement>):void=>{
         const { name, value } = e.target
@@ -69,6 +77,11 @@ const Login:FC = ()=>{
                     onChange={onChange}
                     placeholder="name@email.com" 
                     required/>
+                    {
+                        !showPass ? (
+                            <FaEyeSlash onClick={()=> setShowPass(true)} className='eye-icon' />
+                        ) : <FaEye onClick={()=> setShowPass(false)} className='eye-icon' />
+                    }
                 <input
                     type={!showPass ? 'password' : 'text'}
                     className="form-input"
@@ -77,11 +90,6 @@ const Login:FC = ()=>{
                     onChange={onChange} 
                     placeholder="Mínimo de 6 caractéres"
                     required/>
-                {
-                    !showPass ? (
-                        <FaEyeSlash onClick={()=> setShowPass(true)} className='eye-icon' />
-                    ) : <FaEye onClick={()=> setShowPass(false)} className='eye-icon' />
-                }
                 <button>Entrar</button>
             </form>
             <p>
