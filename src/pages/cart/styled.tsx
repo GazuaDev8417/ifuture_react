@@ -101,4 +101,30 @@ export const Container = styled.div`
         margin: 5px 0 10px;
         font-size: 1.5rem;
     }
+/* MEDIA QUERY */
+    @media(max-width: 660px){
+        h1{
+            font-size: 1.5rem;
+        }
+
+        .rest-name{
+            font-size: 1.2rem;
+        }
+
+        .card{
+            flex-direction: column;
+        }
+
+        .btn-container{
+            display: flex;
+            flex-direction: row-reverse;
+            justify-content: space-between;
+            width: 80%;
+            margin: 10px;
+        }
+
+        .card img{
+            width: 65vw;      
+        }
+    }
 `

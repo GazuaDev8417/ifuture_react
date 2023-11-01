@@ -44,4 +44,35 @@ export const Container = styled.div`
         font-size: 1rem;
         color: #fff;
     }
+
+/* MEDIA QUERY */
+    @media(max-width: 930px){
+        .form-input{
+            width: 40vw;
+        }
+
+        .btn-container{
+            width: 40vw;
+        }
+    }
+
+    @media(max-width: 690px){
+        .form-input{
+            width: 50vw;
+        }
+
+        .btn-container{
+            width: 50vw;
+        }
+    }
+
+    @media(max-width: 510px){
+        .form-input{
+            width: 65vw;
+        }
+
+        .btn-container{
+            width: 65vw;
+        }
+    }
 `

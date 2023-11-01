@@ -5,6 +5,7 @@ import { BASE_URL } from "../../constants/url"
 import { FaEyeSlash, FaEye } from 'react-icons/fa'
 import { Link, useNavigate } from "react-router-dom"
 import { Container } from "./styled"
+import Modal from "../../components/Modal"
 
 
 interface FormData{
@@ -16,6 +17,7 @@ interface FormData{
 const Login:FC = ()=>{
     const navigate = useNavigate()
     const [showPass, setShowPass] = useState<boolean>(false)
+    const [showModal, setShowModal] = useState<boolean>(false)
     const [form, setForm] = useState<FormData>({
         email:'visitante@email.com',
         password:'123456'
@@ -35,7 +37,7 @@ const Login:FC = ()=>{
         const isMobileDevice = /iPhone|iPad|iPod|Android|webOS|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent)
 
         if(isMobileDevice){
-            alert('Testando se é celular')
+            setShowModal(true)
         }
     }, [])
 
@@ -68,6 +70,7 @@ const Login:FC = ()=>{
                 src={ifutureLogo}
                 alt="imagem"/>
             <div className="title">Login</div>
+            { showModal && <Modal setShowModal={setShowModal}/> }
             <form onSubmit={login}>
                 <input
                     type="email"

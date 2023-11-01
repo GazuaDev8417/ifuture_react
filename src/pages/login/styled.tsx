@@ -136,7 +136,7 @@ export const Container = styled.div`
 
     @media(max-height: 910px){
         .eye-icon{
-            top: 40.5%;
+            top: 42.5%;
         }
     }
 

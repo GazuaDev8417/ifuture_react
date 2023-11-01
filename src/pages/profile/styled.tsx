@@ -74,4 +74,15 @@ export const Container = styled.div`
         color: #dc2b2b;
         font-size: 1.2rem;
     }
+
+/* MEDIA QUERY */
+    @media(max-width: 660px){
+        h1{
+            font-size: 1.5rem;
+        }
+
+        .order-history{
+            font-size: 1.2rem;
+        }
+    }
 `

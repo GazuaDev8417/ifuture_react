@@ -41,7 +41,7 @@ export const Container = styled.div`
     .eye-icon2{
         position: absolute;
         right: 36%;
-        bottom: 32.5%;
+        bottom: 33%;
         font-size: 1.2rem;
         cursor: pointer;
     }
@@ -65,5 +65,71 @@ export const Container = styled.div`
         justify-content: space-between;
         align-items: center;
         gap: 5px;
+    }
+
+/* MEDIA QUERY */
+@media(max-width: 930px){
+        .form-input{
+            width: 40vw;
+        }
+
+        .eye-icon{
+            right: 31%;
+        }
+
+        .eye-icon2{
+            right: 31%;
+        }
+
+        .submit-btn, button, .btn-container{
+            width: 40vw;
+        }
+    }
+
+    @media(max-width: 690px){
+        .form-input{
+            width: 50vw;
+        }
+
+        .eye-icon{
+            right: 26%;
+        }
+
+        .eye-icon2{
+            right: 26%;
+        }
+        
+        .submit-btn, button, .btn-container{
+            width: 50vw;
+        }
+    }
+
+    @media(max-width: 510px){
+        .form-input{
+            width: 65vw;
+        }
+
+        .eye-icon{
+            right: 21%;
+        }
+
+        .eye-icon2{
+            right: 21%;
+        }
+
+        .submit-btn, button, .btn-container{
+            width: 65vw;
+        }
+    }
+    
+/* HEIGHT */
+    @media(min-height: 800px){
+        .eye-icon{
+            bottom: 43.7%;
+        }
+
+        .eye-icon2{
+            bottom: 38.5%;
+        }
     }
 `
