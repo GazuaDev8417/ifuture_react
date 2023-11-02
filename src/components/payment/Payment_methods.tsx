@@ -1,3 +1,4 @@
+import { ChangeEvent } from 'react'
 import styled from 'styled-components'
 
 
@@ -29,10 +30,13 @@ const Container = styled.div`
 
 interface PaymentProps{
     paymentMethod:string
+    handleRadioButton: (e:ChangeEvent<HTMLInputElement>) => void
+    selectedValue:string
 }
 
 
-const Payment_methods = ({ paymentMethod }:PaymentProps)=>{
+const Payment_methods = ({ paymentMethod, handleRadioButton, selectedValue }:PaymentProps)=>{
+    
 
     return(
         <Container>  
@@ -45,7 +49,13 @@ const Payment_methods = ({ paymentMethod }:PaymentProps)=>{
                                     alt="PayPal Image"
                                     className="image" />
                             </label>
-                            <input type="radio" name="payment" id="payPal" />
+                            <input 
+                                type="radio"
+                                value='PayPal'
+                                checked={selectedValue === 'PayPal'}
+                                name="payment"
+                                id="payPal"
+                                onChange={handleRadioButton} />
                         </div>
                         <div className="payment-box">
                             <label htmlFor="mPago">
@@ -53,7 +63,13 @@ const Payment_methods = ({ paymentMethod }:PaymentProps)=>{
                                     alt="Mercado Pago Image"
                                     className="image" />
                             </label>
-                            <input type="radio" name="payment" id="mPago" />
+                            <input
+                                value='Mercado Pago'
+                                checked={selectedValue === 'Mercado Pago'} 
+                                type="radio"
+                                name="payment"
+                                id="mPago"
+                                onChange={handleRadioButton} />
                         </div>
                         <div className="payment-box">
                             <label htmlFor="boleto">
@@ -61,7 +77,13 @@ const Payment_methods = ({ paymentMethod }:PaymentProps)=>{
                                     alt="Boleto Image"
                                     className="image" />
                             </label>
-                            <input type="radio" name="payment" id="boleto" />
+                            <input 
+                                value='Boleto'
+                                checked={selectedValue === 'Boleto'}
+                                type="radio"
+                                name="payment"
+                                id="boleto"
+                                onChange={handleRadioButton} />
                         </div>
                     </div>
                     ) : (
@@ -73,7 +95,13 @@ const Payment_methods = ({ paymentMethod }:PaymentProps)=>{
                                     alt="Imagem de cartões de crédito"
                                     className="image" />
                             </label>
-                            <input type="radio" name="payment" id="visa" />
+                            <input 
+                                value='Visa'
+                                checked={selectedValue === 'Visa'}
+                                type="radio"
+                                name="payment" 
+                                id="visa"
+                                onChange={handleRadioButton} />
                         </div>                            
                         <div className="payment-box">
                             <label htmlFor="master">
@@ -82,7 +110,13 @@ const Payment_methods = ({ paymentMethod }:PaymentProps)=>{
                                     alt="Imagem de cartões de crédito"
                                     className="image" />
                             </label>
-                            <input type="radio" name="payment" id="master" />
+                            <input
+                                value='Master Card'
+                                checked={selectedValue === 'Master Card'} 
+                                type="radio" 
+                                name="payment" 
+                                id="master"
+                                onChange={handleRadioButton} />
                         </div>                            
                         <div className="payment-box">
                             <label htmlFor="hipercard">
@@ -91,7 +125,13 @@ const Payment_methods = ({ paymentMethod }:PaymentProps)=>{
                                     alt="Imagem de cartões de crédito"
                                     className="image" />
                             </label>
-                            <input type="radio" name="payment" id="hipercard" />
+                            <input 
+                                value='Hiper Card'
+                                checked={selectedValue === 'Hiper Card'}
+                                type="radio" 
+                                name="payment" 
+                                id="hipercard"
+                                onChange={handleRadioButton} />
                         </div>                            
                         <div className="payment-box">
                             <label htmlFor="american">
@@ -100,7 +140,13 @@ const Payment_methods = ({ paymentMethod }:PaymentProps)=>{
                                     alt="Imagem de cartões de crédito"
                                     className="image" />
                             </label>
-                            <input type="radio" name="payment" id="american" />
+                            <input
+                                value='American Express'
+                                checked={selectedValue === 'American Express'} 
+                                type="radio"
+                                name="payment"
+                                id="american"
+                                onChange={handleRadioButton} />
                         </div>                            
                     </div>
                     )

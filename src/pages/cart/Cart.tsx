@@ -17,6 +17,7 @@ import Payment_methods from "../../components/payment/Payment_methods"
 const Cart:FC = ()=>{
     const navigate = useNavigate()
     const [payment, setPayment] = useState<string>('money')
+    const [selectedValue, setSelectedValue] = useState<string>('')
     const [order, setOrder] = useState<Order>({
         restaurantName:'',
         createdAt: 0,
@@ -38,11 +39,16 @@ const Cart:FC = ()=>{
         }
 
         getProfile()
+    // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [])
 
 
     const handleSelect = (e:ChangeEvent<HTMLSelectElement>)=>{
         setPayment(e.target.value)
+    }
+
+    const handleRadioButton = (e:ChangeEvent<HTMLInputElement>)=>{
+        setSelectedValue(e.target.value)
     }
 
     const removeItem = (cartItem:CartItem)=>{
@@ -77,9 +83,16 @@ const Cart:FC = ()=>{
             paymentMethod: payment
         }
 
+        if(!selectedValue){
+            alert('Selecione uma forma de pagamento')
+            return
+        }
+
         axios.post(`${BASE_URL}/restaurants/${item.restaurantId}/order`, body, {
             headers: { auth: localStorage.getItem('token') }
-        }).then(()=>{
+        }).then((res)=>{
+            console.log(res)
+            alert(`Compra realizada com ${selectedValue}`)
             removeItem(item)
         }).catch(e=>{
             alert(e.response.data.message)
@@ -134,7 +147,10 @@ const Cart:FC = ()=>{
                 </div>
             ))}
             <hr style={{width:'100%', marginBottom:'15px', background:'lightgray'}} />
-            <Payment_methods paymentMethod={payment}/>
+            <Payment_methods 
+                paymentMethod={payment}
+                handleRadioButton={handleRadioButton}
+                selectedValue={selectedValue}/>
             <div className="select-container">
                 <select className="select" value={payment} onChange={handleSelect}>
                     <option value="money" defaultChecked>Dinheiro</option>
