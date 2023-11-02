@@ -10,6 +10,7 @@ import { CartItem, Order } from "../../types/types"
 import { useNavigate } from "react-router-dom"
 import { Container } from "./styled"
 import ActiveOrder from "../../components/ActiveOrder"
+import Payment_methods from "../../components/payment/Payment_methods"
 
 
 
@@ -86,8 +87,6 @@ const Cart:FC = ()=>{
     }
 
 
-
-
     return(
         <>
         <Header
@@ -135,6 +134,7 @@ const Cart:FC = ()=>{
                 </div>
             ))}
             <hr style={{width:'100%', marginBottom:'15px', background:'lightgray'}} />
+            <Payment_methods paymentMethod={payment}/>
             <div className="select-container">
                 <select className="select" value={payment} onChange={handleSelect}>
                     <option value="money" defaultChecked>Dinheiro</option>

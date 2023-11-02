@@ -11,6 +11,19 @@ const GlobalStyle = createGlobalStyle`
     box-sizing: border-box;
   }
 
+  html::-webkit-scrollbar{
+    width: .7rem;
+  }
+
+  html::-webkit-scrollbar-track{
+    background: lightgray;
+  }
+
+  html::-webkit-scrollbar-thumb{
+    background: #b11717;
+    border-radius: 5rem;
+  }
+
   input{
     border-radius: 5px;
     outline: none;
