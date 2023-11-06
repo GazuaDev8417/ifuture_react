@@ -42,6 +42,20 @@ export const Container = styled.div`
         height: 25px;        
         box-shadow: none;
     }
+
+/* MEDIA QUERY */
+@media(max-width: 450px){
+        width: 70%;
+        height: 23vh;
+    }
+
+    .close-btn{
+        width: 20vw;
+    }
+    
+    .ok-btn{
+        width: 15vw;
+    }
 `
 
 interface ModalProps{
