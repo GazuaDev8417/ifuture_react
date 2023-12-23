@@ -33,7 +33,7 @@ export const Container = styled.div`
     
     .eye-icon{
         position: absolute;
-        top: 47.5%;
+        top: 48.5%;
         right: 5%;
         font-size: 1.2rem;
         cursor: pointer;
@@ -41,7 +41,7 @@ export const Container = styled.div`
 
     .eye-icon2{
         position: absolute;
-        top: 61.5%;
+        top: 62.5%;
         right: 5%;
         font-size: 1.2rem;
         cursor: pointer;
