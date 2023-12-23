@@ -17,6 +17,7 @@ export const Container = styled.div`
         flex-direction: column;
         align-items: center;
         gap: 5px;
+        position: relative;
     }
 
     .form-input{
@@ -32,16 +33,16 @@ export const Container = styled.div`
     
     .eye-icon{
         position: absolute;
-        right: 36%;
-        bottom: 39%;
+        top: 47.5%;
+        right: 5%;
         font-size: 1.2rem;
         cursor: pointer;
     }
 
     .eye-icon2{
         position: absolute;
-        right: 36%;
-        bottom: 33%;
+        top: 61.5%;
+        right: 5%;
         font-size: 1.2rem;
         cursor: pointer;
     }
@@ -73,14 +74,6 @@ export const Container = styled.div`
             width: 40vw;
         }
 
-        .eye-icon{
-            right: 31%;
-        }
-
-        .eye-icon2{
-            right: 31%;
-        }
-
         .submit-btn, button, .btn-container{
             width: 40vw;
         }
@@ -89,14 +82,6 @@ export const Container = styled.div`
     @media(max-width: 690px){
         .form-input{
             width: 50vw;
-        }
-
-        .eye-icon{
-            right: 26%;
-        }
-
-        .eye-icon2{
-            right: 26%;
         }
         
         .submit-btn, button, .btn-container{
@@ -107,14 +92,6 @@ export const Container = styled.div`
     @media(max-width: 510px){
         .form-input{
             width: 65vw;
-        }
-
-        .eye-icon{
-            right: 21%;
-        }
-
-        .eye-icon2{
-            right: 21%;
         }
 
         .submit-btn, button, .btn-container{

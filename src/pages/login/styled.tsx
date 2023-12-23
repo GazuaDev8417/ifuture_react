@@ -17,6 +17,7 @@ export const Container = styled.div`
         flex-direction: column;
         align-items: center;
         gap: 5px;
+        position: relative
     }
 
     .form-input{
@@ -25,8 +26,7 @@ export const Container = styled.div`
 
     .eye-icon{
         position: absolute;
-        top: 45%;
-        right: 36%;
+        right: 3%;
         font-size: 1.2rem;
         cursor: pointer;
     }
@@ -48,10 +48,6 @@ export const Container = styled.div`
             width: 40vw;
         }
 
-        .eye-icon{
-            right: 31%;
-        }
-
         button{
             width: 40vw;
         }
@@ -62,10 +58,6 @@ export const Container = styled.div`
             width: 50vw;
         }
 
-        .eye-icon{
-            right: 26%;
-        }
-
         button{
             width: 50vw;
         }
@@ -74,10 +66,6 @@ export const Container = styled.div`
     @media(max-width: 510px){
         .form-input{
             width: 65vw;
-        }
-
-        .eye-icon{
-            right: 21%;
         }
 
         button{
