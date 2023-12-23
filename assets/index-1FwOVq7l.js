@@ -102,7 +102,7 @@ Error generating stack: `+o.message+`
     .eye-icon{
         position: absolute;
         top: 47.5%;
-        right: 5%;
+        right: 3%;
         font-size: 1.2rem;
         cursor: pointer;
     }
@@ -110,7 +110,7 @@ Error generating stack: `+o.message+`
     .eye-icon2{
         position: absolute;
         top: 61.5%;
-        right: 5%;
+        right: 3%;
         font-size: 1.2rem;
         cursor: pointer;
     }
