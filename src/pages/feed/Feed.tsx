@@ -33,10 +33,8 @@ const Feed:FC = ()=>{
     
 
     const getRestaurants = ()=>{
-        axios.get(`${BASE_URL}/restaurants`, {
-            headers: { auth: localStorage.getItem('token')}
-        }).then(res=>{
-            setRestaurants(res.data.restaurants)
+        axios.get(`${BASE_URL}/restaurants`).then(res=>{
+            setRestaurants(res.data)
         }).catch(e=>{
             alert(e.response.data.message)
         })
@@ -44,9 +42,8 @@ const Feed:FC = ()=>{
 
     const getRestaurantById = (id:string)=>{
         axios.get(`${BASE_URL}/restaurants/${id}`, {
-            headers: { auth: localStorage.getItem('token') || '' }
         }).then(res=>{
-            setMenu(res.data.restaurant)    
+            setMenu(res.data)    
             navigate('/ifuture_react/detail')        
         }).catch(e=>{
             alert(e.response.data.message)

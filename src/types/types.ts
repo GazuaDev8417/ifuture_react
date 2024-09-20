@@ -46,8 +46,12 @@ export interface User{
     name:string
     cpf:string
     email:string
-    hasAddress:boolean
-    address:string
+    street:string,
+    number:number
+    neighbourhood:string
+    city:string
+    state:string
+    complement:string
 }
 
 export interface Order{

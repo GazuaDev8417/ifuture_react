@@ -6,6 +6,8 @@ import { AiOutlineShoppingCart } from 'react-icons/ai'
 import { BsFillPersonFill } from 'react-icons/bs'
 import { CartItem, Products } from "../../types/types"
 import { Container } from './styled'
+import axios from "axios"
+import { BASE_URL } from "../../constants/url"
 
 
 
@@ -13,7 +15,7 @@ const Detail:FC = ()=>{
     const navigate = useNavigate()
     const [qnt, setQnt] = useState<string[]>([])
     const { menu, cart, setCart, } = useContext(Context) as GlobalStateContext
-    const products = menu.products
+    const [products, setProducts] = useState<Products[]>([])
 
 
 
@@ -23,9 +25,18 @@ const Detail:FC = ()=>{
         if(!token){
             navigate('/ifuture_react')
         }
-    }, [])
-    
 
+        getProducts()
+    }, [])
+
+
+    const getProducts = ()=>{
+        axios.get(`${BASE_URL}/restaurant_products/${menu.id}`).then(res=>{
+            setProducts(res.data)
+        }).catch(e=>{
+            alert(e.response.data)
+        })
+    }
     
     const handleSelect = (e:ChangeEvent<HTMLSelectElement>, index:number)=>{
         const newQnt = [...qnt]
@@ -96,8 +107,8 @@ const Detail:FC = ()=>{
                                 src={product.photoUrl}
                                 alt="Foto do produto" />
                             <div>
-                                <h4>{product.name}</h4>
-                                <p>{product.description}</p>
+                                <h4>{product.name}</h4><br/>
+                                {product.description}<br/><br/>
                                 <div>R$ {product.price.toFixed(2)}</div>
                             </div>
                             <div className="select-btn-container">

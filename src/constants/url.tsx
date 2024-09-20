@@ -1,1 +1,1 @@
-export const BASE_URL = 'https://us-central1-missao-newton.cloudfunctions.net/fourFoodB'
+export const BASE_URL = 'http://localhost:3003'

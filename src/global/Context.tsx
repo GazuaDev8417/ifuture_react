@@ -41,8 +41,12 @@ export const GlobalState = (props:GlobalStateProps)=>{
         name:'',
         cpf:'',
         email:'',
-        hasAddress: false,
-        address:''
+        street:'',
+        number:0,
+        neighbourhood:'',
+        city:'',
+        state:'',
+        complement:''
     })
     const [product, setProduct] = useState<Products>({
         category: '',
@@ -85,11 +89,11 @@ export const GlobalState = (props:GlobalStateProps)=>{
 
     const getProfile = ()=>{
         axios.get(`${BASE_URL}/profile`, {
-            headers: { auth: localStorage.getItem('token') || '' }
+            headers: { Authorization: localStorage.getItem('token') || '' }
         }).then(res=>{
-            setUser(res.data.user)
+            setUser(res.data)
         }).catch(e=>{
-            alert(e.response.data.message)
+            alert(e.response.data)
         })
     }
     

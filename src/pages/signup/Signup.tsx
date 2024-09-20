@@ -31,7 +31,6 @@ const Signup:FC = ()=>{
     })
 
 
-
     useEffect(()=>{
         const token = localStorage.getItem('token')
 
@@ -52,14 +51,16 @@ const Signup:FC = ()=>{
         const body = {
             name: form.username,
             email: form.email,
-            cpf: Number(form.cpf),
-            password: form.password
+            cpf: form.cpf,
+            password: form.password,
+            confirmPass: form.confirmPass
         }
         axios.post(`${BASE_URL}/signup`, body).then(res=>{
-            localStorage.setItem('token',res.data.token)
+            localStorage.setItem('token',res.data)
             navigate('/ifuture_react/address')
         }).catch(e=>{
-            alert(e.response.data.message)
+            alert(e.response.data)
+            console.log(e.response)
         })
     }
 

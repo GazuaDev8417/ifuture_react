@@ -14,7 +14,6 @@ const Profile = ()=>{
         user, getProfile, orderHistory, orders
      } = useContext(Context) as GlobalStateContext
 
-    
 
     useEffect(()=>{
         getProfile()
@@ -75,7 +74,7 @@ const Profile = ()=>{
             </div>
             <div className="address-section">
                 <div>Endereço cadastrado: <br />
-                    {user.address}
+                    {user.street} {user.number}, {user.neighbourhood}, {user.city} - {user.state}
                 </div>
                 <MdEdit className="icon" onClick={()=> navigate('/ifuture_react/update-address')}/>
             </div>
