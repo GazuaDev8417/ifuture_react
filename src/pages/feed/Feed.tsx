@@ -43,10 +43,11 @@ const Feed:FC = ()=>{
     const getRestaurantById = (id:string)=>{
         axios.get(`${BASE_URL}/restaurants/${id}`, {
         }).then(res=>{
-            setMenu(res.data)    
+            setMenu(res.data) 
             navigate('/ifuture_react/detail')        
         }).catch(e=>{
-            alert(e.response.data.message)
+            alert(e.response.data)
+            console.log(e)
         })
     }
 

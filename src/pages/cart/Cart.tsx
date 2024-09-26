@@ -6,7 +6,7 @@ import Header from "../../components/Header"
 import { AiFillHome } from 'react-icons/ai'
 import { BsFillPersonFill } from 'react-icons/bs'
 import { MdEdit } from 'react-icons/md'
-import { CartItem, Order } from "../../types/types"
+import { Order } from "../../types/types"
 import { useNavigate } from "react-router-dom"
 import { Container } from "./styled"
 import ActiveOrder from "../../components/ActiveOrder"
@@ -19,13 +19,18 @@ const Cart:FC = ()=>{
     const [payment, setPayment] = useState<string>('money')
     const [selectedValue, setSelectedValue] = useState<string>('')
     const [order, setOrder] = useState<Order>({
-        restaurantName:'',
-        createdAt: 0,
-        expiresAt: 0,
-        totalPrice: 0
+        id:'',
+        product:'', 
+        price:0,
+        photoUrl:'',
+        quantity:0,
+        total:0,
+        moment:'',
+        restaurant:'', 
+        client:'',
     })
     const { 
-        cart, setCart, user, getProfile, showOrder, setShowOrder
+        cart, user, getProfile, getAllOrders, restaurantId/* setShowOrder */
     } = useContext(Context) as GlobalStateContext
     
 
@@ -39,6 +44,7 @@ const Cart:FC = ()=>{
         }
 
         getProfile()
+        getAllOrders(restaurantId)
     // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [])
 
@@ -48,15 +54,26 @@ const Cart:FC = ()=>{
     }
 
     const handleRadioButton = (e:ChangeEvent<HTMLInputElement>)=>{
+        if(cart.length === 0){
+            return alert('Você ainda não fez nenhum pedido')
+        }
+
         setSelectedValue(e.target.value)
     }
 
-    const removeItem = (cartItem:CartItem)=>{
-        const newCart = cart.filter(item => item.id !== cartItem.id)
-        setCart(newCart)
+    const removeItem = (cartItem:Order)=>{
+        const headers = {
+            headers: { Authorization: localStorage.getItem('token') }
+        }
+
+        axios.delete(`${BASE_URL}/order/${cartItem.id}`, headers).then(
+            () => getAllOrders(restaurantId)
+        ).catch(e=>{
+            alert(e.response.data)
+        })
     }
 
-    const requestActiveOrder = ()=>{
+    /* const requestActiveOrder = ()=>{
         axios.get(`${BASE_URL}/active-order`, {
             headers: { auth: localStorage.getItem('token') }
         }).then(res=>{
@@ -69,36 +86,11 @@ const Cart:FC = ()=>{
         }).catch((e)=>{
             alert(e.response.data.message)
         })
-    }   
+    } */   
     
     
-    const buyProduct = (item:CartItem)=>{
-        const body = {
-            products: [
-                {
-                    id: item.id,
-                    quantity: item.quantity
-                }
-            ],
-            paymentMethod: payment
-        }
-
-        if(!selectedValue){
-            alert('Selecione uma forma de pagamento')
-            return
-        }
-
-        axios.post(`${BASE_URL}/restaurants/${item.restaurantId}/order`, body, {
-            headers: { auth: localStorage.getItem('token') }
-        }).then((res)=>{
-            console.log(res)
-            alert(`Compra realizada com ${selectedValue}`)
-            removeItem(item)
-        }).catch(e=>{
-            alert(e.response.data.message)
-        })
-    }
-
+    
+    
 
     return(
         <>
@@ -118,7 +110,8 @@ const Cart:FC = ()=>{
             <hr style={{width:'100%', marginBottom:'15px', background:'lightgray'}} />
             <div className="address-section">
                 <div>Endereço para entrega: <br />
-                    {user.address}
+                    {user.street} {user.number}, {user.neighbourhood}<br/>
+                    {user.city} - {user.state}
                 </div>
                 <MdEdit className="icon" onClick={()=> navigate('/ifuture_react/update-address')} />
             </div>
@@ -129,20 +122,19 @@ const Cart:FC = ()=>{
             {cart && cart.map(item=>(
                 <div key={item.id} className="card">
                     <span>
-                        <img src={item.image}  alt="Imagem do produto" />
+                        <img src={item.photoUrl}  alt="Imagem do produto" />
                     </span>
                     <span>
-                        <div className="product-name">{item.name}</div>
+                        <div className="product-name">{item.product}</div>
                         <div>
-                            <b>Descrição: </b>{item.description} <br />
+                            {/* <b>Descrição: </b>{item.description} <br /> */}
                             <b>Quantidade: </b>{item.quantity} <br />
                             <b>Preço: </b>R$ {item.price.toFixed(2)} <br />
                             <b>Total: </b>{((item.price) * (item.quantity)).toFixed(2)} <br />
                         </div>
                     </span>
                     <div className="btn-container">
-                        <button className="btn-remove" onClick={()=> removeItem(item)} >Remover</button>
-                        <button className="btn-remove" onClick={()=> buyProduct(item)} >Comprar</button>                        
+                        <button className="btn-remove" onClick={()=> removeItem(item)} >Remover</button>                  
                     </div>
                 </div>
             ))}
@@ -157,10 +149,10 @@ const Cart:FC = ()=>{
                     <option value="creditcard">Cartão de crédito</option>
                 </select>
             </div>
-            <button onClick={requestActiveOrder} className="requestOrder-btn">
-                Consultar pedido ativo
+            <button  className="requestOrder-btn">
+                Finalizar Compra
             </button>
-            {
+            {/* {
                 showOrder && (
                     <ActiveOrder 
                         restaurantName={order.restaurantName}
@@ -169,7 +161,7 @@ const Cart:FC = ()=>{
                         expiresAt={order.expiresAt} />
                 )
                 
-            }
+            } */}
         </Container>
         </>
     )

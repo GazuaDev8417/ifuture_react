@@ -10,11 +10,14 @@ import axios from "axios"
 import { BASE_URL } from "../../constants/url"
 
 
+interface Qnt{
+    id:string
+}
+
 
 const Detail:FC = ()=>{
     const navigate = useNavigate()
-    const [qnt, setQnt] = useState<string[]>([])
-    const { menu, cart, setCart, } = useContext(Context) as GlobalStateContext
+    const { menu, setRestaurantId, getAllOrders } = useContext(Context) as GlobalStateContext
     const [products, setProducts] = useState<Products[]>([])
 
 
@@ -37,39 +40,40 @@ const Detail:FC = ()=>{
             alert(e.response.data)
         })
     }
+
+
+    /* const handleChange = (productId:string, value:number)=>{
+        setQnt({[productId]:value})
+        setRequestQnt(qnt[productId])
+        console.log(qnt)
+        console.log(qnt[productId])
+    } */
     
-    const handleSelect = (e:ChangeEvent<HTMLSelectElement>, index:number)=>{
-        const newQnt = [...qnt]
-        newQnt[index] = e.target.value
-        setQnt(newQnt)
-    }
-    
-    const addToCart = (item:Products, index:number)=>{
-        const cartItem:CartItem = {
-            id: item.id,
-            name: item.name,
-            image: item.photoUrl,
-            description: item.description,
-            quantity: Number(qnt[index] === undefined ? 1 : qnt[index]),
-            price: item.price,
-            total: (item.price) * Number(qnt),
-            restaurantId: menu.id
+    const request = (product: Products)=>{
+        const now = new Date()
+        const headers = {
+            headers: { Authorization: localStorage.getItem('token')}
+        }
+        const body = {
+            product: product.name, 
+            price: product.price,
+            photoUrl: product.photoUrl,
+            quantity: 1,
+            total: product.price,
+            moment: `${now.toLocaleDateString()} - ${now.toLocaleTimeString()}`, 
+            restaurant: product.provider
         }
         
-        const duplicatedItem = cart.find(cartItem => cartItem.id === item.id)
-
-        if(duplicatedItem){
-            const decide = window.confirm(`Você adicionou ${duplicatedItem.name}, basta ir ao carrinho e fanilizar a compra. Deseja ir ao carrinho?`)
-            
+        axios.post(`${BASE_URL}/order`, body, headers).then(res=>{
+            alert(res.data)
+            setRestaurantId(product.provider)
+        }).catch(e=>{
+            const decide = confirm(e.response.data)
             if(decide){
                 navigate('/ifuture_react/cart')
+                setRestaurantId(product.provider)
             }
-
-            return
-        }
-
-        const newCart = [...cart, cartItem]
-        setCart(newCart)
+        })
     }
 
     
@@ -77,7 +81,10 @@ const Detail:FC = ()=>{
         <>
         <Header
             leftIcon={
-                <AiOutlineShoppingCart className="header-icon" onClick={()=> navigate('/ifuture_react/cart')} />
+                <AiOutlineShoppingCart className="header-icon" onClick={()=>{
+                    getAllOrders(menu.id)
+                    navigate('/ifuture_react/cart')
+                }} />
             }
             rightIcon={
                 <BsFillPersonFill className="header-icon" onClick={()=> navigate('/ifuture_react/profile')} />
@@ -100,7 +107,7 @@ const Detail:FC = ()=>{
                 </div>
                 <div className="products">Cardápio Principal</div>
                 <div className="products-container">
-                    {products && products.map((product, index)=>(
+                    {products && products.map(product=>(
                         <div className="products-card" key={product.id}>
                             <img
                                 className="product-image" 
@@ -112,21 +119,17 @@ const Detail:FC = ()=>{
                                 <div>R$ {product.price.toFixed(2)}</div>
                             </div>
                             <div className="select-btn-container">
-                                <select className="select" 
-                                    value={qnt[index]} onChange={(e)=>handleSelect(e, index)}>
-                                    <option defaultValue={1}>1</option>
-                                    <option>2</option>
-                                    <option>3</option>
-                                    <option>4</option>
-                                    <option>5</option>
-                                    <option>6</option>
-                                    <option>7</option>
-                                    <option>8</option>
-                                    <option>9</option>
-                                    <option>10</option>
-                                </select>
+                                {/* <input 
+                                    type="number"
+                                    value={qnt[product.id] || 0}
+                                    onChange={e => handleChange(product.id, Number(e.target.value))} 
+                                    min={0} /> */}
+                                {/* <button 
+                                    onClick={()=> addToCart(product)}>
+                                    Adicionar
+                                </button> */}
                                 <button 
-                                    onClick={()=> addToCart(product, index)}>
+                                    onClick={()=> request(product)}>
                                     Adicionar
                                 </button>
                             </div>

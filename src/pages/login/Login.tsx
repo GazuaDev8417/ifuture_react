@@ -56,8 +56,7 @@ const Login:FC = ()=>{
         }
 
         axios.post(`${BASE_URL}/login`, body).then(res=>{
-            localStorage.setItem('token', res.data.token)
-            localStorage.setItem('user', JSON.stringify(res.data.registeredUser))
+            localStorage.setItem('token', res.data)
             navigate('/ifuture_react/feed')
         }).catch(e=>{
             alert(e.response.data)

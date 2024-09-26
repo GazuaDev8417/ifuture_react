@@ -2,7 +2,7 @@ import { useContext, useEffect } from 'react'
 import Context, { GlobalStateContext } from '../../global/Context'
 import { useNavigate } from 'react-router-dom'
 import { MdEdit } from 'react-icons/md'
-import { AiOutlineLogout, AiOutlineShoppingCart } from 'react-icons/ai'
+import { AiOutlineLogout, AiOutlineShoppingCart, AiFillHome } from 'react-icons/ai'
 import Header from "../../components/Header"
 import { Container } from './styled'
 
@@ -11,13 +11,13 @@ import { Container } from './styled'
 const Profile = ()=>{
     const navigate = useNavigate()
     const { 
-        user, getProfile, orderHistory, orders
+        user, getProfile
      } = useContext(Context) as GlobalStateContext
 
 
     useEffect(()=>{
         getProfile()
-        orderHistory()
+        /* orderHistory() */
     }, [])
 
     useEffect(()=>{
@@ -60,15 +60,14 @@ const Profile = ()=>{
                 <AiOutlineLogout className="header-icon" onClick={logout} />
             }
             leftIcon={
-                <AiOutlineShoppingCart className="header-icon" onClick={()=> navigate('/ifuture_react/cart')}/>
+                <AiFillHome className="header-icon" onClick={()=> navigate('/ifuture_react')}/>
             }/>        
         <Container>    
             <h1>Perfil do usuário</h1>            
             <hr style={{width:'100%', marginBottom:'15px', background:'lightgray'}} />
             <div className="user-section">
-                <div>{user.name} <br />
+                <div>{user.username} <br />
                     {user.email} <br />
-                    {maskedCPF(String(user.cpf))}
                 </div>
                 <MdEdit className="icon" onClick={()=> navigate('/ifuture_react/edit-profile')} />
             </div>
@@ -84,13 +83,13 @@ const Profile = ()=>{
             </div>
             <div id='history' className="order-history">Histórico de pedidos</div>
             <hr style={{width:'100%', marginBottom:'15px', background:'lightgray'}} />
-            {orders && orders.map(order=>(
+            {/* {orders && orders.map(order=>(
                 <div className="card" key={order.restaurantName}>
                     <div className="rest-name">{order.restaurantName}</div>
                     Pedido feito em: {new Date(order.createdAt).toLocaleDateString()} <br />
                     Total: R$ {order.totalPrice.toFixed(2)}
                 </div>
-            ))}
+            ))} */}
         </Container>
         </>
     )

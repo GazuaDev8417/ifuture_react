@@ -16,9 +16,10 @@ export interface Products{
     name:string
     photoUrl:string
     price:number
+    provider:string
 }
 
-export interface RestaurantData{
+/* export interface RestaurantData{
     address:string
     category:string
     deliveryTime:number
@@ -28,22 +29,11 @@ export interface RestaurantData{
     name:string
     shipping:number
     products:Products[]
-}
-
-export interface CartItem{
-    id:string
-    image:string
-    name:string
-    description:string
-    quantity:number
-    price:number
-    total:number
-    restaurantId:string
-}
+} */
 
 export interface User{
     id:string
-    name:string
+    username:string
     cpf:string
     email:string
     street:string,
@@ -55,8 +45,13 @@ export interface User{
 }
 
 export interface Order{
-    createdAt:number
-    expiresAt:number
-    restaurantName:string
-    totalPrice:number
+    id:string
+    product:string 
+    price:number
+    photoUrl:string
+    quantity:number
+    total:number
+    moment:string
+    restaurant:string 
+    client:string
 }

@@ -2,26 +2,29 @@ import {
     Dispatch, ReactNode, SetStateAction,
     createContext, useState
 } from "react"
-import { CartItem, Products, RestaurantData, User, Order } from "../types/types"
+import { Products, Restaurant, User, Order } from "../types/types"
 import axios from "axios"
 import { BASE_URL } from "../constants/url"
 
 
 
 export interface GlobalStateContext{
-    menu:RestaurantData
-    setMenu:Dispatch<SetStateAction<RestaurantData>>
-    product:Products
-    setProduct:Dispatch<SetStateAction<Products>>
-    cart:CartItem[]
-    setCart:Dispatch<SetStateAction<CartItem[]>>
-    orderHistory: () => void
+    menu:Restaurant
+    setMenu:Dispatch<SetStateAction<Restaurant>>
+    restaurantId:string
+    setRestaurantId:Dispatch<SetStateAction<string>>
+    //products:Products[]
+    //setProducts:Dispatch<SetStateAction<Products[]>>
     orders:Order[]
     setOrders:Dispatch<SetStateAction<Order[]>>
     user:User
     getProfile: () => void
+    getAllOrders: (id:string) => void
+    cart:Order[]
+    setCart:Dispatch<SetStateAction<Order[]>>
+    /* orderHistory: () => void
     showOrder:boolean
-    setShowOrder:Dispatch<SetStateAction<boolean>>
+    setShowOrder:Dispatch<SetStateAction<boolean>>*/
 }
 
 type GlobalStateProps = {
@@ -33,12 +36,24 @@ const Context = createContext<GlobalStateContext | null>(null)
 
 
 export const GlobalState = (props:GlobalStateProps)=>{
-    const [cart, setCart] = useState<CartItem[]>([])
+    const [cart, setCart] = useState<Order[]>([])
+    const [restaurantId, setRestaurantId] = useState<string>('')
+    const [menu, setMenu] = useState<Restaurant>({
+        address:'',
+        category:'',
+        deliveryTime:0,
+        description:'',
+        id:'',
+        logoUrl:'',
+        name:'',
+        shipping:0
+    })
     const [orders, setOrders] = useState<Order[]>([])
-    const [showOrder, setShowOrder] = useState<boolean>(false)
+    //const [products, setProducts] = useState<Products[]>()
+    //const [showOrder, setShowOrder] = useState<boolean>(false)
     const [user, setUser] = useState<User>({
         id:'',
-        name:'',
+        username:'',
         cpf:'',
         email:'',
         street:'',
@@ -48,35 +63,23 @@ export const GlobalState = (props:GlobalStateProps)=>{
         state:'',
         complement:''
     })
-    const [product, setProduct] = useState<Products>({
-        category: '',
-        description: '',
-        id: '',
-        name: '',
-        photoUrl: '',
-        price:0
-    })
-    const [menu, setMenu] = useState<RestaurantData>({
-        address: '',
-        category: '',
-        deliveryTime:0,
-        description: '',
-        id: '',
-        logoUrl: '',
-        name: '',
-        shipping:0,
-        products:[{
-            category: '',
-            description: '',
-            id: '',
-            name: '',
-            photoUrl: '',
-            price:0
-        }]
-    })
+ 
 
 
-    const orderHistory = ()=>{
+    const getAllOrders = (id:string)=>{
+        const headers = {
+            headers: { Authorization: localStorage.getItem('token') }
+        }
+        axios.get(`${BASE_URL}/orders/${id}`, headers).then(res=>{
+            setCart(res.data)
+        }).catch(e => {
+            e.response.data
+            console.log(e.response.data)
+        })
+    }
+
+
+    /* const orderHistory = ()=>{
         axios.get(`${BASE_URL}/orders/history`, {
             headers: { auth: localStorage.getItem('token') }
         }).then(res=>{
@@ -84,7 +87,7 @@ export const GlobalState = (props:GlobalStateProps)=>{
         }).catch(e=>{
             alert(e.response.data.message)
         })
-    }
+    } */
 
 
     const getProfile = ()=>{
@@ -101,9 +104,8 @@ export const GlobalState = (props:GlobalStateProps)=>{
 
     return(
         <Context.Provider value={{ 
-            menu, setMenu, product, getProfile,
-            setProduct, cart, setCart, orderHistory, user,
-            orders, setOrders, showOrder, setShowOrder
+            menu, setMenu, getProfile, getAllOrders, cart, setCart,/*  orderHistory, */ user,
+            orders, setOrders, setRestaurantId, restaurantId/* showOrder, setShowOrder */
         }}>
             { props.children }
         </Context.Provider>
