@@ -30,9 +30,10 @@ const Cart:FC = ()=>{
         client:'',
     })
     const { 
-        cart, user, getProfile, getAllOrders, restaurantId/* setShowOrder */
+        cart, setCart, user, getProfile, getAllOrders, restaurantId/* setShowOrder */
     } = useContext(Context) as GlobalStateContext
-    
+    //const [cartData, setCartData] = useState<Order[]>(cart)
+    const [total, setTotal] = useState<number>(cart.reduce((acc, item) => acc + item.total, 0))
 
     
     
@@ -46,12 +47,37 @@ const Cart:FC = ()=>{
         getProfile()
         getAllOrders(restaurantId)
     // eslint-disable-next-line react-hooks/exhaustive-deps
-    }, [])
+    }, [cart])
 
 
     const handleSelect = (e:ChangeEvent<HTMLSelectElement>)=>{
         setPayment(e.target.value)
     }
+
+    const handleNumber = (e:ChangeEvent<HTMLInputElement>, id:string)=>{
+        const newQuantity = Number(e.target.value)
+        const updatedCart = cart.map(item=>{
+            if(item.id === id){
+                const newTotal = item.price * newQuantity
+                return { ...item, quantity: newQuantity, total: newTotal }
+            }
+            return item
+        })
+        const headers = {
+            headers: { Authorization: localStorage.getItem('token')}
+        }
+
+        setCart(updatedCart)
+        
+        axios.patch(`${BASE_URL}/order/${id}`, {
+            quantity: newQuantity
+        }, headers).then(()=>{
+            getAllOrders(restaurantId)
+        }).catch(e => alert(e.response.data) )
+
+        setTotal(updatedCart.reduce((acc, cart) => acc + cart.total, 0))
+    }
+
 
     const handleRadioButton = (e:ChangeEvent<HTMLInputElement>)=>{
         if(cart.length === 0){
@@ -86,11 +112,14 @@ const Cart:FC = ()=>{
         }).catch((e)=>{
             alert(e.response.data.message)
         })
-    } */   
+    } */  
+   
+        const sumTotal = ()=>{
+            //setTotal()
+        }
     
-    
-    
-    
+        
+
 
     return(
         <>
@@ -134,11 +163,19 @@ const Cart:FC = ()=>{
                         </div>
                     </span>
                     <div className="btn-container">
-                        <button className="btn-remove" onClick={()=> removeItem(item)} >Remover</button>                  
+                        <input 
+                            type="number"
+                            min={1} 
+                            value={item.quantity}
+                            onChange={(e) => handleNumber(e, item.id)}
+                            name="" 
+                            id="" />                 
+                        <button className="btn-remove" onClick={()=> removeItem(item)} >Remover</button> 
                     </div>
                 </div>
             ))}
             <hr style={{width:'100%', marginBottom:'15px', background:'lightgray'}} />
+            Total da compra: {total.toFixed(2)}
             <Payment_methods 
                 paymentMethod={payment}
                 handleRadioButton={handleRadioButton}
