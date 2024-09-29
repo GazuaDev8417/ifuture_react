@@ -19,18 +19,6 @@ export interface Products{
     provider:string
 }
 
-/* export interface RestaurantData{
-    address:string
-    category:string
-    deliveryTime:number
-    description:string
-    id:string
-    logoUrl:string
-    name:string
-    shipping:number
-    products:Products[]
-} */
-
 export interface User{
     id:string
     username:string

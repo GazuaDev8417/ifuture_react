@@ -15,8 +15,8 @@ export interface GlobalStateContext{
     setRestaurantId:Dispatch<SetStateAction<string>>
     //products:Products[]
     //setProducts:Dispatch<SetStateAction<Products[]>>
-    orders:Order[]
-    setOrders:Dispatch<SetStateAction<Order[]>>
+    /* orders:Order[]
+    setOrders:Dispatch<SetStateAction<Order[]>> */
     user:User
     getProfile: () => void
     getAllOrders: (id:string) => void
@@ -48,7 +48,6 @@ export const GlobalState = (props:GlobalStateProps)=>{
         name:'',
         shipping:0
     })
-    const [orders, setOrders] = useState<Order[]>([])
     //const [products, setProducts] = useState<Products[]>()
     //const [showOrder, setShowOrder] = useState<boolean>(false)
     const [user, setUser] = useState<User>({
@@ -105,7 +104,7 @@ export const GlobalState = (props:GlobalStateProps)=>{
     return(
         <Context.Provider value={{ 
             menu, setMenu, getProfile, getAllOrders, cart, setCart,/*  orderHistory, */ user,
-            orders, setOrders, setRestaurantId, restaurantId/* showOrder, setShowOrder */
+            /* orders, setOrders, */ setRestaurantId, restaurantId/* showOrder, setShowOrder */
         }}>
             { props.children }
         </Context.Provider>

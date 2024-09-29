@@ -1,23 +1,28 @@
-import { useContext, useEffect } from 'react'
+import { useContext, useEffect, useState } from 'react'
 import Context, { GlobalStateContext } from '../../global/Context'
 import { useNavigate } from 'react-router-dom'
 import { MdEdit } from 'react-icons/md'
-import { AiOutlineLogout, AiOutlineShoppingCart, AiFillHome } from 'react-icons/ai'
+import { AiOutlineLogout, AiFillHome } from 'react-icons/ai'
+import { MdDelete } from "react-icons/md";
 import Header from "../../components/Header"
 import { Container } from './styled'
+import { BASE_URL } from '../../constants/url'
+import axios from 'axios'
+import { Order } from '../../types/types'
 
 
 
 const Profile = ()=>{
     const navigate = useNavigate()
-    const { 
-        user, getProfile
-     } = useContext(Context) as GlobalStateContext
+    const { user, getProfile, setMenu } = useContext(Context) as GlobalStateContext
+    const [orders, setOrders] = useState<Order[]>([])
+    const [hoveredItemId, setHoveredItemId] = useState<string>('')
+    
 
 
     useEffect(()=>{
         getProfile()
-        /* orderHistory() */
+        orderHistory()
     }, [])
 
     useEffect(()=>{
@@ -28,6 +33,29 @@ const Profile = ()=>{
         }
     }, [])
 
+
+
+    const getRestaurantById = (id:string)=>{
+        axios.get(`${BASE_URL}/restaurants/${id}`, {
+        }).then(res=>{
+            setMenu(res.data) 
+            navigate('/ifuture_react/detail')        
+        }).catch(e=>{
+            alert(e.response.data)
+            console.log(e)
+        })
+    }
+
+
+    const orderHistory = ()=>{
+        const headers = {
+            headers: { Authorization: localStorage.getItem('token') }
+        }
+
+        axios.get(`${BASE_URL}/active_orders`, headers).then(res=>{
+            setOrders(res.data)
+        }).catch(e => alert(e.response.data))
+    }
 
 
     const maskedCPF = (cpf:string)=>{
@@ -49,6 +77,17 @@ const Profile = ()=>{
             localStorage.clear()
             navigate('/ifuture_react')
         }
+    }
+
+
+    const deleteOrder = (id:string)=>{
+        const headers = {
+            headers: { Authorization: localStorage.getItem('token') }
+        }
+
+        axios.delete(`${BASE_URL}/order/${id}`, headers).then(()=>{
+            orderHistory()
+        }).catch(e => alert(e.response.data))
     }
 
 
@@ -83,13 +122,23 @@ const Profile = ()=>{
             </div>
             <div id='history' className="order-history">Histórico de pedidos</div>
             <hr style={{width:'100%', marginBottom:'15px', background:'lightgray'}} />
-            {/* {orders && orders.map(order=>(
-                <div className="card" key={order.restaurantName}>
-                    <div className="rest-name">{order.restaurantName}</div>
-                    Pedido feito em: {new Date(order.createdAt).toLocaleDateString()} <br />
-                    Total: R$ {order.totalPrice.toFixed(2)}
+            {orders && orders.map(order=>(
+                <div className="card" key={order.id}>
+                    <div className="card-content">
+                        <div className="rest-name">{order.product}</div>
+                        Pedido feito em: {order.moment} <br/>
+                        Quantidade: {order.quantity}<br/>
+                        Total: R$ {order.total}<br/>
+                        Restaurante: Clique <a onClick={() => getRestaurantById(order.restaurant)}>aqui</a> para ver o restaurante do pedido
+                    </div>
+                    <MdDelete className='icon' style={{
+                            color: hoveredItemId === order.id ? 'red' : 'black'
+                        }}
+                        onMouseOver={() => setHoveredItemId(order.id)}
+                        onMouseOut={() => setHoveredItemId('')}
+                        onClick={() => deleteOrder(order.id)}/>
                 </div>
-            ))} */}
+            ))}
         </Container>
         </>
     )

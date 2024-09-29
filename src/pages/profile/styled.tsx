@@ -68,11 +68,21 @@ export const Container = styled.div`
         padding: 5px 10px;
         margin: 5px 0;
         line-height: 30px;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
     }
 
     .rest-name{
         color: #dc2b2b;
         font-size: 1.2rem;
+    }
+    
+    a{
+        color: blue;
+    }
+    a:hover{
+        cursor: pointer;
     }
 
 /* MEDIA QUERY */

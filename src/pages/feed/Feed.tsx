@@ -94,12 +94,14 @@ const Feed:FC = ()=>{
                     onChange={handleInput}/>
             </div>
             <div className="categories">
-                {restaurants && restaurants.map(rest=>(
-                    <div className="card-category" key={rest.id}
-                        onClick={()=> categoryFilter(rest.category)}>
-                        {rest.category}
-                    </div>
-                ))}
+                {restaurants &&
+                    [...new Set(restaurants.map(rest => rest.category))].map(category => (
+                        <div className="card-category" key={category}
+                            onClick={() => categoryFilter(category)}>
+                                {category}
+                            </div>
+                    ))
+                }
             </div>
             {filteredByCategory && filteredByCategory.map(item=>{
                 return(

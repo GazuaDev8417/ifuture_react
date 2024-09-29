@@ -46,6 +46,7 @@ const Cart:FC = ()=>{
 
         getProfile()
         getAllOrders(restaurantId)
+        setTotal(cart.reduce((acc, item) => acc + item.total, 0))
     // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [cart])
 
@@ -114,8 +115,19 @@ const Cart:FC = ()=>{
         })
     } */  
    
-        const sumTotal = ()=>{
-            //setTotal()
+        const endRequests = (id:string)=>{
+            const headers = {
+                headers: { Authorization: localStorage.getItem('token')}
+            }
+
+            if(selectedValue === ''){
+                return alert('Selecione um método de pagamento')
+            }
+
+            axios.patch(`${BASE_URL}/finished_orders/${id}`, headers).then(res=>{
+                alert(res.data)
+                getAllOrders(restaurantId)
+            }).catch(e => alert(e.response.data))
         }
     
         
@@ -186,7 +198,7 @@ const Cart:FC = ()=>{
                     <option value="creditcard">Cartão de crédito</option>
                 </select>
             </div>
-            <button  className="requestOrder-btn">
+            <button  className="requestOrder-btn" onClick={() => endRequests(user.id)}>
                 Finalizar Compra
             </button>
             {/* {

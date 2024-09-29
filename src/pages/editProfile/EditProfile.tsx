@@ -49,12 +49,12 @@ const EditProfile:FC = ()=>{
             cpf: Number(form.cpf)
         }
         const headers = {
-            headers: { auth: localStorage.getItem('token') }
+            headers: { Authorization: localStorage.getItem('token') }
         }
-        axios.put(`${BASE_URL}/profile`, body, headers).then(()=>{
+        axios.patch(`${BASE_URL}/user`, body, headers).then(()=>{
             navigate('/ifuture_react/profile')
         }).catch(e=>{
-            alert(e.response.data.message)
+            alert(e.response.data)
         })
     }
 

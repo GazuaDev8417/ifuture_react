@@ -5,11 +5,13 @@ import { BASE_URL } from "../../constants/url"
 import ifutureLogo from '../../imgs/logo-future-eats-invert.png'
 import { Container } from "./styled"
 import { IoIosArrowBack } from 'react-icons/io'
+import { cepInputMask } from "../../utils/cpf_mask"
 
 
 
 interface FormData{
     street:string
+    cep:string
     number:string
     neighbourhood:string
     city:string
@@ -22,6 +24,7 @@ const Address2:FC = ()=>{
     const navigate = useNavigate()
     const [form, setForm] = useState<FormData>({
         street:'',
+        cep:'',
         number:'',
         neighbourhood: '',
         city:'',
@@ -38,6 +41,24 @@ const Address2:FC = ()=>{
             navigate('/ifuture_react')
         }
     }, [])
+
+
+    const findAddressByCep = ()=>{
+        axios.get(`https://viacep.com.br/ws/${form.cep}/json/`).then(res=>{
+            setForm({
+                street:res.data.logradouro,
+                cep:res.data.cep,
+                number:'',
+                neighbourhood:res.data.bairro,
+                city:res.data.localidade,
+                state:res.data.estado,
+                complement:''
+            })
+        }).catch(e=>{
+            alert(e.response.data)
+        })
+    }
+
 
 
     const onChange = (e:ChangeEvent<HTMLInputElement>):void=>{
@@ -57,13 +78,12 @@ const Address2:FC = ()=>{
             complement: form.complement
         }
         const headers = {
-            headers: { auth: localStorage.getItem('token') }
+            headers: { Authorization: localStorage.getItem('token') }
         }
-        axios.put(`${BASE_URL}/address`, body, headers).then(()=>{
+        axios.patch(`${BASE_URL}/address`, body, headers).then(()=>{
             navigate(-1)
         }).catch(e=>{
-            alert(e.response.data.message)
-            console.log(e.response)
+            alert(e.response.data)
         })
     }
 
@@ -78,6 +98,7 @@ const Address2:FC = ()=>{
     const clearForm = ()=>{
         setForm({
             street:'',
+            cep:'',
             number:'',
             neighbourhood: '',
             city:'',
@@ -96,7 +117,7 @@ const Address2:FC = ()=>{
             <img  
                 src={ifutureLogo}
                 alt="imagem"/>
-            <div className="title">Adicionar ou atualizar endereço</div>
+            <div className="title">Atualizar endereço</div>
             <form onSubmit={updateAddress}>
                 <input
                     type="text"
@@ -105,6 +126,17 @@ const Address2:FC = ()=>{
                     value={form.street}
                     onChange={onChange}
                     placeholder="Rua / Avenida / Travessa ..." 
+                    required/>
+                <input
+                    type="text"
+                    className="form-input"
+                    name="cep"
+                    onKeyPress={handleKeyPress}
+                    value={cepInputMask(form.cep)}
+                    maxLength={11}
+                    onChange={onChange}
+                    onBlur={findAddressByCep}
+                    placeholder="CEP" 
                     required/>
                 <input
                     type="text"
@@ -148,7 +180,7 @@ const Address2:FC = ()=>{
                     placeholder="Complemento"/>
                 <div className="btn-container">
                     <button type="button" onClick={clearForm}>Limpar</button>
-                    <button type="submit">Entrar</button>
+                    <button type="submit">Atualizar</button>
                 </div>
             </form>
         </Container>

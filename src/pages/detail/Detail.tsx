@@ -4,7 +4,7 @@ import Context, { GlobalStateContext } from "../../global/Context"
 import Header from "../../components/Header"
 import { AiOutlineShoppingCart } from 'react-icons/ai'
 import { BsFillPersonFill } from 'react-icons/bs'
-import { CartItem, Products } from "../../types/types"
+import { Products } from "../../types/types"
 import { Container } from './styled'
 import axios from "axios"
 import { BASE_URL } from "../../constants/url"
