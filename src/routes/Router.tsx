@@ -7,7 +7,7 @@ import Feed from "../pages/feed/Feed"
 import Detail from "../pages/detail/Detail"
 import Cart from "../pages/cart/Cart"
 import Address from "../pages/address/Address"
-import Address2 from "../pages/address/Address2"
+//import Address2 from "../pages/address/Address2"
 import EditProfile from "../pages/editProfile/EditProfile"
 
 
@@ -22,7 +22,7 @@ const Router:FC = ()=>{
             <Route path="/ifuture_react/cart" element={<Cart/>} />
             <Route path="/ifuture_react/profile" element={<Profile/>} />
             <Route path="/ifuture_react/address" element={<Address/>} />
-            <Route path="/ifuture_react/update-address" element={<Address2/>} />
+            {/* <Route path="/ifuture_react/update-address" element={<Address2/>} /> */}
             <Route path="/ifuture_react/edit-profile" element={<EditProfile/>} />
         </Routes>
     )

@@ -23,19 +23,23 @@ interface FormData{
 
 const Address:FC = ()=>{
     const navigate = useNavigate()
-    const { user, getProfile } = useContext(Context) as GlobalStateContext
+    const { user, getProfile, updateAddress, setUpdateAddress } = useContext(Context) as GlobalStateContext
     const [form, setForm] = useState<FormData>({
-        street:'',
-        cep:'',
-        number:'',
-        neighbourhood:'',
-        city:'',
-        state:'',
-        complement:''
+        street: updateAddress ? user.street : '',
+        cep: '',
+        number: updateAddress ? user.number : '',
+        neighbourhood: updateAddress ? user.neighbourhood : '',
+        city: updateAddress ? user.city : '',
+        state: updateAddress ? user.state : '',
+        complement: updateAddress ? user.complement : ''
     })
+    
 
 
     useEffect(()=>{
+        if(!updateAddress){
+            navigate('/ifuture_react/feed')
+        }       
         getProfile()
     }, [])
     
@@ -62,7 +66,8 @@ const Address:FC = ()=>{
         setForm({ ...form, [name]:value })
     }
 
-    const updateAddress = (e:FormEvent<HTMLFormElement>):void=>{
+
+    const alterAddress = (e:FormEvent<HTMLFormElement>):void=>{
         e.preventDefault()
 
         const body = {
@@ -76,8 +81,9 @@ const Address:FC = ()=>{
         const headers = {
             headers: { Authorization: localStorage.getItem('token') }
         }
-        axios.patch(`${BASE_URL}/address/${user.id}`, body, headers).then(()=>{
-            navigate('/ifuture_react/feed')
+        axios.patch(`${BASE_URL}/address`, body, headers).then(()=>{
+            navigate(updateAddress ? '/ifuture_react/profile' : '/ifuture_react/feed')
+            setUpdateAddress(false)
         }).catch(e=>{
             alert(e.response.data)
         })
@@ -107,14 +113,16 @@ const Address:FC = ()=>{
     
     return(
         <Container>
-            <IoIosArrowBack
-                onClick={()=> navigate(-1)} 
-                className='icon'/>
+            {updateAddress ? (
+                <IoIosArrowBack
+                    onClick={()=> navigate(-1)} 
+                    className='icon'/>
+            ) : null}
             <img  
                 src={ifutureLogo}
                 alt="imagem"/>
-            <div className="title">Cadastrar endereço</div>
-            <form onSubmit={updateAddress}>
+            <div className="title">{updateAddress ? 'Atualizar endereço' : 'Cadastrar endereço'}</div>
+            <form onSubmit={alterAddress}>
                 <input
                     type="text"
                     className="form-input"
@@ -176,7 +184,7 @@ const Address:FC = ()=>{
                     placeholder="Complemento"/>
                 <div className="btn-container">
                     <button type="button" onClick={clearForm}>Limpar</button>
-                    <button type="submit">Entrar</button>
+                    <button type="submit">{updateAddress ? 'Atualizar' : 'Registrar'}</button>
                 </div>
             </form>
         </Container>

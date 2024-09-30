@@ -14,7 +14,7 @@ import { Order } from '../../types/types'
 
 const Profile = ()=>{
     const navigate = useNavigate()
-    const { user, getProfile, setMenu } = useContext(Context) as GlobalStateContext
+    const { user, getProfile, setMenu, setUpdateAddress } = useContext(Context) as GlobalStateContext
     const [orders, setOrders] = useState<Order[]>([])
     const [hoveredItemId, setHoveredItemId] = useState<string>('')
     
@@ -91,6 +91,21 @@ const Profile = ()=>{
     }
 
 
+    const deleteUser = ()=>{
+        const headers = {
+            headers: { Authorization: localStorage.getItem('token') }
+        }
+
+        const decide = window.confirm('Tem certeza que deseja apagar sua conta?')
+        if(decide){
+            axios.delete(`${BASE_URL}/user`, headers).then(()=>{
+                localStorage.clear()
+                navigate('/ifuture_react')
+            }).catch(e => alert(e.response.data))
+        }
+    }
+
+
     
     return(
         <>
@@ -112,14 +127,20 @@ const Profile = ()=>{
             </div>
             <div className="address-section">
                 <div>Endereço cadastrado: <br />
-                    {user.street} {user.number}, {user.neighbourhood}, {user.city} - {user.state}
+                    {user.street} Nº {user.number}, {user.neighbourhood}, {user.city} - {user.state}
                 </div>
-                <MdEdit className="icon" onClick={()=> navigate('/ifuture_react/update-address')}/>
+                <MdEdit className="icon" onClick={()=> {
+                    navigate('/ifuture_react/address')
+                    setUpdateAddress(true)
+                }}/>
             </div>
             <div className="addressAndName">
                 <div className="rest-name"></div>
                 <div></div>
             </div>
+            <button type="button" style={{padding:10, color:'white'}} onClick={deleteUser}>
+                Deletar conta
+            </button>
             <div id='history' className="order-history">Histórico de pedidos</div>
             <hr style={{width:'100%', marginBottom:'15px', background:'lightgray'}} />
             {orders && orders.map(order=>(

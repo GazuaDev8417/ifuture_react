@@ -2,7 +2,7 @@ import {
     Dispatch, ReactNode, SetStateAction,
     createContext, useState
 } from "react"
-import { Products, Restaurant, User, Order } from "../types/types"
+import { Restaurant, User, Order } from "../types/types"
 import axios from "axios"
 import { BASE_URL } from "../constants/url"
 
@@ -13,18 +13,15 @@ export interface GlobalStateContext{
     setMenu:Dispatch<SetStateAction<Restaurant>>
     restaurantId:string
     setRestaurantId:Dispatch<SetStateAction<string>>
-    //products:Products[]
-    //setProducts:Dispatch<SetStateAction<Products[]>>
-    /* orders:Order[]
-    setOrders:Dispatch<SetStateAction<Order[]>> */
     user:User
     getProfile: () => void
     getAllOrders: (id:string) => void
     cart:Order[]
     setCart:Dispatch<SetStateAction<Order[]>>
-    /* orderHistory: () => void
-    showOrder:boolean
-    setShowOrder:Dispatch<SetStateAction<boolean>>*/
+    updateAddress:boolean
+    setUpdateAddress:Dispatch<SetStateAction<boolean>>
+    registAddress:boolean
+    setRegistAddress:Dispatch<SetStateAction<boolean>>
 }
 
 type GlobalStateProps = {
@@ -37,6 +34,8 @@ const Context = createContext<GlobalStateContext | null>(null)
 
 export const GlobalState = (props:GlobalStateProps)=>{
     const [cart, setCart] = useState<Order[]>([])
+    const [updateAddress, setUpdateAddress] = useState<boolean>(false)
+    const [registAddress, setRegistAddress] = useState<boolean>(false)
     const [restaurantId, setRestaurantId] = useState<string>('')
     const [menu, setMenu] = useState<Restaurant>({
         address:'',
@@ -48,15 +47,13 @@ export const GlobalState = (props:GlobalStateProps)=>{
         name:'',
         shipping:0
     })
-    //const [products, setProducts] = useState<Products[]>()
-    //const [showOrder, setShowOrder] = useState<boolean>(false)
     const [user, setUser] = useState<User>({
         id:'',
         username:'',
         cpf:'',
         email:'',
         street:'',
-        number:0,
+        number:'',
         neighbourhood:'',
         city:'',
         state:'',
@@ -78,17 +75,6 @@ export const GlobalState = (props:GlobalStateProps)=>{
     }
 
 
-    /* const orderHistory = ()=>{
-        axios.get(`${BASE_URL}/orders/history`, {
-            headers: { auth: localStorage.getItem('token') }
-        }).then(res=>{
-            setOrders(res.data.orders)
-        }).catch(e=>{
-            alert(e.response.data.message)
-        })
-    } */
-
-
     const getProfile = ()=>{
         axios.get(`${BASE_URL}/profile`, {
             headers: { Authorization: localStorage.getItem('token') || '' }
@@ -103,8 +89,9 @@ export const GlobalState = (props:GlobalStateProps)=>{
 
     return(
         <Context.Provider value={{ 
-            menu, setMenu, getProfile, getAllOrders, cart, setCart,/*  orderHistory, */ user,
-            /* orders, setOrders, */ setRestaurantId, restaurantId/* showOrder, setShowOrder */
+            menu, setMenu, getProfile, getAllOrders, cart, setCart, user,
+            setRestaurantId, restaurantId, updateAddress, setUpdateAddress,
+            registAddress, setRegistAddress
         }}>
             { props.children }
         </Context.Provider>
