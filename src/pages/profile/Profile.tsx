@@ -3,6 +3,7 @@ import Context, { GlobalStateContext } from '../../global/Context'
 import { useNavigate } from 'react-router-dom'
 import { MdEdit } from 'react-icons/md'
 import { AiOutlineLogout, AiFillHome } from 'react-icons/ai'
+import { IoMenu } from "react-icons/io5";
 import { MdDelete } from "react-icons/md";
 import Header from "../../components/Header"
 import { Container } from './styled'

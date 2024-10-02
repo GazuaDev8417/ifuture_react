@@ -1,4 +1,5 @@
-import { ChangeEvent, FC, FormEvent, useEffect, useState } from "react"
+import { ChangeEvent, FC, FormEvent, useEffect, useState, useContext } from "react"
+import Context, { GlobalStateContext } from "../../global/Context"
 import { useNavigate } from "react-router-dom"
 import axios from "axios"
 import { BASE_URL } from "../../constants/url"
@@ -20,6 +21,7 @@ interface FormData{
 
 const Signup:FC = ()=>{
     const navigate = useNavigate()
+    const { setRegistAddress } = useContext(Context) as GlobalStateContext
     const [showPass, setShowPass] = useState<boolean>(false)
     const [showPass2, setShowPass2] = useState<boolean>(false)
     const [form, setForm] = useState<FormData>({
@@ -57,6 +59,7 @@ const Signup:FC = ()=>{
         }
         axios.post(`${BASE_URL}/signup`, body).then(res=>{
             localStorage.setItem('token',res.data)
+            setRegistAddress(true)
             navigate('/ifuture_react/address')
         }).catch(e=>{
             alert(e.response.data)

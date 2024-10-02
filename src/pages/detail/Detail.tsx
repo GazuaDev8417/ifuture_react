@@ -1,4 +1,4 @@
-import { ChangeEvent, FC, useContext, useEffect, useState } from "react"
+import { FC, useContext, useEffect, useState } from "react"
 import { useNavigate } from "react-router-dom"
 import Context, { GlobalStateContext } from "../../global/Context"
 import Header from "../../components/Header"
@@ -10,9 +10,6 @@ import axios from "axios"
 import { BASE_URL } from "../../constants/url"
 
 
-interface Qnt{
-    id:string
-}
 
 
 const Detail:FC = ()=>{
@@ -40,14 +37,7 @@ const Detail:FC = ()=>{
             alert(e.response.data)
         })
     }
-
-
-    /* const handleChange = (productId:string, value:number)=>{
-        setQnt({[productId]:value})
-        setRequestQnt(qnt[productId])
-        console.log(qnt)
-        console.log(qnt[productId])
-    } */
+    
     
     const request = (product: Products)=>{
         const now = new Date()
@@ -66,7 +56,7 @@ const Detail:FC = ()=>{
         
         axios.post(`${BASE_URL}/order`, body, headers).then(res=>{
             alert(res.data)
-            setRestaurantId(product.provider)
+            getAllOrders()
         }).catch(e=>{
             const decide = confirm(e.response.data)
             if(decide){
@@ -82,7 +72,7 @@ const Detail:FC = ()=>{
         <Header
             leftIcon={
                 <AiOutlineShoppingCart className="header-icon" onClick={()=>{
-                    getAllOrders(menu.id)
+                    getAllOrders()
                     navigate('/ifuture_react/cart')
                 }} />
             }
@@ -118,21 +108,10 @@ const Detail:FC = ()=>{
                                 {product.description}<br/><br/>
                                 <div>R$ {product.price.toFixed(2)}</div>
                             </div>
-                            <div className="select-btn-container">
-                                {/* <input 
-                                    type="number"
-                                    value={qnt[product.id] || 0}
-                                    onChange={e => handleChange(product.id, Number(e.target.value))} 
-                                    min={0} /> */}
-                                {/* <button 
-                                    onClick={()=> addToCart(product)}>
-                                    Adicionar
-                                </button> */}
                                 <button 
                                     onClick={()=> request(product)}>
-                                    Adicionar
+                                    Pedir
                                 </button>
-                            </div>
                         </div>
                     ))}
                 </div>

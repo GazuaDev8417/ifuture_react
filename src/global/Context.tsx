@@ -11,11 +11,11 @@ import { BASE_URL } from "../constants/url"
 export interface GlobalStateContext{
     menu:Restaurant
     setMenu:Dispatch<SetStateAction<Restaurant>>
-    restaurantId:string
-    setRestaurantId:Dispatch<SetStateAction<string>>
+    /* restaurantId:string
+    setRestaurantId:Dispatch<SetStateAction<string>> */
     user:User
     getProfile: () => void
-    getAllOrders: (id:string) => void
+    getAllOrders: () => void
     cart:Order[]
     setCart:Dispatch<SetStateAction<Order[]>>
     updateAddress:boolean
@@ -36,7 +36,7 @@ export const GlobalState = (props:GlobalStateProps)=>{
     const [cart, setCart] = useState<Order[]>([])
     const [updateAddress, setUpdateAddress] = useState<boolean>(false)
     const [registAddress, setRegistAddress] = useState<boolean>(false)
-    const [restaurantId, setRestaurantId] = useState<string>('')
+    /* const [restaurantId, setRestaurantId] = useState<string>('') */
     const [menu, setMenu] = useState<Restaurant>({
         address:'',
         category:'',
@@ -62,11 +62,11 @@ export const GlobalState = (props:GlobalStateProps)=>{
  
 
 
-    const getAllOrders = (id:string)=>{
+    const getAllOrders = ()=>{
         const headers = {
             headers: { Authorization: localStorage.getItem('token') }
         }
-        axios.get(`${BASE_URL}/orders/${id}`, headers).then(res=>{
+        axios.get(`${BASE_URL}/orders`, headers).then(res=>{
             setCart(res.data)
         }).catch(e => {
             e.response.data
@@ -90,7 +90,7 @@ export const GlobalState = (props:GlobalStateProps)=>{
     return(
         <Context.Provider value={{ 
             menu, setMenu, getProfile, getAllOrders, cart, setCart, user,
-            setRestaurantId, restaurantId, updateAddress, setUpdateAddress,
+            /* setRestaurantId, restaurantId, */ updateAddress, setUpdateAddress,
             registAddress, setRegistAddress
         }}>
             { props.children }

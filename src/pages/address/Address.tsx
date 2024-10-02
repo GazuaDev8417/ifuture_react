@@ -23,7 +23,7 @@ interface FormData{
 
 const Address:FC = ()=>{
     const navigate = useNavigate()
-    const { user, getProfile, updateAddress, setUpdateAddress } = useContext(Context) as GlobalStateContext
+    const { user, getProfile, updateAddress, setUpdateAddress, registAddress } = useContext(Context) as GlobalStateContext
     const [form, setForm] = useState<FormData>({
         street: updateAddress ? user.street : '',
         cep: '',
@@ -34,10 +34,10 @@ const Address:FC = ()=>{
         complement: updateAddress ? user.complement : ''
     })
     
-
+console.log({updateAddress, registAddress})
 
     useEffect(()=>{
-        if(!updateAddress){
+        if(!updateAddress && !registAddress){
             navigate('/ifuture_react/feed')
         }       
         getProfile()
@@ -115,7 +115,10 @@ const Address:FC = ()=>{
         <Container>
             {updateAddress ? (
                 <IoIosArrowBack
-                    onClick={()=> navigate(-1)} 
+                    onClick={()=> {
+                        setUpdateAddress(false)
+                        navigate(-1)
+                    }} 
                     className='icon'/>
             ) : null}
             <img  
@@ -149,8 +152,7 @@ const Address:FC = ()=>{
                     onKeyPress={handleKeyPress}
                     value={form.number}
                     onChange={onChange}
-                    placeholder="Númbero" 
-                    required/>
+                    placeholder="Número"/>
                 <input
                     type="text"
                     className="form-input"

@@ -78,8 +78,15 @@ export const Container = styled.div`
     }
 
     .select-container{
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
         margin: 2rem 0 3rem;
         width: 100%;
+    }
+
+    .total-price{
+        font-size: 1.5rem;
     }
 
     .select{

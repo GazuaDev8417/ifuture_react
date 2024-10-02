@@ -45,8 +45,8 @@ const Payment_methods = ({ paymentMethod, handleRadioButton, selectedValue }:Pay
                     <div className="money-container">
                         <div className="payment-box">
                             <label htmlFor="payPal">
-                                <img src="https://d2r9epyceweg5n.cloudfront.net/apps/2362-pt_BR-small-PP_logo_6_01.jpg" 
-                                    alt="PayPal Image"
+                                <img src='https://logospng.org/wp-content/uploads/pix.png' 
+                                    alt="Pix Image"
                                     className="image" />
                             </label>
                             <input 
@@ -55,20 +55,6 @@ const Payment_methods = ({ paymentMethod, handleRadioButton, selectedValue }:Pay
                                 checked={selectedValue === 'PayPal'}
                                 name="payment"
                                 id="payPal"
-                                onChange={handleRadioButton} />
-                        </div>
-                        <div className="payment-box">
-                            <label htmlFor="mPago">
-                                <img src="https://ps.w.org/woocommerce-mercadopago/assets/icon-256x256.png?rev=2653727" 
-                                    alt="Mercado Pago Image"
-                                    className="image" />
-                            </label>
-                            <input
-                                value='Mercado Pago'
-                                checked={selectedValue === 'Mercado Pago'} 
-                                type="radio"
-                                name="payment"
-                                id="mPago"
                                 onChange={handleRadioButton} />
                         </div>
                         <div className="payment-box">

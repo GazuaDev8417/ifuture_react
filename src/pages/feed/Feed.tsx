@@ -6,7 +6,7 @@ import { BASE_URL } from "../../constants/url"
 import RestaurantCard from "../../components/RestaurantCard"
 import Header from "../../components/Header"
 import { BsFillPersonFill } from 'react-icons/bs'
-import { AiFillHome } from 'react-icons/ai'
+import { AiFillHome, AiOutlineShoppingCart } from 'react-icons/ai'
 import { Restaurant } from "../../types/types"
 import { Container } from "./styled"
 import { Loading } from "../../components/Loading"
@@ -81,7 +81,7 @@ const Feed:FC = ()=>{
         <>
         <Header
             leftIcon={
-                <AiFillHome className="header-icon" onClick={()=> navigate('/ifuture_react/feed')} />
+                <AiOutlineShoppingCart className="header-icon" onClick={()=> navigate('/ifuture_react/cart')} />
             }
             rightIcon={
                 <BsFillPersonFill className="header-icon" onClick={()=> navigate('/ifuture_react/profile')} />
