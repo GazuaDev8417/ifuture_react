@@ -29,12 +29,12 @@ const Container = styled.div`
 `
 const QRCodeBox = styled.div`
     .qrcode-container{
+        background-color: rgba(245, 245, 245, .7);
         position: fixed;
         top: 50%;
         left: 50%;
         transform: translate(-50%, -50%) scale(.1);
         width: 500px;
-        background: transparent;
         border: 2px solid;
         border-radius: 5px;
         box-shadow: 0 0 10px;
@@ -61,12 +61,15 @@ interface PaymentProps{
     paymentMethod:string
     handleRadioButton: (e:ChangeEvent<HTMLInputElement>) => void
     selectedValue:string
-    setSelectedValue:Dispatch<SetStateAction<string>>
+    showQRcode:boolean
+    setShowQRcode:Dispatch<SetStateAction<boolean>>
     total:number
 }
 
 
-const Payment_methods = ({ paymentMethod, handleRadioButton, selectedValue, setSelectedValue, total }:PaymentProps)=>{
+const Payment_methods = ({ 
+    paymentMethod, handleRadioButton, selectedValue, total, showQRcode, setShowQRcode
+ }:PaymentProps)=>{
     const [textPopup ,setTextPopup] = useState<boolean>(false)
 
 
@@ -74,15 +77,16 @@ const Payment_methods = ({ paymentMethod, handleRadioButton, selectedValue, setS
     const handleCopy = (textToCopy:string)=>{
         navigator.clipboard.writeText(textToCopy).then(()=>{
             setTextPopup(true)
+            setShowQRcode(true)
             setTimeout(()=>{
-                setSelectedValue('')
+                setShowQRcode(false)
                 setTextPopup(false)
             }, 1000)
         }).catch(e=>{
             console.log(`Erro ao copiar: ${e}`)
         })
     }
-    
+    console.log(showQRcode)
     
     return(
         <>
@@ -187,7 +191,11 @@ const Payment_methods = ({ paymentMethod, handleRadioButton, selectedValue, setS
             }
         </Container>
         <QRCodeBox>
-            <div className={`qrcode-container ${selectedValue === 'PayPal' ? 'active' : ''}`}>
+            <div className={`qrcode-container ${showQRcode ? 'active' : ''}`}>
+                <small style={{background:'white'}}>
+                    Lembrando que o projeto se trata de uma simulação, este QRCode representa nada mais
+                    que o valor total dos pedidos, não copiando nenhuma chave ou código de barras.
+                </small>
                 <QRCodeSVG value={String(total)} size={250} />
                 {textPopup && <span className="textPopup">Copiado!</span>}
                 <button style={{padding:10}} onClick={() => handleCopy(String(total.toFixed(2)))}>Copiar</button>

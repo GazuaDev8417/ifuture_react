@@ -42,7 +42,7 @@ const Cart:FC = ()=>{
     useEffect(()=>{
         const handleKeydown = (e:KeyboardEvent)=>{
             if(e.key === 'Escape' || e.key === 'Esc'){
-                setSelectedValue('')
+                setShowQRcode(false)
             }
         }
 
@@ -187,7 +187,8 @@ const Cart:FC = ()=>{
                 paymentMethod={payment}
                 handleRadioButton={handleRadioButton}
                 selectedValue={selectedValue}
-                setSelectedValue={setSelectedValue}
+                showQRcode={showQRcode}
+                setShowQRcode={setShowQRcode}
                 total={total}/>
             <div className="select-container">
                 <select className="select" value={payment} onChange={handleSelect}>
@@ -196,7 +197,11 @@ const Cart:FC = ()=>{
                 </select>
                 <div className="total-price">Total da compra: {total.toFixed(2)}</div>
             </div>
-            <button  className="requestOrder-btn" onClick={() => endRequests(user.id)}>
+            <button 
+                className="requestOrder-btn"
+                style={{background:selectedValue !== '' ? 'red' : 'gray'}}
+                disabled={true}
+                onClick={() => endRequests(user.id)}>
                 Finalizar Compra
             </button>
         </Container>
