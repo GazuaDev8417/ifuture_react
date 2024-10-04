@@ -26,8 +26,12 @@ const Container = styled.div`
         padding: 5px;
         color: #fff;
     }
+
+    .label{
+        cursor: pointer;
+    }
 `
-const QRCodeBox = styled.div`
+/* const QRCodeBox = styled.div`
     .qrcode-container{
         background-color: rgba(245, 245, 245, .7);
         position: fixed;
@@ -54,63 +58,70 @@ const QRCodeBox = styled.div`
         pointer-events: auto;
         transform: translate(-50%, -50%) scale(1);
     }
-`
+` */
 
 
 interface PaymentProps{
     paymentMethod:string
     handleRadioButton: (e:ChangeEvent<HTMLInputElement>) => void
     selectedValue:string
-    showQRcode:boolean
+    //showQRcode:boolean
     setShowQRcode:Dispatch<SetStateAction<boolean>>
-    total:number
+    //total:number
+    textPopup:boolean
+    setTextPopup:Dispatch<SetStateAction<boolean>>
 }
 
 
 const Payment_methods = ({ 
-    paymentMethod, handleRadioButton, selectedValue, total, showQRcode, setShowQRcode
+    paymentMethod, handleRadioButton, selectedValue, textPopup, setTextPopup,/* total, showQRcode, */ setShowQRcode
  }:PaymentProps)=>{
-    const [textPopup ,setTextPopup] = useState<boolean>(false)
+    /* const [textPopup ,setTextPopup] = useState<boolean>(false) */
 
 
 
-    const handleCopy = (textToCopy:string)=>{
+
+    /* const handleCopy = (textToCopy:string)=>{
         navigator.clipboard.writeText(textToCopy).then(()=>{
             setTextPopup(true)
             setShowQRcode(true)
             setTimeout(()=>{
                 setShowQRcode(false)
-                setTextPopup(false)
             }, 1000)
         }).catch(e=>{
             console.log(`Erro ao copiar: ${e}`)
         })
-    }
-    console.log(showQRcode)
+    } */
+    
     
     return(
         <>
-        <Container className={`${selectedValue === 'PayPal' ? 'blur' : ''}`}>  
+        <Container>  
             {
                 paymentMethod === 'money' ? (
                     <div className="money-container">
                         <div className="payment-box">
-                            <label htmlFor="payPal">
+                            <label className='label' htmlFor="payPal">
                                 <img src='https://logospng.org/wp-content/uploads/pix.png' 
                                     alt="Pix Image"
-                                    className="image" />
+                                    className="image" 
+                                    onClick={() => {
+                                        setTextPopup(false)
+                                        setShowQRcode(true)
+                                    }}
+                                    />
                             </label>
                             <input 
                                 type="radio"
                                 value='PayPal'
-                                checked={selectedValue === 'PayPal'}
+                                checked={selectedValue === 'PayPal' && textPopup}
                                 name="payment"
                                 id="payPal"
                                 onChange={handleRadioButton} />
                         </div>
                         
                         <div className="payment-box">
-                            <label htmlFor="boleto">
+                            <label className='label' htmlFor="boleto">
                                 <img src="https://olhardigital.com.br/wp-content/uploads/2015/02/20150205184012.jpg" 
                                     alt="Boleto Image"
                                     className="image" />
@@ -127,7 +138,7 @@ const Payment_methods = ({
                     ) : (
                     <div className="money-container">
                         <div className="payment-box">
-                            <label htmlFor="visa">
+                            <label className='label' htmlFor="visa">
                                 <img 
                                     src="https://img.freepik.com/free-icon/visa_318-202971.jpg" 
                                     alt="Imagem de cartões de crédito"
@@ -142,7 +153,7 @@ const Payment_methods = ({
                                 onChange={handleRadioButton} />
                         </div>                            
                         <div className="payment-box">
-                            <label htmlFor="master">
+                            <label className='label' htmlFor="master">
                                 <img 
                                     src="https://imageio.forbes.com/blogs-images/steveolenski/files/2016/07/Mastercard_new_logo-1200x865.jpg?height=512&width=711&fit=bounds" 
                                     alt="Imagem de cartões de crédito"
@@ -157,7 +168,7 @@ const Payment_methods = ({
                                 onChange={handleRadioButton} />
                         </div>                            
                         <div className="payment-box">
-                            <label htmlFor="hipercard">
+                            <label className='label' htmlFor="hipercard">
                                 <img 
                                     src="https://seeklogo.com/images/H/Hipercard_Novo-logo-05174E7224-seeklogo.com.png" 
                                     alt="Imagem de cartões de crédito"
@@ -172,7 +183,7 @@ const Payment_methods = ({
                                 onChange={handleRadioButton} />
                         </div>                            
                         <div className="payment-box">
-                            <label htmlFor="american">
+                            <label className='label' htmlFor="american">
                                 <img 
                                     src="https://static.vecteezy.com/ti/vetor-gratis/t1/14414708-logotipo-da-american-express-em-fundo-transparente-gratis-vetor.jpg" 
                                     alt="Imagem de cartões de crédito"
@@ -190,7 +201,7 @@ const Payment_methods = ({
                     )
             }
         </Container>
-        <QRCodeBox>
+        {/* <QRCodeBox>
             <div className={`qrcode-container ${showQRcode ? 'active' : ''}`}>
                 <small style={{background:'white'}}>
                     Lembrando que o projeto se trata de uma simulação, este QRCode representa nada mais
@@ -200,7 +211,7 @@ const Payment_methods = ({
                 {textPopup && <span className="textPopup">Copiado!</span>}
                 <button style={{padding:10}} onClick={() => handleCopy(String(total.toFixed(2)))}>Copiar</button>
             </div>
-        </QRCodeBox>
+        </QRCodeBox> */}
         </>
     )
 }

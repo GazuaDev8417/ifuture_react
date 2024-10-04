@@ -1,14 +1,15 @@
 import { ChangeEvent, FC, useContext, useEffect, useState } from "react"
-import Context, { GlobalStateContext} from "../../global/Context"
+import Context, { GlobalStateContext } from "../../global/Context"
 import axios from "axios"
 import { BASE_URL } from "../../constants/url"
 import Header from "../../components/Header"
 import { AiFillHome } from 'react-icons/ai'
 import { BsFillPersonFill } from 'react-icons/bs'
+import { QRCodeSVG } from 'qrcode.react'
 import { MdEdit } from 'react-icons/md'
 import { Order } from "../../types/types"
 import { useNavigate } from "react-router-dom"
-import { Container } from "./styled"
+import { Container, QRCodeBox } from "./styled"
 import Payment_methods from "../../components/payment/Payment_methods"
 
 
@@ -18,6 +19,9 @@ const Cart:FC = ()=>{
     const [payment, setPayment] = useState<string>('money')
     const [selectedValue, setSelectedValue] = useState<string>('')
     const [showQRcode, setShowQRcode] = useState<boolean>(false)
+
+    const [textPopup ,setTextPopup] = useState<boolean>(false)
+
     const { 
         cart, setCart, user, getProfile, getAllOrders, setUpdateAddress
     } = useContext(Context) as GlobalStateContext
@@ -33,8 +37,11 @@ const Cart:FC = ()=>{
         }
 
         getProfile()
-        setTotal(cart.reduce((acc, item) => acc + item.total, 0))
         getAllOrders()
+        if(cart.length === 0){
+            setSelectedValue('')
+        }
+        setTotal(cart.reduce((acc, item) => acc + item.total, 0))
     // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [cart])
 
@@ -43,6 +50,7 @@ const Cart:FC = ()=>{
         const handleKeydown = (e:KeyboardEvent)=>{
             if(e.key === 'Escape' || e.key === 'Esc'){
                 setShowQRcode(false)
+                setSelectedValue('Boleto')
             }
         }
 
@@ -106,6 +114,19 @@ const Cart:FC = ()=>{
             alert(e.response.data)
         })
     }
+
+
+    const handleCopy = (textToCopy:string)=>{
+        navigator.clipboard.writeText(textToCopy).then(()=>{
+            setTextPopup(true)
+            setShowQRcode(true)
+            setTimeout(()=>{
+                setShowQRcode(false)
+            }, 1000)
+        }).catch(e=>{
+            console.log(`Erro ao copiar: ${e}`)
+        })
+    }
     
    
     const endRequests = (id:string)=>{
@@ -139,7 +160,7 @@ const Cart:FC = ()=>{
                     className="header-icon"
                     onClick={()=> navigate('/ifuture_react/profile')} />
             }/>
-        <Container>
+        <Container className={showQRcode ? 'active' : ''}>
             <h1>Meu Carrinho</h1>
             <hr style={{width:'100%', marginBottom:'15px', background:'lightgray'}} />
             <div className="address-section">
@@ -187,9 +208,12 @@ const Cart:FC = ()=>{
                 paymentMethod={payment}
                 handleRadioButton={handleRadioButton}
                 selectedValue={selectedValue}
-                showQRcode={showQRcode}
+                textPopup={textPopup}
+                setTextPopup={setTextPopup}
+                //showQRcode={showQRcode}
                 setShowQRcode={setShowQRcode}
-                total={total}/>
+                //total={total}
+                />
             <div className="select-container">
                 <select className="select" value={payment} onChange={handleSelect}>
                     <option value="money" defaultChecked>Dinheiro</option>
@@ -200,11 +224,22 @@ const Cart:FC = ()=>{
             <button 
                 className="requestOrder-btn"
                 style={{background:selectedValue !== '' ? 'red' : 'gray'}}
-                disabled={true}
+                disabled={selectedValue === '' ? true : false}
                 onClick={() => endRequests(user.id)}>
                 Finalizar Compra
             </button>
         </Container>
+        <QRCodeBox>
+            <div className={`qrcode-container ${showQRcode ? 'active' : ''}`}>
+                <small style={{background:'white'}}>
+                    Lembrando que o projeto se trata de uma simulação, então este QRCode representa nada mais
+                    que o valor total dos pedidos, não copiando nenhuma chave ou código de barras.
+                </small>
+                <QRCodeSVG value={`Valor total: R$ ${total}`} size={250} />
+                {textPopup && <span className="textPopup">Copiado!</span>}
+                <button style={{padding:10}} onClick={() => handleCopy(String(total.toFixed(2)))}>Copiar</button>
+            </div>
+        </QRCodeBox>
         </>
     )
 }

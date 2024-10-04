@@ -7,6 +7,11 @@ export const Container = styled.div`
     flex-direction: column;
     margin: 15vh 5rem;
 
+    &.active{
+        filter: blur(3px);
+        pointer-events: none;
+    }
+
     h1{
         text-align: center;
         margin: 20px 0 10vh;
@@ -133,5 +138,33 @@ export const Container = styled.div`
         .card img{
             width: 65vw;      
         }
+    }
+`
+export const QRCodeBox = styled.div`
+    .qrcode-container{
+        background-color: rgba(245, 245, 245, .7);
+        position: fixed;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%) scale(.1);
+        width: 500px;
+        border: 2px solid;
+        border-radius: 5px;
+        box-shadow: 0 0 10px;
+        padding: 10px 25px;
+        opacity: 0;
+        pointer-events: none;
+        transition: 1s ease;
+
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        gap: 15px;
+    }
+
+    .qrcode-container.active{
+        opacity: 1;
+        pointer-events: auto;
+        transform: translate(-50%, -50%) scale(1);
     }
 `
