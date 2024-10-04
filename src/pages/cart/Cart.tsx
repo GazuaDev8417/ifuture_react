@@ -17,10 +17,10 @@ const Cart:FC = ()=>{
     const navigate = useNavigate()
     const [payment, setPayment] = useState<string>('money')
     const [selectedValue, setSelectedValue] = useState<string>('')
+    const [showQRcode, setShowQRcode] = useState<boolean>(false)
     const { 
         cart, setCart, user, getProfile, getAllOrders, setUpdateAddress
     } = useContext(Context) as GlobalStateContext
-    //const [cartData, setCartData] = useState<Order[]>(cart)
     const [total, setTotal] = useState<number>(cart.reduce((acc, item) => acc + item.total, 0))
 
     
@@ -37,6 +37,20 @@ const Cart:FC = ()=>{
         getAllOrders()
     // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [cart])
+
+
+    useEffect(()=>{
+        const handleKeydown = (e:KeyboardEvent)=>{
+            if(e.key === 'Escape' || e.key === 'Esc'){
+                setSelectedValue('')
+            }
+        }
+
+        document.addEventListener('keydown', handleKeydown)
+        return () =>{
+            document.removeEventListener('keydown', handleKeydown)
+        }
+    }, [])
 
 
     const handleSelect = (e:ChangeEvent<HTMLSelectElement>)=>{
@@ -74,6 +88,11 @@ const Cart:FC = ()=>{
         }
 
         setSelectedValue(e.target.value)
+        if(e.target.value === 'PayPal'){
+            setShowQRcode(true)
+        }else{
+            setShowQRcode(false)
+        }
     }
 
     const removeItem = (cartItem:Order)=>{
@@ -167,7 +186,9 @@ const Cart:FC = ()=>{
             <Payment_methods 
                 paymentMethod={payment}
                 handleRadioButton={handleRadioButton}
-                selectedValue={selectedValue}/>
+                selectedValue={selectedValue}
+                setSelectedValue={setSelectedValue}
+                total={total}/>
             <div className="select-container">
                 <select className="select" value={payment} onChange={handleSelect}>
                     <option value="money" defaultChecked>Dinheiro</option>

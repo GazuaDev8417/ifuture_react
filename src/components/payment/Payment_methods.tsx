@@ -1,6 +1,7 @@
-import { ChangeEvent } from 'react'
+import { ChangeEvent, Dispatch, SetStateAction, useState } from 'react'
 import styled from 'styled-components'
-
+import { QRCodeSVG } from 'qrcode.react'
+import { handleKeydown } from '../../utils/escape_key'
 
 // eslint-disable-next-line react-refresh/only-export-components
 const Container = styled.div`
@@ -26,20 +27,66 @@ const Container = styled.div`
         color: #fff;
     }
 `
+const QRCodeBox = styled.div`
+    .qrcode-container{
+        position: fixed;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%) scale(.1);
+        width: 500px;
+        background: transparent;
+        border: 2px solid;
+        border-radius: 5px;
+        box-shadow: 0 0 10px;
+        padding: 10px 25px;
+        opacity: 0;
+        pointer-events: none;
+        transition: 1s ease;
+
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        gap: 15px;
+    }
+
+    .qrcode-container.active{
+        opacity: 1;
+        pointer-events: auto;
+        transform: translate(-50%, -50%) scale(1);
+    }
+`
 
 
 interface PaymentProps{
     paymentMethod:string
     handleRadioButton: (e:ChangeEvent<HTMLInputElement>) => void
     selectedValue:string
+    setSelectedValue:Dispatch<SetStateAction<string>>
+    total:number
 }
 
 
-const Payment_methods = ({ paymentMethod, handleRadioButton, selectedValue }:PaymentProps)=>{
-    
+const Payment_methods = ({ paymentMethod, handleRadioButton, selectedValue, setSelectedValue, total }:PaymentProps)=>{
+    const [textPopup ,setTextPopup] = useState<boolean>(false)
 
+
+
+    const handleCopy = (textToCopy:string)=>{
+        navigator.clipboard.writeText(textToCopy).then(()=>{
+            setTextPopup(true)
+            setTimeout(()=>{
+                setSelectedValue('')
+                setTextPopup(false)
+            }, 1000)
+        }).catch(e=>{
+            console.log(`Erro ao copiar: ${e}`)
+        })
+    }
+    
+    
     return(
-        <Container>  
+        <>
+        <Container className={`${selectedValue === 'PayPal' ? 'blur' : ''}`}>  
             {
                 paymentMethod === 'money' ? (
                     <div className="money-container">
@@ -57,6 +104,7 @@ const Payment_methods = ({ paymentMethod, handleRadioButton, selectedValue }:Pay
                                 id="payPal"
                                 onChange={handleRadioButton} />
                         </div>
+                        
                         <div className="payment-box">
                             <label htmlFor="boleto">
                                 <img src="https://olhardigital.com.br/wp-content/uploads/2015/02/20150205184012.jpg" 
@@ -138,6 +186,14 @@ const Payment_methods = ({ paymentMethod, handleRadioButton, selectedValue }:Pay
                     )
             }
         </Container>
+        <QRCodeBox>
+            <div className={`qrcode-container ${selectedValue === 'PayPal' ? 'active' : ''}`}>
+                <QRCodeSVG value={String(total)} size={250} />
+                {textPopup && <span className="textPopup">Copiado!</span>}
+                <button style={{padding:10}} onClick={() => handleCopy(String(total.toFixed(2)))}>Copiar</button>
+            </div>
+        </QRCodeBox>
+        </>
     )
 }
 
