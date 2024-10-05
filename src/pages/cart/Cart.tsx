@@ -50,7 +50,7 @@ const Cart:FC = ()=>{
         const handleKeydown = (e:KeyboardEvent)=>{
             if(e.key === 'Escape' || e.key === 'Esc'){
                 setShowQRcode(false)
-                setSelectedValue('Boleto')
+                setSelectedValue('')
             }
         }
 
@@ -92,11 +92,13 @@ const Cart:FC = ()=>{
 
     const handleRadioButton = (e:ChangeEvent<HTMLInputElement>)=>{
         if(cart.length === 0){
-            return alert('Você ainda não fez nenhum pedido')
+            alert('Você ainda não fez nenhum pedido')
+            setShowQRcode(false)
+            return
         }
 
         setSelectedValue(e.target.value)
-        if(e.target.value === 'PayPal'){
+        if(e.target.value === 'PayPal' && cart.length > 0){
             setShowQRcode(true)
         }else{
             setShowQRcode(false)
