@@ -42,6 +42,10 @@ export const Container = styled.div`
         margin: 10px;
     }
 
+    .product-desc{
+        margin: 10px;
+    }
+
     .products-card{
         display: flex;
         align-items: center;

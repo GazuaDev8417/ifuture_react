@@ -14,7 +14,7 @@ import { BASE_URL } from "../../constants/url"
 
 const Detail:FC = ()=>{
     const navigate = useNavigate()
-    const { menu, setRestaurantId, getAllOrders } = useContext(Context) as GlobalStateContext
+    const { menu, getAllOrders } = useContext(Context) as GlobalStateContext
     const [products, setProducts] = useState<Products[]>([])
 
 
@@ -61,7 +61,6 @@ const Detail:FC = ()=>{
             const decide = confirm(e.response.data)
             if(decide){
                 navigate('/ifuture_react/cart')
-                setRestaurantId(product.provider)
             }
         })
     }
@@ -103,7 +102,7 @@ const Detail:FC = ()=>{
                                 className="product-image" 
                                 src={product.photoUrl}
                                 alt="Foto do produto" />
-                            <div>
+                            <div className="product-desc">
                                 <h4>{product.name}</h4><br/>
                                 {product.description}<br/><br/>
                                 <div>R$ {product.price.toFixed(2)}</div>
