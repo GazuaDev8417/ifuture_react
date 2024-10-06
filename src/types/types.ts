@@ -4,7 +4,7 @@ export interface Restaurant{
     deliveryTime:number
     description:string
     id:string
-    logoUrl:string
+    logourl:string
     name:string
     shipping:number
 }

@@ -107,7 +107,7 @@ const Feed:FC = ()=>{
                 return(
                     <RestaurantCard key={item.id}
                         id={item.id}
-                        logoUrl={item.logoUrl}
+                        logourl={item.logourl}
                         name={item.name}
                         deliveryTime={item.deliveryTime}
                         shipping={item.shipping}
@@ -119,7 +119,7 @@ const Feed:FC = ()=>{
                 {filteredSearch.length > 0 ? filteredSearch.map(rest=>(
                     <RestaurantCard key={rest.id}
                         id={rest.id}
-                        logoUrl={rest.logoUrl}
+                        logourl={rest.logourl}
                         name={rest.name}
                         deliveryTime={rest.deliveryTime}
                         shipping={rest.shipping}

@@ -43,7 +43,7 @@ export const GlobalState = (props:GlobalStateProps)=>{
         deliveryTime:0,
         description:'',
         id:'',
-        logoUrl:'',
+        logourl:'',
         name:'',
         shipping:0
     })

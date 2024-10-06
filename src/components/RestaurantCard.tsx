@@ -41,7 +41,7 @@ const Card = styled.div`
 
 interface RestaurantCardProps{
     id:string
-    logoUrl:string
+    logourl:string
     name:string
     deliveryTime:number
     shipping:number
@@ -53,7 +53,7 @@ const RestaurantCard = (props:RestaurantCardProps)=>{
     return(
         <Card>
             <img 
-                src={props.logoUrl}
+                src={props.logourl}
                 alt="Imagem do restaurante"
                 className="image"
                 onClick={()=> props.getRestaurantById(props.id)} />
