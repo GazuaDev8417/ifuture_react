@@ -6,7 +6,7 @@ import { BASE_URL } from "../../constants/url"
 import RestaurantCard from "../../components/RestaurantCard"
 import Header from "../../components/Header"
 import { BsFillPersonFill } from 'react-icons/bs'
-import { AiFillHome, AiOutlineShoppingCart } from 'react-icons/ai'
+import { AiOutlineShoppingCart } from 'react-icons/ai'
 import { Restaurant } from "../../types/types"
 import { Container } from "./styled"
 import { Loading } from "../../components/Loading"
@@ -109,8 +109,8 @@ const Feed:FC = ()=>{
                         id={item.id}
                         logourl={item.logourl}
                         name={item.name}
-                        deliveryTime={item.deliveryTime}
-                        shipping={item.shipping}
+                        /* deliveryTime={item.deliveryTime}
+                        shipping={item.shipping} */
                         getRestaurantById={()=> getRestaurantById(item.id)}
                     />
                 )
@@ -121,8 +121,8 @@ const Feed:FC = ()=>{
                         id={rest.id}
                         logourl={rest.logourl}
                         name={rest.name}
-                        deliveryTime={rest.deliveryTime}
-                        shipping={rest.shipping}
+                        /* deliveryTime={rest.deliveryTime}
+                        shipping={rest.shipping} */
                         getRestaurantById={()=> getRestaurantById(rest.id)}
                     />
                 )) : <div className="loading"><Loading/></div> }

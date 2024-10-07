@@ -58,7 +58,7 @@ const Profile = ()=>{
     }
 
 
-    const maskedCPF = (cpf:string)=>{
+    /* const maskedCPF = (cpf:string)=>{
         if(cpf){
             const digitsToMask = cpf.length - 3
             const maskDigits = '*'.repeat(digitsToMask)
@@ -67,7 +67,7 @@ const Profile = ()=>{
     
             return result
         }
-    }
+    } */
 
 
     const logout = ()=>{
@@ -151,7 +151,7 @@ const Profile = ()=>{
             {orders && orders.map(order=>(
                 <div className="card" key={order.id}>
                     <div className="card-content">
-                        <div className="rest-name">{order.product}</div>
+                        <div className="rest-name">{order.product} R$ {order.price.toFixed(2)}</div>
                         Pedido feito em: {order.moment} <br/>
                         Quantidade: {order.quantity}<br/>
                         Total: R$ {order.total.toFixed(2)}<br/>

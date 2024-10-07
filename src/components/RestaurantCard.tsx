@@ -43,8 +43,8 @@ interface RestaurantCardProps{
     id:string
     logourl:string
     name:string
-    deliveryTime:number
-    shipping:number
+    /* deliveryTime:number
+    shipping:number */
     getRestaurantById: (id:string)=> void
 }
 
@@ -59,10 +59,10 @@ const RestaurantCard = (props:RestaurantCardProps)=>{
                 onClick={()=> props.getRestaurantById(props.id)} />
             <div className="desc">
                 <div className="rest-name">{props.name}</div>
-                <div className="time">
+                {/* <div className="time">
                     <span>{props.deliveryTime} - {props.deliveryTime + 10} min</span>
                     <span>Frete: R$ {props.shipping.toFixed(2)}</span>
-                </div>
+                </div> */}
             </div>
         </Card>
     )
