@@ -1,7 +1,5 @@
 import { ChangeEvent, Dispatch, SetStateAction, useState } from 'react'
 import styled from 'styled-components'
-import { QRCodeSVG } from 'qrcode.react'
-import { handleKeydown } from '../../utils/escape_key'
 
 // eslint-disable-next-line react-refresh/only-export-components
 const Container = styled.div`
@@ -76,26 +74,10 @@ interface PaymentProps{
 const Payment_methods = ({ 
     paymentMethod, handleRadioButton, selectedValue, textPopup, setTextPopup,/* total, showQRcode, */ setShowQRcode
  }:PaymentProps)=>{
-    /* const [textPopup ,setTextPopup] = useState<boolean>(false) */
-
-
-
-
-    /* const handleCopy = (textToCopy:string)=>{
-        navigator.clipboard.writeText(textToCopy).then(()=>{
-            setTextPopup(true)
-            setShowQRcode(true)
-            setTimeout(()=>{
-                setShowQRcode(false)
-            }, 1000)
-        }).catch(e=>{
-            console.log(`Erro ao copiar: ${e}`)
-        })
-    } */
+    
     
     
     return(
-        <>
         <Container>  
             {
                 paymentMethod === 'money' ? (
@@ -201,18 +183,6 @@ const Payment_methods = ({
                     )
             }
         </Container>
-        {/* <QRCodeBox>
-            <div className={`qrcode-container ${showQRcode ? 'active' : ''}`}>
-                <small style={{background:'white'}}>
-                    Lembrando que o projeto se trata de uma simulação, este QRCode representa nada mais
-                    que o valor total dos pedidos, não copiando nenhuma chave ou código de barras.
-                </small>
-                <QRCodeSVG value={String(total)} size={250} />
-                {textPopup && <span className="textPopup">Copiado!</span>}
-                <button style={{padding:10}} onClick={() => handleCopy(String(total.toFixed(2)))}>Copiar</button>
-            </div>
-        </QRCodeBox> */}
-        </>
     )
 }
 

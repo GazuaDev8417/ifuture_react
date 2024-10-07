@@ -1,4 +1,5 @@
-import { ChangeEvent, FC, FormEvent, useEffect, useState } from "react"
+import { ChangeEvent, FC, FormEvent, useEffect, useState, useContext } from "react"
+import Context, { GlobalStateContext } from "../../global/Context"
 import { useNavigate } from "react-router-dom"
 import axios from "axios"
 import { BASE_URL } from "../../constants/url"
@@ -18,9 +19,10 @@ interface FormData{
 
 const EditProfile:FC = ()=>{
     const navigate = useNavigate()
+    const { user } = useContext(Context) as GlobalStateContext
     const [form, setForm] = useState<FormData>({
-        username:'',
-        email:'',
+        username: user.username,
+        email: user.email,
         cpf: ''
     })
 

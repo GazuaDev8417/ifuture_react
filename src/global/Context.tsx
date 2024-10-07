@@ -68,10 +68,7 @@ export const GlobalState = (props:GlobalStateProps)=>{
         }
         axios.get(`${BASE_URL}/orders`, headers).then(res=>{
             setCart(res.data)
-        }).catch(e => {
-            e.response.data
-            console.log(e.response.data)
-        })
+        }).catch(e => alert(e.response.data))
     }
 
 
@@ -80,9 +77,7 @@ export const GlobalState = (props:GlobalStateProps)=>{
             headers: { Authorization: localStorage.getItem('token') || '' }
         }).then(res=>{
             setUser(res.data)
-        }).catch(e=>{
-            alert(e.response.data)
-        })
+        }).catch(e => alert(e.response.data))
     }
     
 

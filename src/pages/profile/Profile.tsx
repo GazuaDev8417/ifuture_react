@@ -3,7 +3,6 @@ import Context, { GlobalStateContext } from '../../global/Context'
 import { useNavigate } from 'react-router-dom'
 import { MdEdit } from 'react-icons/md'
 import { AiOutlineLogout, AiFillHome } from 'react-icons/ai'
-import { IoMenu } from "react-icons/io5";
 import { MdDelete } from "react-icons/md";
 import Header from "../../components/Header"
 import { Container } from './styled'
@@ -92,16 +91,21 @@ const Profile = ()=>{
     }
 
 
-    const deleteUser = ()=>{
+    const cleanHistory = ()=>{
         const headers = {
             headers: { Authorization: localStorage.getItem('token') }
         }
 
-        const decide = window.confirm('Tem certeza que deseja apagar sua conta?')
+        if(orders.length === 0){
+            alert('Seu histórico está vázio!')
+
+            return
+        }
+
+        const decide = window.confirm('Tem certeza que deseja apagar todo seu histórico?')
         if(decide){
-            axios.delete(`${BASE_URL}/user`, headers).then(()=>{
-                localStorage.clear()
-                navigate('/ifuture_react')
+            axios.delete(`${BASE_URL}/orders`, headers).then(()=>{
+                orderHistory()
             }).catch(e => alert(e.response.data))
         }
     }
@@ -139,8 +143,8 @@ const Profile = ()=>{
                 <div className="rest-name"></div>
                 <div></div>
             </div>
-            <button type="button" style={{padding:10, color:'white'}} onClick={deleteUser}>
-                Deletar conta
+            <button type="button" style={{padding:10, color:'white'}} onClick={cleanHistory}>
+                Limpar Histórico
             </button>
             <div id='history' className="order-history">Histórico de pedidos</div>
             <hr style={{width:'100%', marginBottom:'15px', background:'lightgray'}} />
@@ -150,7 +154,7 @@ const Profile = ()=>{
                         <div className="rest-name">{order.product}</div>
                         Pedido feito em: {order.moment} <br/>
                         Quantidade: {order.quantity}<br/>
-                        Total: R$ {order.total}<br/>
+                        Total: R$ {order.total.toFixed(2)}<br/>
                         Restaurante: Clique <a onClick={() => getRestaurantById(order.restaurant)}>aqui</a> para ver o restaurante do pedido
                     </div>
                     <MdDelete className='icon' style={{
