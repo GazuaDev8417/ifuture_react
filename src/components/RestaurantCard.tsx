@@ -4,6 +4,7 @@ import styled from 'styled-components'
 const Card = styled.div`
     display: flex;
     flex-direction: column;
+    align-items: center;
     border: 1px solid red;
     margin: 20px auto 50px;
     width: 50vw;
@@ -11,7 +12,7 @@ const Card = styled.div`
 
     .image{
         height: 50vh;
-        width: 50vw;
+        width: 49.5vw;
     }
 
     .desc{
@@ -32,8 +33,16 @@ const Card = styled.div`
 
 /* MEDIA QUERIES */
     @media(max-width: 830px){
+        width: 70vw;
+
         .image{
-            height: 95%;
+            width: 69.5vw;
+        }
+    }
+
+    @media(max-width: 390px){
+        .image{
+            width: 69vw;
         }
     }
 `

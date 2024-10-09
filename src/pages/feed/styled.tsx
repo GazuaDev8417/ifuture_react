@@ -30,15 +30,19 @@ export const Container = styled.div`
 
 /* MEDIA QUERIES */
     @media(max-width: 760px){
+        input{
+            width: 70vw;
+        }
+
         .categories{
             display: grid;
             grid-template-columns: repeat(4, 1fr);
-            width: 50%;
+            width: 70vw;
             margin: auto;            
         }
 
         .card-category{
-            font-size: 80%;
+            font-size: 80%;;
         }
     }
 `
