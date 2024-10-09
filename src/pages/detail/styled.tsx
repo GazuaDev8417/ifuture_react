@@ -1,6 +1,15 @@
 import styled from 'styled-components'
 
 
+
+
+export const Temp = styled.div`
+    display: flex;
+    /* align-items: center; */
+    justify-content: center;
+`
+
+
 export const Container = styled.div`
     margin-top: 15vh;
     h1{
@@ -15,7 +24,7 @@ export const Container = styled.div`
 
     .image{
         width: 50vw;
-        height: 50vh;
+        width: 49.5vw;
     }
 
     .desc{
@@ -75,8 +84,15 @@ export const Container = styled.div`
 
 /* MEDIA QUERIES */
     @media(max-width: 830px){
+        width: 70vw;
+        
+        .card{
+            width: 70vw;
+        }
+
         .image{
             height: 90%;
+            width: 69.5vw;
         }
 
         .desc{
@@ -92,6 +108,7 @@ export const Container = styled.div`
             border-radius: 10px;
             margin: 10px; */
             flex-direction: column;
+            padding: 10px;
         }
 
         .product-image{

@@ -152,10 +152,10 @@ const Profile = ()=>{
                 <div className="card" key={order.id}>
                     <div className="card-content">
                         <div className="rest-name">{order.product} R$ {order.price.toFixed(2)}</div>
-                        Pedido feito em: {order.moment} <br/>
-                        Quantidade: {order.quantity}<br/>
-                        Total: R$ {order.total.toFixed(2)}<br/>
-                        Restaurante: Clique <a onClick={() => getRestaurantById(order.restaurant)}>aqui</a> para ver o restaurante do pedido
+                        <b>Pedido feito em:</b> {order.moment} <br/>
+                        <b>Quantidade:</b> {order.quantity}<br/>
+                        <b>Total:</b> R$ {order.total.toFixed(2)}<br/>
+                        <b>Restaurante:</b> Clique <a onClick={() => getRestaurantById(order.restaurant)}>aqui</a> para ver o restaurante do pedido
                     </div>
                     <MdDelete className='icon' style={{
                             color: hoveredItemId === order.id ? 'red' : 'black'

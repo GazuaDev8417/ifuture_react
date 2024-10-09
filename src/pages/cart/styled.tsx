@@ -129,14 +129,29 @@ export const Container = styled.div`
 
         .btn-container{
             display: flex;
-            flex-direction: row-reverse;
+            flex-direction: row;
             justify-content: space-between;
             width: 80%;
             margin: 10px;
+
+            input{
+                width: 30%;
+            }
         }
 
         .card img{
             width: 65vw;      
+        }
+    }
+
+    @media(max-width: 532px){
+        .select-container{
+            flex-direction: column;
+            gap: 10px;
+
+            div{
+                font-size: 1rem;
+            }
         }
     }
 `
