@@ -5,7 +5,7 @@ import Header from "../../components/Header"
 import { AiOutlineShoppingCart } from 'react-icons/ai'
 import { BsFillPersonFill } from 'react-icons/bs'
 import { Products } from "../../types/types"
-import { Container } from './styled'
+import { Container, Temp } from './styled'
 import axios from "axios"
 import { BASE_URL } from "../../constants/url"
 
@@ -67,7 +67,7 @@ const Detail:FC = ()=>{
 
     
     return(
-        <>
+        <Temp>
         <Header
             leftIcon={
                 <AiOutlineShoppingCart className="header-icon" onClick={()=>{
@@ -116,7 +116,7 @@ const Detail:FC = ()=>{
                 </div>
             </div>
         </Container>
-        </>
+        </Temp>
     )
 }
 
