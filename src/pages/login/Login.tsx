@@ -17,7 +17,7 @@ interface FormData{
 const Login:FC = ()=>{
     const navigate = useNavigate()
     const [showPass, setShowPass] = useState<boolean>(false)
-    const [showModal, setShowModal] = useState<boolean>(false)
+    //const [showModal, setShowModal] = useState<boolean>(false)
     const [form, setForm] = useState<FormData>({
         email:'visitante@email.com',
         password:'123456'
@@ -33,13 +33,13 @@ const Login:FC = ()=>{
         }
     }, [])
 
-    useEffect(()=>{
+    /* useEffect(()=>{
         const isMobileDevice = /iPhone|iPad|iPod|Android|webOS|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent)
 
         if(isMobileDevice){
             setShowModal(true)
         }
-    }, [])
+    }, []) */
 
 
     const onChange = (e:ChangeEvent<HTMLInputElement>):void=>{
