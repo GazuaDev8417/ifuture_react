@@ -190,7 +190,7 @@ const Cart:FC = ()=>{
                             {/* <b>Descrição: </b>{item.description} <br /> */}
                             <b>Quantidade: </b>{item.quantity} <br />
                             <b>Preço: </b>R$ {item.price.toFixed(2)} <br />
-                            <b>Total: </b>{((item.price) * (item.quantity)).toFixed(2)} <br />
+                            <b>Total: </b>R$ {((item.price) * (item.quantity)).toFixed(2)} <br />
                         </div>
                     </span>
                     <div className="btn-container">
@@ -221,7 +221,7 @@ const Cart:FC = ()=>{
                     <option value="money" defaultChecked>Dinheiro</option>
                     <option value="creditcard">Cartão de crédito</option>
                 </select>
-                <div className="total-price">Total da compra: {total.toFixed(2)}</div>
+                <div className="total-price">Total da compra: R$ {total.toFixed(2)}</div>
             </div>
             <button 
                 className="requestOrder-btn"

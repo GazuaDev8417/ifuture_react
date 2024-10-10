@@ -5,7 +5,7 @@ import { BASE_URL } from "../../constants/url"
 import { FaEyeSlash, FaEye } from 'react-icons/fa'
 import { Link, useNavigate } from "react-router-dom"
 import { Container } from "./styled"
-import Modal from "../../components/Modal"
+//import Modal from "../../components/Modal"
 
 
 interface FormData{
@@ -70,7 +70,7 @@ const Login:FC = ()=>{
                 src={ifutureLogo}
                 alt="imagem"/>
             <div className="title">Login</div>
-            { showModal && <Modal setShowModal={setShowModal}/> }
+            {/* { showModal && <Modal setShowModal={setShowModal}/> } */}
             <form onSubmit={login}>
                 <input
                     type="email"

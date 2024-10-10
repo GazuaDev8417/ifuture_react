@@ -15,8 +15,10 @@ import { Order } from '../../types/types'
 const Profile = ()=>{
     const navigate = useNavigate()
     const { user, getProfile, setMenu, setUpdateAddress } = useContext(Context) as GlobalStateContext
+    const [cpf, setCpf] = useState<string | undefined>('')
     const [orders, setOrders] = useState<Order[]>([])
     const [hoveredItemId, setHoveredItemId] = useState<string>('')
+
     
 
 
@@ -42,7 +44,6 @@ const Profile = ()=>{
             navigate('/ifuture_react/detail')        
         }).catch(e=>{
             alert(e.response.data)
-            console.log(e)
         })
     }
 
@@ -58,7 +59,7 @@ const Profile = ()=>{
     }
 
 
-    /* const maskedCPF = (cpf:string)=>{
+    const maskedCPF = (cpf:string)=>{
         if(cpf){
             const digitsToMask = cpf.length - 3
             const maskDigits = '*'.repeat(digitsToMask)
@@ -67,7 +68,25 @@ const Profile = ()=>{
     
             return result
         }
-    } */
+    }
+
+
+    const bringCPF = (cpf:string)=>{
+        const body = {
+            cpf
+        }
+
+        axios.post(`${BASE_URL}/cpf`, body).then(res=>{
+            const cpf = maskedCPF(res.data)
+            setCpf(cpf)
+        })
+    }
+
+    useEffect(()=>{
+        bringCPF(user.cpf)
+    }, [user.cpf])
+
+
 
 
     const logout = ()=>{
@@ -127,6 +146,7 @@ const Profile = ()=>{
             <div className="user-section">
                 <div>{user.username} <br />
                     {user.email} <br />
+                    {cpf}
                 </div>
                 <MdEdit className="icon" onClick={()=> navigate('/ifuture_react/edit-profile')} />
             </div>

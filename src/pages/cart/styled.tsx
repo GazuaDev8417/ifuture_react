@@ -142,6 +142,10 @@ export const Container = styled.div`
         .card img{
             width: 65vw;      
         }
+
+        .total-price{
+            font-size: 1rem;
+        }
     }
 
     @media(max-width: 532px){
