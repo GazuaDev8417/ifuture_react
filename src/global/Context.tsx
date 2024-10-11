@@ -2,19 +2,20 @@ import {
     Dispatch, ReactNode, SetStateAction,
     createContext, useState
 } from "react"
-import { Restaurant, User, Order } from "../types/types"
+import { Restaurant, Products, User, Order } from "../types/types"
 import axios from "axios"
 import { BASE_URL } from "../constants/url"
 
 
 
 export interface GlobalStateContext{
+    getRestaurantById: (id:string) => void
     menu:Restaurant
-    setMenu:Dispatch<SetStateAction<Restaurant>>
-    /* restaurantId:string
-    setRestaurantId:Dispatch<SetStateAction<string>> */
-    user:User
+    //setMenu:Dispatch<SetStateAction<Restaurant>>
+    products:Products[]
+    setProducts:Dispatch<SetStateAction<Products[]>>
     getProfile: () => void
+    user:User
     getAllOrders: () => void
     cart:Order[]
     setCart:Dispatch<SetStateAction<Order[]>>
@@ -37,6 +38,7 @@ export const GlobalState = (props:GlobalStateProps)=>{
     const [updateAddress, setUpdateAddress] = useState<boolean>(false)
     const [registAddress, setRegistAddress] = useState<boolean>(false)
     /* const [restaurantId, setRestaurantId] = useState<string>('') */
+    const [products, setProducts] = useState<Products[]>([])
     const [menu, setMenu] = useState<Restaurant>({
         address:'',
         category:'',
@@ -59,6 +61,22 @@ export const GlobalState = (props:GlobalStateProps)=>{
         state:'',
         complement:''
     })
+
+
+    const getRestaurantById = (id:string)=>{
+        axios.get(`${BASE_URL}/restaurants/${id}`, {
+        }).then(res=>{
+            setMenu(res.data)
+            axios.get(`${BASE_URL}/restaurant_products/${id}`).then(res=>{
+                setProducts(res.data)
+            }).catch(e=>{
+                alert(e.response.data)
+            })
+        }).catch(e=>{
+            alert(e.response.data)
+            console.log(e)
+        })
+    }
  
 
 
@@ -84,8 +102,8 @@ export const GlobalState = (props:GlobalStateProps)=>{
 
     return(
         <Context.Provider value={{ 
-            menu, setMenu, getProfile, getAllOrders, cart, setCart, user,
-            /* setRestaurantId, restaurantId, */ updateAddress, setUpdateAddress,
+            menu, products, setProducts, getProfile, getAllOrders, cart, setCart, user,
+            getRestaurantById, updateAddress, setUpdateAddress,
             registAddress, setRegistAddress
         }}>
             { props.children }

@@ -15,7 +15,7 @@ import { Loading } from "../../components/Loading"
 
 const Feed:FC = ()=>{
     const navigate = useNavigate()
-    const { setMenu } = useContext(Context) as GlobalStateContext
+    const { getRestaurantById } = useContext(Context) as GlobalStateContext
     const card = useRef<HTMLDivElement | null>(null)
     const [word, setWord] = useState<string>('')
     const [restaurants, setRestaurants] = useState<Restaurant[]>([])
@@ -37,17 +37,6 @@ const Feed:FC = ()=>{
             setRestaurants(res.data)
         }).catch(e=>{
             alert(e.response.data.message)
-        })
-    }
-
-    const getRestaurantById = (id:string)=>{
-        axios.get(`${BASE_URL}/restaurants/${id}`, {
-        }).then(res=>{
-            setMenu(res.data) 
-            navigate('/ifuture_react/detail')        
-        }).catch(e=>{
-            alert(e.response.data)
-            console.log(e)
         })
     }
 
@@ -111,7 +100,11 @@ const Feed:FC = ()=>{
                         name={item.name}
                         /* deliveryTime={item.deliveryTime}
                         shipping={item.shipping} */
-                        getRestaurantById={()=> getRestaurantById(item.id)}
+                        getRestaurantById={()=>{
+                            localStorage.setItem('restaurantId', item.id)
+                            getRestaurantById(item.id)
+                            navigate('/ifuture_react/detail')
+                        }}
                     />
                 )
             })}
@@ -123,7 +116,11 @@ const Feed:FC = ()=>{
                         name={rest.name}
                         /* deliveryTime={rest.deliveryTime}
                         shipping={rest.shipping} */
-                        getRestaurantById={()=> getRestaurantById(rest.id)}
+                        getRestaurantById={()=>{
+                            localStorage.setItem('restaurantId', rest.id)
+                            getRestaurantById(rest.id)
+                            navigate('/ifuture_react/detail')
+                        } }
                     />
                 )) : <div className="loading"><Loading/></div> }
             </div>

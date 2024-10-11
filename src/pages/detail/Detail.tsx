@@ -1,4 +1,4 @@
-import { FC, useContext, useEffect, useState } from "react"
+import { FC, useContext, useEffect } from "react"
 import { useNavigate } from "react-router-dom"
 import Context, { GlobalStateContext } from "../../global/Context"
 import Header from "../../components/Header"
@@ -14,8 +14,8 @@ import { BASE_URL } from "../../constants/url"
 
 const Detail:FC = ()=>{
     const navigate = useNavigate()
-    const { menu, getAllOrders } = useContext(Context) as GlobalStateContext
-    const [products, setProducts] = useState<Products[]>([])
+    const { menu, getAllOrders, getRestaurantById, products } = useContext(Context) as GlobalStateContext
+    /* const [products, setProducts] = useState<Products[]>([]) */
 
 
 
@@ -26,17 +26,23 @@ const Detail:FC = ()=>{
             navigate('/ifuture_react')
         }
 
-        getProducts()
+        //getProducts()
+
+        const restaurantId = localStorage.getItem('restaurantId')
+        if(restaurantId){
+            getRestaurantById(restaurantId)
+            //getProducts()
+        }
     }, [])
 
 
-    const getProducts = ()=>{
+    /* const getProducts = ()=>{
         axios.get(`${BASE_URL}/restaurant_products/${menu.id}`).then(res=>{
             setProducts(res.data)
         }).catch(e=>{
             alert(e.response.data)
         })
-    }
+    } */
     
     
     const request = (product: Products)=>{
