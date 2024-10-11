@@ -19,7 +19,7 @@ const Profile = ()=>{
     const [orders, setOrders] = useState<Order[]>([])
     const [hoveredItemId, setHoveredItemId] = useState<string>('')
 
-    console.log(user.cpf)
+    
 
 
     useEffect(()=>{
@@ -59,24 +59,6 @@ const Profile = ()=>{
             return result
         }
     }
-
-
-    /* const bringCPF = (cpf:string)=>{
-        const body = {
-            cpf
-        }
-
-        console.log(body)
-        axios.post(`${BASE_URL}/cpf`, body).then(res=>{
-            console.log(res.data)
-        }).catch(e => console.log(e.response.data))
-    }
-
-    useEffect(()=>{
-        bringCPF(user.cpf)
-    }, [user.cpf]) */
-
-
 
 
     const logout = ()=>{
@@ -165,7 +147,11 @@ const Profile = ()=>{
                         <b>Pedido feito em:</b> {order.moment} <br/>
                         <b>Quantidade:</b> {order.quantity}<br/>
                         <b>Total:</b> R$ {order.total.toFixed(2)}<br/>
-                        <b>Restaurante:</b> Clique <a onClick={() => getRestaurantById(order.restaurant)}>aqui</a> para ver o restaurante do pedido
+                        <b>Restaurante:</b> Clique <a onClick={() =>{
+                            localStorage.setItem('restaurantId', order.restaurant)
+                            getRestaurantById(order.restaurant)
+                            navigate('/ifuture_react/detail')
+                        }}>aqui</a> para ver o restaurante do pedido
                     </div>
                     <MdDelete className='icon' style={{
                             color: hoveredItemId === order.id ? 'red' : 'black'
