@@ -14,7 +14,7 @@ import { Order } from '../../types/types'
 
 const Profile = ()=>{
     const navigate = useNavigate()
-    const { user, getProfile, setMenu, setUpdateAddress } = useContext(Context) as GlobalStateContext
+    const { user, getProfile, setUpdateAddress, getRestaurantById } = useContext(Context) as GlobalStateContext
     //const [cpf, setCpf] = useState<string | undefined>('')
     const [orders, setOrders] = useState<Order[]>([])
     const [hoveredItemId, setHoveredItemId] = useState<string>('')
@@ -36,16 +36,6 @@ const Profile = ()=>{
     }, [])
 
 
-
-    const getRestaurantById = (id:string)=>{
-        axios.get(`${BASE_URL}/restaurants/${id}`, {
-        }).then(res=>{
-            setMenu(res.data) 
-            navigate('/ifuture_react/detail')        
-        }).catch(e=>{
-            alert(e.response.data)
-        })
-    }
 
 
     const orderHistory = ()=>{

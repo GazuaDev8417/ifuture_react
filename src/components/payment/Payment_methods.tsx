@@ -104,7 +104,7 @@ const Payment_methods = ({
                                 onChange={handleRadioButton} />
                         </div>
                         
-                        <div className="payment-box">
+                        {/* <div className="payment-box">
                             <label className='label' htmlFor="boleto">
                                 <img src="https://olhardigital.com.br/wp-content/uploads/2015/02/20150205184012.jpg" 
                                     alt="Boleto Image"
@@ -117,7 +117,7 @@ const Payment_methods = ({
                                 name="payment"
                                 id="boleto"
                                 onChange={handleRadioButton} />
-                        </div>
+                        </div> */}
                     </div>
                     ) : (
                     <div className="money-container">
