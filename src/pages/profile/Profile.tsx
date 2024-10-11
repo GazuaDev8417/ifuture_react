@@ -15,11 +15,11 @@ import { Order } from '../../types/types'
 const Profile = ()=>{
     const navigate = useNavigate()
     const { user, getProfile, setMenu, setUpdateAddress } = useContext(Context) as GlobalStateContext
-    const [cpf, setCpf] = useState<string | undefined>('')
+    //const [cpf, setCpf] = useState<string | undefined>('')
     const [orders, setOrders] = useState<Order[]>([])
     const [hoveredItemId, setHoveredItemId] = useState<string>('')
 
-    
+    console.log(user.cpf)
 
 
     useEffect(()=>{
@@ -71,20 +71,20 @@ const Profile = ()=>{
     }
 
 
-    const bringCPF = (cpf:string)=>{
+    /* const bringCPF = (cpf:string)=>{
         const body = {
             cpf
         }
 
+        console.log(body)
         axios.post(`${BASE_URL}/cpf`, body).then(res=>{
-            const cpf = maskedCPF(res.data)
-            setCpf(cpf)
-        })
+            console.log(res.data)
+        }).catch(e => console.log(e.response.data))
     }
 
     useEffect(()=>{
         bringCPF(user.cpf)
-    }, [user.cpf])
+    }, [user.cpf]) */
 
 
 
@@ -146,7 +146,7 @@ const Profile = ()=>{
             <div className="user-section">
                 <div>{user.username} <br />
                     {user.email} <br />
-                    {cpf}
+                    {maskedCPF(user.cpf)}
                 </div>
                 <MdEdit className="icon" onClick={()=> navigate('/ifuture_react/edit-profile')} />
             </div>
