@@ -129,6 +129,26 @@ const Cart:FC = ()=>{
             console.log(`Erro ao copiar: ${e}`)
         })
     }
+
+
+    const cleanOrders = async()=>{
+        const headers = {
+            headers: { Authorization: localStorage.getItem('token') }
+        }
+
+        if(cart.length === 0){
+            alert('Sua lista de pedidos está vázia')
+
+            return
+        }
+
+        const decide = window.confirm('Tem certeza que deseja deletar sua lista de pedidos?')
+        if(decide){
+            axios.delete(`${BASE_URL}/requested_orders`, headers).then(
+                () => getAllOrders()
+            ).catch(e => alert(e.response.data))
+        }
+    }
     
    
     const endRequests = (id:string)=>{
@@ -175,6 +195,12 @@ const Cart:FC = ()=>{
                     navigate('/ifuture_react/address')
                 }} />
             </div>
+            <button 
+                type="button"
+                style={{padding:10, color:'white', marginTop:30}}
+                onClick={cleanOrders}>
+                Limpar Pedidos
+            </button>
             <div className="addressAndName">
                 <div className="rest-name">Seus produtos</div>
             </div>
