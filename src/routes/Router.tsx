@@ -18,7 +18,7 @@ const Router:FC = ()=>{
             <Route path="/ifuture_react/signup" element={<Signup/>} />
             <Route path="/ifuture_react" element={<Login/>} />
             <Route path="/ifuture_react/feed" element={<Feed/>} />
-            <Route path="/ifuture_react/detail" element={<Detail/>} />
+            <Route path="/ifuture_react/detail/:orderId" element={<Detail/>} />
             <Route path="/ifuture_react/cart" element={<Cart/>} />
             <Route path="/ifuture_react/profile" element={<Profile/>} />
             <Route path="/ifuture_react/address" element={<Address/>} />

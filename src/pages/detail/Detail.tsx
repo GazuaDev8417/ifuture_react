@@ -1,5 +1,5 @@
-import { FC, useContext, useEffect } from "react"
-import { useNavigate } from "react-router-dom"
+import { FC, useContext, useEffect, useRef } from "react"
+import { useNavigate, useParams } from "react-router-dom"
 import Context, { GlobalStateContext } from "../../global/Context"
 import Header from "../../components/Header"
 import { AiOutlineShoppingCart } from 'react-icons/ai'
@@ -14,6 +14,9 @@ import { BASE_URL } from "../../constants/url"
 
 const Detail:FC = ()=>{
     const navigate = useNavigate()
+    const { selectedOrderId } = useParams()
+    const ordersRef = useRef<{ [key:string]: HTMLElement | null }>({})
+    // const selectedOrderId = localStorage.getItem('selectedOrderId')
     const { menu, getAllOrders, getRestaurantById, products } = useContext(Context) as GlobalStateContext
     /* const [products, setProducts] = useState<Products[]>([]) */
 
@@ -26,23 +29,21 @@ const Detail:FC = ()=>{
             navigate('/ifuture_react')
         }
 
-        //getProducts()
-
         const restaurantId = localStorage.getItem('restaurantId')
         if(restaurantId){
-            getRestaurantById(restaurantId)
-            //getProducts()
+            getRestaurantById(restaurantId)            
         }
     }, [])
 
 
-    /* const getProducts = ()=>{
-        axios.get(`${BASE_URL}/restaurant_products/${menu.id}`).then(res=>{
-            setProducts(res.data)
-        }).catch(e=>{
-            alert(e.response.data)
-        })
-    } */
+    useEffect(()=>{
+        if(selectedOrderId && ordersRef.current[selectedOrderId]){
+            ordersRef.current[selectedOrderId].scrollIntoView({
+                behavior: 'smooth',
+                block: 'center'
+            })
+        }
+    }, [selectedOrderId])
     
     
     const request = (product: Products)=>{
@@ -103,7 +104,11 @@ const Detail:FC = ()=>{
                 <div className="products">Cardápio Principal</div>
                 <div className="products-container">
                     {products && products.map(product=>(
-                        <div className="products-card" key={product.id}>
+                        <div 
+                            className="products-card"
+                            key={product.id}
+                            ref={el => ordersRef.current[product.id] = el}
+                            >
                             <img
                                 className="product-image" 
                                 src={product.photoUrl}

@@ -100,6 +100,7 @@ const Profile = ()=>{
             }).catch(e => alert(e.response.data))
         }
     }
+    
 
 
     
@@ -148,9 +149,10 @@ const Profile = ()=>{
                         <b>Quantidade:</b> {order.quantity}<br/>
                         <b>Total:</b> R$ {order.total.toFixed(2)}<br/>
                         <b>Restaurante:</b> Clique <a onClick={() =>{
+                            // localStorage.setItem('selectedOrderId', order.id)
                             localStorage.setItem('restaurantId', order.restaurant)
                             getRestaurantById(order.restaurant)
-                            navigate('/ifuture_react/detail')
+                            navigate(`/ifuture_react/detail/${order.id}`)
                         }}>aqui</a> para ver o restaurante do pedido
                     </div>
                     <MdDelete className='icon' style={{
