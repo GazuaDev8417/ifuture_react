@@ -9,7 +9,7 @@ import { QRCodeSVG } from 'qrcode.react'
 import { MdEdit } from 'react-icons/md'
 import { Order } from "../../types/types"
 import { useNavigate } from "react-router-dom"
-import { Container, QRCodeBox } from "./styled"
+import { Container, QRCodeBox, CreditPayment } from "./styled"
 import Payment_methods from "../../components/payment/Payment_methods"
 
 
@@ -19,9 +19,8 @@ const Cart:FC = ()=>{
     const [payment, setPayment] = useState<string>('money')
     const [selectedValue, setSelectedValue] = useState<string>('')
     const [showQRcode, setShowQRcode] = useState<boolean>(false)
-
+    const [showCreditCard, setShowCreditCard] = useState<boolean>(false)
     const [textPopup ,setTextPopup] = useState<boolean>(false)
-
     const { 
         cart, setCart, user, getProfile, getAllOrders, setUpdateAddress
     } = useContext(Context) as GlobalStateContext
@@ -50,6 +49,7 @@ const Cart:FC = ()=>{
         const handleKeydown = (e:KeyboardEvent)=>{
             if(e.key === 'Escape' || e.key === 'Esc'){
                 setShowQRcode(false)
+                setShowCreditCard(false)
                 setSelectedValue('')
             }
         }
@@ -94,6 +94,7 @@ const Cart:FC = ()=>{
         if(cart.length === 0){
             alert('Você ainda não fez nenhum pedido')
             setShowQRcode(false)
+            setShowCreditCard(false)
             return
         }
 
@@ -102,6 +103,16 @@ const Cart:FC = ()=>{
             setShowQRcode(true)
         }else{
             setShowQRcode(false)
+        }
+
+        if(
+            e.target.value === 'Visa' || e.target.value === 'Master Card'
+            || e.target.value === 'Hiper Card' || e.target.value === 'American Express' 
+            && cart.length > 0
+        ){
+            setShowCreditCard(true)
+        }else{
+            setShowCreditCard(false)
         }
     }
 
@@ -149,6 +160,7 @@ const Cart:FC = ()=>{
             ).catch(e => alert(e.response.data))
         }
     }
+    
     
    
     const endRequests = (id:string)=>{

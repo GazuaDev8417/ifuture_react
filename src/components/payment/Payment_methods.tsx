@@ -1,5 +1,8 @@
-import { ChangeEvent, Dispatch, SetStateAction } from 'react'
+import { ChangeEvent, Dispatch, SetStateAction, useState } from 'react'
+import Cards from 'react-credit-cards'
 import styled from 'styled-components'
+import 'react-credit-cards/es/styles-compiled.css'
+
 
 // eslint-disable-next-line react-refresh/only-export-components
 const Container = styled.div`
@@ -30,6 +33,44 @@ const Container = styled.div`
     .label{
         cursor: pointer;
     }
+
+    .credit-container{
+        display: flex;
+        gap: 30px;
+    }
+
+    .form{
+        display: flex;
+        flex-direction: column;
+        gap: 5px;
+
+        .card-number{
+            width: 300px;
+            border: none;
+            border-bottom: 1px solid;
+            border-radius: 0%;
+        }
+
+        .thirdLine-container{
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+
+        .card-expiry{
+            width: 100px;
+            border: none;
+            border-bottom: 1px solid;
+            border-radius: 0%;
+        }
+
+        .card-cvc{
+            width: 70px;
+            border: none;
+            border-bottom: 1px solid;
+            border-radius: 0%;
+        }
+    }
 `
 
 
@@ -46,6 +87,18 @@ interface PaymentProps{
 const Payment_methods = ({ 
     paymentMethod, handleRadioButton, selectedValue, textPopup, setTextPopup,/* total, showQRcode, */ setShowQRcode
  }:PaymentProps)=>{
+    const [form, setForm] = useState({
+        number: '', 
+        name: '',
+        expiry: '',
+        cvc: ''
+    })
+
+
+    const onChange = (e:ChangeEvent<HTMLInputElement>):void=>{
+        const { name, value } = e.target
+        setForm({ ...form, [name]:value })
+    }
     
     
     
@@ -90,8 +143,47 @@ const Payment_methods = ({
                         </div> */}
                     </div>
                     ) : (
-                    <div className="money-container">
-                        <div className="payment-box">
+                    <div className="credit-container">
+                        <Cards
+                            number={form.number}
+                            name={form.name}
+                            expiry={form.expiry}
+                            cvc={form.cvc}
+                            
+                            />
+                        <form className='form'>
+                            <input
+                                className='card-number' 
+                                type="number" 
+                                name="number"
+                                value={form.number}
+                                placeholder='Número do cartão'
+                                onChange={onChange} />
+                            <input 
+                                className='card-number'
+                                type="text"
+                                name="name"
+                                value={form.name}
+                                placeholder='Nome do titular'
+                                onChange={onChange} />
+                            <div className="thirdLine-container">
+                                <input 
+                                    className='card-expiry'
+                                    type="text"
+                                    name="expiry"
+                                    value={form.expiry}
+                                    placeholder='Vencimento'
+                                    onChange={onChange} />
+                                <input 
+                                    className='card-cvc'
+                                    type="text"
+                                    name="cvc"
+                                    value={form.cvc}
+                                    placeholder='CVC'
+                                    onChange={onChange} />
+                            </div>
+                        </form>
+                        {/* <div className="payment-box">
                             <label className='label' htmlFor="visa">
                                 <img 
                                     src="https://img.freepik.com/free-icon/visa_318-202971.jpg" 
@@ -150,7 +242,7 @@ const Payment_methods = ({
                                 name="payment"
                                 id="american"
                                 onChange={handleRadioButton} />
-                        </div>                            
+                        </div> */}                            
                     </div>
                     )
             }

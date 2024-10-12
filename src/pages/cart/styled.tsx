@@ -1,4 +1,5 @@
 import styled from 'styled-components'
+import 'react-credit-cards/es/styles-compiled.css'
 
 
 export const Container = styled.div`
@@ -160,6 +161,35 @@ export const Container = styled.div`
     }
 `
 export const QRCodeBox = styled.div`
+    .qrcode-container{
+        background-color: rgba(245, 245, 245, .7);
+        position: fixed;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%) scale(.1);
+        width: 500px;
+        border: 2px solid;
+        border-radius: 5px;
+        box-shadow: 0 0 10px;
+        padding: 10px 25px;
+        opacity: 0;
+        pointer-events: none;
+        transition: 1s ease;
+
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        gap: 15px;
+    }
+
+    .qrcode-container.active{
+        opacity: 1;
+        pointer-events: auto;
+        transform: translate(-50%, -50%) scale(1);
+    }
+`
+
+export const CreditPayment = styled.div`
     .qrcode-container{
         background-color: rgba(245, 245, 245, .7);
         position: fixed;
