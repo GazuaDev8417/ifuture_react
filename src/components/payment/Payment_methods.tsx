@@ -1,7 +1,9 @@
-import { ChangeEvent, Dispatch, SetStateAction, useState } from 'react'
+import { ChangeEvent, Dispatch, SetStateAction, useState, useContext } from 'react'
+import Context, { GlobalStateContext } from  '../../global/Context'
 import Cards from 'react-credit-cards'
 import styled from 'styled-components'
 import 'react-credit-cards/es/styles-compiled.css'
+import { inputDate } from '../../utils/cpf_mask'
 
 
 // eslint-disable-next-line react-refresh/only-export-components
@@ -35,40 +37,46 @@ const Container = styled.div`
     }
 
     .credit-container{
+        background-color: rgba(0, 0, 255, .7);
+        border-radius: 10px;
+        padding: 7px;
         display: flex;
         gap: 30px;
-    }
 
-    .form{
-        display: flex;
-        flex-direction: column;
-        gap: 5px;
-
-        .card-number{
-            width: 300px;
-            border: none;
-            border-bottom: 1px solid;
-            border-radius: 0%;
-        }
-
-        .thirdLine-container{
+        .form{
             display: flex;
-            align-items: center;
-            justify-content: space-between;
-        }
+            flex-direction: column;
+            gap: 5px;
 
-        .card-expiry{
-            width: 100px;
-            border: none;
-            border-bottom: 1px solid;
-            border-radius: 0%;
-        }
+            input{
+                background: transparent;
+                border: none;
+                border-bottom: 1px gray solid;
+                border-radius: 0%;
+                color: whitesmoke;
+            }
 
-        .card-cvc{
-            width: 70px;
-            border: none;
-            border-bottom: 1px solid;
-            border-radius: 0%;
+            input::placeholder{
+                color: lightblue;
+            }
+
+            .card-number{
+                width: 300px;
+            }
+
+            .thirdLine-container{
+                display: flex;
+                align-items: center;
+                justify-content: space-between;
+            }
+
+            .card-expiry{
+                width: 100px;
+            }
+
+            .card-cvc{
+                width: 70px;
+            }
         }
     }
 `
@@ -81,24 +89,48 @@ interface PaymentProps{
     setShowQRcode:Dispatch<SetStateAction<boolean>>
     textPopup:boolean
     setTextPopup:Dispatch<SetStateAction<boolean>>
+    cartLength:boolean
+}
+
+interface Form{
+    number:string 
+    name:string
+    expiry:string
+    cvc:string
 }
 
 
 const Payment_methods = ({ 
-    paymentMethod, handleRadioButton, selectedValue, textPopup, setTextPopup,/* total, showQRcode, */ setShowQRcode
+    paymentMethod, handleRadioButton, selectedValue, textPopup, setTextPopup, setShowQRcode, cartLength
  }:PaymentProps)=>{
-    const [form, setForm] = useState({
+    const { setAllfieldsFilled } = useContext(Context) as GlobalStateContext
+    const [focused, setFocused] = useState<'number' | 'name' | 'expiry' | 'cvc' | undefined>(undefined)
+    const [form, setForm] = useState<Form>({
         number: '', 
         name: '',
         expiry: '',
         cvc: ''
     })
 
+    setAllfieldsFilled(Object.values(form).every(value => value.trim() !== ''))
+
+
+    const changeFocus = (e:ChangeEvent<HTMLInputElement>):void=>{
+        setFocused(e.target.name as 'number' | 'name' | 'expiry' | 'cvc')
+    }
 
     const onChange = (e:ChangeEvent<HTMLInputElement>):void=>{
         const { name, value } = e.target
         setForm({ ...form, [name]:value })
     }
+
+
+    const handleKeyPress = (e: React.KeyboardEvent<HTMLInputElement>) => {
+        if (e.charCode < 48 || e.charCode > 57) {
+          e.preventDefault() 
+        }
+    }
+
     
     
     
@@ -126,21 +158,6 @@ const Payment_methods = ({
                                 id="payPal"
                                 onChange={handleRadioButton} />
                         </div>
-                        
-                        {/* <div className="payment-box">
-                            <label className='label' htmlFor="boleto">
-                                <img src="https://olhardigital.com.br/wp-content/uploads/2015/02/20150205184012.jpg" 
-                                    alt="Boleto Image"
-                                    className="image" />
-                            </label>
-                            <input 
-                                value='Boleto'
-                                checked={selectedValue === 'Boleto'}
-                                type="radio"
-                                name="payment"
-                                id="boleto"
-                                onChange={handleRadioButton} />
-                        </div> */}
                     </div>
                     ) : (
                     <div className="credit-container">
@@ -149,100 +166,54 @@ const Payment_methods = ({
                             name={form.name}
                             expiry={form.expiry}
                             cvc={form.cvc}
-                            
+                            focused={focused}
                             />
                         <form className='form'>
                             <input
+                                disabled={cartLength ? false : true}
                                 className='card-number' 
-                                type="number" 
+                                type="text"
+                                onKeyPress={handleKeyPress} 
                                 name="number"
                                 value={form.number}
+                                maxLength={19}
                                 placeholder='Número do cartão'
-                                onChange={onChange} />
+                                onChange={onChange}
+                                onFocus={changeFocus} />
                             <input 
+                                disabled={cartLength ? false : true}
                                 className='card-number'
                                 type="text"
                                 name="name"
                                 value={form.name}
                                 placeholder='Nome do titular'
-                                onChange={onChange} />
+                                onChange={onChange}
+                                onFocus={changeFocus} />
                             <div className="thirdLine-container">
                                 <input 
+                                    disabled={cartLength ? false : true}
                                     className='card-expiry'
                                     type="text"
                                     name="expiry"
-                                    value={form.expiry}
+                                    onKeyPress={handleKeyPress}
+                                    value={inputDate(form.expiry)}
+                                    maxLength={5}
                                     placeholder='Vencimento'
-                                    onChange={onChange} />
+                                    onChange={onChange}
+                                    onFocus={changeFocus} />
                                 <input 
+                                    disabled={cartLength ? false : true}
                                     className='card-cvc'
                                     type="text"
                                     name="cvc"
+                                    onKeyPress={handleKeyPress}
+                                    maxLength={3}
                                     value={form.cvc}
                                     placeholder='CVC'
-                                    onChange={onChange} />
+                                    onChange={onChange}
+                                    onFocus={changeFocus} />
                             </div>
-                        </form>
-                        {/* <div className="payment-box">
-                            <label className='label' htmlFor="visa">
-                                <img 
-                                    src="https://img.freepik.com/free-icon/visa_318-202971.jpg" 
-                                    alt="Imagem de cartões de crédito"
-                                    className="image" />
-                            </label>
-                            <input 
-                                value='Visa'
-                                checked={selectedValue === 'Visa'}
-                                type="radio"
-                                name="payment" 
-                                id="visa"
-                                onChange={handleRadioButton} />
-                        </div>                            
-                        <div className="payment-box">
-                            <label className='label' htmlFor="master">
-                                <img 
-                                    src="https://imageio.forbes.com/blogs-images/steveolenski/files/2016/07/Mastercard_new_logo-1200x865.jpg?height=512&width=711&fit=bounds" 
-                                    alt="Imagem de cartões de crédito"
-                                    className="image" />
-                            </label>
-                            <input
-                                value='Master Card'
-                                checked={selectedValue === 'Master Card'} 
-                                type="radio" 
-                                name="payment" 
-                                id="master"
-                                onChange={handleRadioButton} />
-                        </div>                            
-                        <div className="payment-box">
-                            <label className='label' htmlFor="hipercard">
-                                <img 
-                                    src="https://seeklogo.com/images/H/Hipercard_Novo-logo-05174E7224-seeklogo.com.png" 
-                                    alt="Imagem de cartões de crédito"
-                                    className="image" />
-                            </label>
-                            <input 
-                                value='Hiper Card'
-                                checked={selectedValue === 'Hiper Card'}
-                                type="radio" 
-                                name="payment" 
-                                id="hipercard"
-                                onChange={handleRadioButton} />
-                        </div>                            
-                        <div className="payment-box">
-                            <label className='label' htmlFor="american">
-                                <img 
-                                    src="https://static.vecteezy.com/ti/vetor-gratis/t1/14414708-logotipo-da-american-express-em-fundo-transparente-gratis-vetor.jpg" 
-                                    alt="Imagem de cartões de crédito"
-                                    className="image" />
-                            </label>
-                            <input
-                                value='American Express'
-                                checked={selectedValue === 'American Express'} 
-                                type="radio"
-                                name="payment"
-                                id="american"
-                                onChange={handleRadioButton} />
-                        </div> */}                            
+                        </form>                    
                     </div>
                     )
             }

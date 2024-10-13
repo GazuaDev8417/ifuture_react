@@ -9,7 +9,7 @@ import { QRCodeSVG } from 'qrcode.react'
 import { MdEdit } from 'react-icons/md'
 import { Order } from "../../types/types"
 import { useNavigate } from "react-router-dom"
-import { Container, QRCodeBox, CreditPayment } from "./styled"
+import { Container, QRCodeBox } from "./styled"
 import Payment_methods from "../../components/payment/Payment_methods"
 
 
@@ -19,10 +19,10 @@ const Cart:FC = ()=>{
     const [payment, setPayment] = useState<string>('money')
     const [selectedValue, setSelectedValue] = useState<string>('')
     const [showQRcode, setShowQRcode] = useState<boolean>(false)
-    const [showCreditCard, setShowCreditCard] = useState<boolean>(false)
+    const [cartLength, setCartLength] = useState<boolean>(false)
     const [textPopup ,setTextPopup] = useState<boolean>(false)
     const { 
-        cart, setCart, user, getProfile, getAllOrders, setUpdateAddress
+        cart, setCart, user, getProfile, getAllOrders, setUpdateAddress, allFieldsFilled
     } = useContext(Context) as GlobalStateContext
     const [total, setTotal] = useState<number>(cart.reduce((acc, item) => acc + item.total, 0))
 
@@ -39,6 +39,9 @@ const Cart:FC = ()=>{
         getAllOrders()
         if(cart.length === 0){
             setSelectedValue('')
+            setCartLength(false)
+        }else{
+            setCartLength(true)
         }
         setTotal(cart.reduce((acc, item) => acc + item.total, 0))
     // eslint-disable-next-line react-hooks/exhaustive-deps
@@ -49,7 +52,7 @@ const Cart:FC = ()=>{
         const handleKeydown = (e:KeyboardEvent)=>{
             if(e.key === 'Escape' || e.key === 'Esc'){
                 setShowQRcode(false)
-                setShowCreditCard(false)
+                //setShowCreditCard(false)
                 setSelectedValue('')
             }
         }
@@ -94,7 +97,7 @@ const Cart:FC = ()=>{
         if(cart.length === 0){
             alert('Você ainda não fez nenhum pedido')
             setShowQRcode(false)
-            setShowCreditCard(false)
+            // setShowCreditCard(false)
             return
         }
 
@@ -110,10 +113,10 @@ const Cart:FC = ()=>{
             || e.target.value === 'Hiper Card' || e.target.value === 'American Express' 
             && cart.length > 0
         ){
-            setShowCreditCard(true)
-        }else{
+            // setShowCreditCard(true)
+        }/* else{
             setShowCreditCard(false)
-        }
+        } */
     }
 
     const removeItem = (cartItem:Order)=>{
@@ -168,7 +171,7 @@ const Cart:FC = ()=>{
             headers: { Authorization: localStorage.getItem('token')}
         }
 
-        if(selectedValue === ''){
+        if(payment === 'money' && selectedValue === ''){
             return alert('Selecione um método de pagamento')
         }
 
@@ -250,8 +253,8 @@ const Cart:FC = ()=>{
                 selectedValue={selectedValue}
                 textPopup={textPopup}
                 setTextPopup={setTextPopup}
-                //showQRcode={showQRcode}
                 setShowQRcode={setShowQRcode}
+                cartLength={cartLength}
                 //total={total}
                 />
             <div className="select-container">
@@ -263,8 +266,8 @@ const Cart:FC = ()=>{
             </div>
             <button 
                 className="requestOrder-btn"
-                style={{background:selectedValue !== '' ? 'red' : 'gray'}}
-                disabled={selectedValue === '' ? true : false}
+                style={{background: allFieldsFilled || selectedValue !== '' ? 'red' : 'gray'}}
+                disabled={allFieldsFilled || selectedValue !== '' ? false : true}
                 onClick={() => endRequests(user.id)}>
                 Finalizar Compra
             </button>
