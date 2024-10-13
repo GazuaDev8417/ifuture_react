@@ -1,5 +1,5 @@
 import { FC, useContext, useEffect, useRef } from "react"
-import { useNavigate, useParams } from "react-router-dom"
+import { useNavigate } from "react-router-dom"
 import Context, { GlobalStateContext } from "../../global/Context"
 import Header from "../../components/Header"
 import { AiOutlineShoppingCart } from 'react-icons/ai'
@@ -14,9 +14,8 @@ import { BASE_URL } from "../../constants/url"
 
 const Detail:FC = ()=>{
     const navigate = useNavigate()
-    const { selectedOrderId } = useParams()
+    const selectedOrderId = localStorage.getItem('selectedOrderId')
     const ordersRef = useRef<{ [key:string]: HTMLElement | null }>({})
-    // const selectedOrderId = localStorage.getItem('selectedOrderId')
     const { menu, getAllOrders, getRestaurantById, products } = useContext(Context) as GlobalStateContext
     /* const [products, setProducts] = useState<Products[]>([]) */
 
@@ -38,10 +37,13 @@ const Detail:FC = ()=>{
 
     useEffect(()=>{
         if(selectedOrderId && ordersRef.current[selectedOrderId]){
-            ordersRef.current[selectedOrderId].scrollIntoView({
-                behavior: 'smooth',
-                block: 'center'
-            })
+            setTimeout(() => {
+                ordersRef.current[selectedOrderId]?.scrollIntoView({
+                    behavior: 'smooth',
+                    block: 'center',
+                    inline: 'nearest'
+                })
+            }, 100)
         }
     }, [selectedOrderId])
     

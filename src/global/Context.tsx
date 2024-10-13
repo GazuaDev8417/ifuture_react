@@ -23,6 +23,8 @@ export interface GlobalStateContext{
     setUpdateAddress:Dispatch<SetStateAction<boolean>>
     registAddress:boolean
     setRegistAddress:Dispatch<SetStateAction<boolean>>
+    allFieldsFilled:boolean
+    setAllfieldsFilled:Dispatch<SetStateAction<boolean>>
 }
 
 type GlobalStateProps = {
@@ -37,7 +39,7 @@ export const GlobalState = (props:GlobalStateProps)=>{
     const [cart, setCart] = useState<Order[]>([])
     const [updateAddress, setUpdateAddress] = useState<boolean>(false)
     const [registAddress, setRegistAddress] = useState<boolean>(false)
-    /* const [restaurantId, setRestaurantId] = useState<string>('') */
+    const [allFieldsFilled, setAllfieldsFilled] = useState<boolean>(false)
     const [products, setProducts] = useState<Products[]>([])
     const [menu, setMenu] = useState<Restaurant>({
         address:'',
@@ -103,8 +105,8 @@ export const GlobalState = (props:GlobalStateProps)=>{
     return(
         <Context.Provider value={{ 
             menu, products, setProducts, getProfile, getAllOrders, cart, setCart, user,
-            getRestaurantById, updateAddress, setUpdateAddress,
-            registAddress, setRegistAddress
+            getRestaurantById, updateAddress, setUpdateAddress, registAddress, setRegistAddress,
+            allFieldsFilled, setAllfieldsFilled
         }}>
             { props.children }
         </Context.Provider>
