@@ -22,7 +22,7 @@ const Cart:FC = ()=>{
     const [cartLength, setCartLength] = useState<boolean>(false)
     const [textPopup ,setTextPopup] = useState<boolean>(false)
     const { 
-        cart, setCart, user, getProfile, getAllOrders, setUpdateAddress, allFieldsFilled
+        cart, setCart, user, getProfile, getAllOrders, setUpdateAddress, allFieldsFilled, setAllfieldsFilled
     } = useContext(Context) as GlobalStateContext
     const [total, setTotal] = useState<number>(cart.reduce((acc, item) => acc + item.total, 0))
 
@@ -40,6 +40,7 @@ const Cart:FC = ()=>{
         if(cart.length === 0){
             setSelectedValue('')
             setCartLength(false)
+            setAllfieldsFilled(false)
         }else{
             setCartLength(true)
         }
@@ -66,6 +67,12 @@ const Cart:FC = ()=>{
 
     const handleSelect = (e:ChangeEvent<HTMLSelectElement>)=>{
         setPayment(e.target.value)
+        
+        if(e.target.value !== 'money'){
+            setSelectedValue('')
+        }else{
+            setAllfieldsFilled(false)
+        }
     }
 
     const handleNumber = (e:ChangeEvent<HTMLInputElement>, id:string)=>{
@@ -107,16 +114,6 @@ const Cart:FC = ()=>{
         }else{
             setShowQRcode(false)
         }
-
-        if(
-            e.target.value === 'Visa' || e.target.value === 'Master Card'
-            || e.target.value === 'Hiper Card' || e.target.value === 'American Express' 
-            && cart.length > 0
-        ){
-            // setShowCreditCard(true)
-        }/* else{
-            setShowCreditCard(false)
-        } */
     }
 
     const removeItem = (cartItem:Order)=>{
@@ -171,12 +168,13 @@ const Cart:FC = ()=>{
             headers: { Authorization: localStorage.getItem('token')}
         }
 
-        if(payment === 'money' && selectedValue === ''){
+        /* if(payment === 'money' && selectedValue === ''){
             return alert('Selecione um método de pagamento')
-        }
+        } */
 
         axios.patch(`${BASE_URL}/finished_orders/${id}`, headers).then(res=>{
             alert(res.data)
+            setAllfieldsFilled(false)
             getAllOrders()
         }).catch(e => alert(e.response.data))
     }
