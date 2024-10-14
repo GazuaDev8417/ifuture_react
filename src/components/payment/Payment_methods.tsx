@@ -37,7 +37,7 @@ const Container = styled.div`
     }
 
     .credit-container{
-        background-color: rgba(0, 0, 255, .7);
+        background-color: rgba(0, 0, 255, .5);
         border-radius: 10px;
         padding: 7px;
         display: flex;
@@ -78,6 +78,22 @@ const Container = styled.div`
                 width: 70px;
             }
         }
+
+        .button-container{
+            margin-top: 25px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+
+            button{
+                padding: 5px;
+                background-color: rgba(0, 0, 255, .5);
+                color: whitesmoke;
+                &:hover{
+                    background-color: rgba(0, 0, 255, .7);
+                }
+            }
+        }
     }
 `
 
@@ -112,8 +128,10 @@ const Payment_methods = ({
         cvc: ''
     })
 
-    setAllfieldsFilled(Object.values(form).every(value => value.trim() !== ''))
+    //setAllfieldsFilled(Object.values(form).every(value => value.trim() !== ''))
 
+
+    
 
     const changeFocus = (e:ChangeEvent<HTMLInputElement>):void=>{
         setFocused(e.target.name as 'number' | 'name' | 'expiry' | 'cvc')
@@ -121,7 +139,20 @@ const Payment_methods = ({
 
     const onChange = (e:ChangeEvent<HTMLInputElement>):void=>{
         const { name, value } = e.target
-        setForm({ ...form, [name]:value })
+        setForm({ ...form, [name]:value })        
+    }   
+
+    const isFormValid = ()=>{
+        if(
+            form.number.length >= 16 && form.number.length <= 19
+            && form.name.length > 0
+            && form.expiry.length === 4
+            && form.cvc.length === 3
+        ){
+            setAllfieldsFilled(true)
+        }else{
+            alert('Complete os dados do cartão!')
+        }
     }
 
 
@@ -147,8 +178,7 @@ const Payment_methods = ({
                                     onClick={() => {
                                         setTextPopup(false)
                                         setShowQRcode(true)
-                                    }}
-                                    />
+                                    }}/>
                             </label>
                             <input 
                                 type="radio"
@@ -168,52 +198,66 @@ const Payment_methods = ({
                             cvc={form.cvc}
                             focused={focused}
                             />
-                        <form className='form'>
-                            <input
-                                disabled={cartLength ? false : true}
-                                className='card-number' 
-                                type="text"
-                                onKeyPress={handleKeyPress} 
-                                name="number"
-                                value={form.number}
-                                maxLength={19}
-                                placeholder='Número do cartão'
-                                onChange={onChange}
-                                onFocus={changeFocus} />
-                            <input 
-                                disabled={cartLength ? false : true}
-                                className='card-number'
-                                type="text"
-                                name="name"
-                                value={form.name}
-                                placeholder='Nome do titular'
-                                onChange={onChange}
-                                onFocus={changeFocus} />
-                            <div className="thirdLine-container">
-                                <input 
+                        <div>
+                            <form className='form'>
+                                <input
                                     disabled={cartLength ? false : true}
-                                    className='card-expiry'
+                                    className='card-number' 
                                     type="text"
-                                    name="expiry"
-                                    onKeyPress={handleKeyPress}
-                                    value={inputDate(form.expiry)}
-                                    maxLength={5}
-                                    placeholder='Vencimento'
+                                    onKeyPress={handleKeyPress} 
+                                    name="number"
+                                    value={form.number}
+                                    maxLength={19}
+                                    placeholder='Número do cartão'
                                     onChange={onChange}
                                     onFocus={changeFocus} />
                                 <input 
                                     disabled={cartLength ? false : true}
-                                    className='card-cvc'
+                                    className='card-number'
                                     type="text"
-                                    name="cvc"
-                                    onKeyPress={handleKeyPress}
-                                    maxLength={3}
-                                    value={form.cvc}
-                                    placeholder='CVC'
+                                    name="name"
+                                    value={form.name}
+                                    placeholder='Nome do titular'
                                     onChange={onChange}
                                     onFocus={changeFocus} />
-                            </div>
-                        </form>                    
+                                <div className="thirdLine-container">
+                                    <input 
+                                        disabled={cartLength ? false : true}
+                                        className='card-expiry'
+                                        type="text"
+                                        name="expiry"
+                                        onKeyPress={handleKeyPress}
+                                        value={inputDate(form.expiry)}
+                                        maxLength={5}
+                                        placeholder='Vencimento'
+                                        onChange={onChange}
+                                        onFocus={changeFocus} />
+                                    <input 
+                                        disabled={cartLength ? false : true}
+                                        className='card-cvc'
+                                        type="text"
+                                        name="cvc"
+                                        onKeyPress={handleKeyPress}
+                                        maxLength={3}
+                                        value={form.cvc}
+                                        placeholder='CVC'
+                                        onChange={onChange}
+                                        onFocus={changeFocus} />
+                                </div>
+                            </form>   
+                            <div className="button-container">
+                                <button onClick={() =>{
+                                    setForm({
+                                        number:'',
+                                        name:'',
+                                        expiry:'',
+                                        cvc:''
+                                    })
+                                    setAllfieldsFilled(false)
+                                }}>Limpar</button>
+                                <button onClick={isFormValid}>Selecionar cartão</button>
+                            </div>    
+                        </div>             
                     </div>
                     )
             }
