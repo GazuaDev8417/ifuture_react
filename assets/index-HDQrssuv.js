@@ -767,7 +767,11 @@ Error generating stack: `+o.message+`
     .card img{
         width: 150px;
         height: 150px;
-        border-radius: 10px;        
+        border-radius: 10px;    
+        
+        @media(max-width: 660px){
+            width: 600px;
+        }
     }
 
     .subtotal{
@@ -939,7 +943,8 @@ In order to be iterable, non-array objects must have a [Symbol.iterator]() metho
         background-color: rgba(0, 0, 255, .5);
         border-radius: 10px;
         padding: 7px;
-        display: flex;
+        display: flex;  
+        flex-wrap: wrap;
         gap: 30px;
 
         .form{
@@ -976,6 +981,7 @@ In order to be iterable, non-array objects must have a [Symbol.iterator]() metho
             .card-cvc{
                 width: 70px;
             }
+            
         }
 
         .button-container{
