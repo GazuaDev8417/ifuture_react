@@ -40,7 +40,8 @@ const Container = styled.div`
         background-color: rgba(0, 0, 255, .5);
         border-radius: 10px;
         padding: 7px;
-        display: flex;
+        display: flex;  
+        flex-wrap: wrap;
         gap: 30px;
 
         .form{
@@ -77,6 +78,7 @@ const Container = styled.div`
             .card-cvc{
                 width: 70px;
             }
+            
         }
 
         .button-container{

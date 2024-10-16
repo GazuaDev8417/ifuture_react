@@ -75,7 +75,11 @@ export const Container = styled.div`
     .card img{
         width: 150px;
         height: 150px;
-        border-radius: 10px;        
+        border-radius: 10px;    
+        
+        @media(max-width: 660px){
+            width: 600px;
+        }
     }
 
     .subtotal{
