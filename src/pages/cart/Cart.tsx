@@ -22,7 +22,7 @@ const Cart:FC = ()=>{
     const [cartLength, setCartLength] = useState<boolean>(false)
     const [textPopup ,setTextPopup] = useState<boolean>(false)
     const { 
-        cart, setCart, user, getProfile, getAllOrders, setUpdateAddress, allFieldsFilled, setAllfieldsFilled
+        cart, user, getProfile, getAllOrders, setUpdateAddress, allFieldsFilled, setAllfieldsFilled
     } = useContext(Context) as GlobalStateContext
     const [total, setTotal] = useState<number>(cart.reduce((acc, item) => acc + item.total, 0))
 
