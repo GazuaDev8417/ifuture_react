@@ -168,15 +168,17 @@ const Payment_methods = ({
         if(parseInt(month) > 12){
             alert(`Data inválida. Não há mês ${month}`)
 
-            return
+            return false
         }else if(parseInt(year) < parseInt(currentYear)){
             alert('O vencimento aponta para um ano inferior ao atual!')
+            
+            return false
         }
 
         return true
     }
 
-    
+
 
     const isFormValid = ()=>{
         if(!checkDate()) return
@@ -184,7 +186,7 @@ const Payment_methods = ({
         if(
             form.number.length >= 16 && form.number.length <= 19
             && form.name.length > 0
-            && form.expiry.length === 4
+            && inputDate(form.expiry).length === 5
             && form.cvc.length === 3
         ){
             setAllfieldsFilled(true)
@@ -199,6 +201,12 @@ const Payment_methods = ({
         if (e.charCode < 48 || e.charCode > 57) {
           e.preventDefault() 
         }
+    }
+
+    const nonNumericInput = (e:React.KeyboardEvent<HTMLInputElement>) =>{
+        if (e.charCode >= 48 && e.charCode <= 57) {
+            e.preventDefault() 
+        }  
     }
 
     
@@ -255,6 +263,7 @@ const Payment_methods = ({
                                     className='card-number'
                                     type="text"
                                     name="name"
+                                    onKeyPress={nonNumericInput}
                                     value={form.name}
                                     placeholder='Nome do titular'
                                     onChange={onChange}
