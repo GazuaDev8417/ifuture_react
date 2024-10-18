@@ -79,8 +79,8 @@ const Cart:FC = ()=>{
         const newQuantity = Number(e.target.value)
         const updatedCart = cart.map(item=>{
             if(item.id === id){
-                const newTotal = item.price * newQuantity
-                return { ...item, quantity: newQuantity, total: newTotal }
+                //const newTotal = item.price * newQuantity
+                return { ...item, quantity: newQuantity/* , total: newTotal */ }
             }
             return item
         })
@@ -88,7 +88,7 @@ const Cart:FC = ()=>{
             headers: { Authorization: localStorage.getItem('token')}
         }
 
-        setCart(updatedCart)
+        //setCart(updatedCart)
         
         axios.patch(`${BASE_URL}/order/${id}`, {
             quantity: newQuantity
@@ -137,7 +137,7 @@ const Cart:FC = ()=>{
                 setShowQRcode(false)
             }, 1000)
         }).catch(e=>{
-            console.log(`Erro ao copiar: ${e}`)
+            alert(`Erro ao copiar: ${e}`)
         })
     }
 

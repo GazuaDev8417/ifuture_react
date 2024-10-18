@@ -144,7 +144,43 @@ const Payment_methods = ({
         setForm({ ...form, [name]:value })        
     }   
 
+    const checkDate = ()=>{
+        const expiry = inputDate(form.expiry)
+        const month = expiry.substring(0, 2)
+        const year = expiry.substring(3)
+        const currentDate = new Date().toLocaleDateString()
+        const currentYear = currentDate.substring(8)
+        
+        
+
+        if(expiry.length < 5){
+            alert('A data deve ter 4 algarismos, 2 para o mês e 2 para o anos. Ex.: 12/24, que informa a data 25 de dezembro')
+
+            return
+        }
+
+        if(expiry.indexOf('/') !== 2){
+            alert('Formato de data inválido')
+
+            return
+        }
+
+        if(parseInt(month) > 12){
+            alert(`Data inválida. Não há mês ${month}`)
+
+            return
+        }else if(parseInt(year) < parseInt(currentYear)){
+            alert('O vencimento aponta para um ano inferior ao atual!')
+        }
+
+        return true
+    }
+
+    
+
     const isFormValid = ()=>{
+        if(!checkDate()) return
+
         if(
             form.number.length >= 16 && form.number.length <= 19
             && form.name.length > 0
@@ -154,6 +190,7 @@ const Payment_methods = ({
             setAllfieldsFilled(true)
         }else{
             alert('Complete os dados do cartão!')
+            setAllfieldsFilled(false)
         }
     }
 
@@ -233,7 +270,8 @@ const Payment_methods = ({
                                         maxLength={5}
                                         placeholder='Vencimento'
                                         onChange={onChange}
-                                        onFocus={changeFocus} />
+                                        onFocus={changeFocus}
+                                        onBlur={checkDate} />
                                     <input 
                                         disabled={cartLength ? false : true}
                                         className='card-cvc'
