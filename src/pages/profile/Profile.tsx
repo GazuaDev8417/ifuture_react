@@ -141,28 +141,30 @@ const Profile = ()=>{
             </button>
             <div id='history' className="order-history">Histórico de pedidos</div>
             <hr style={{width:'100%', marginBottom:'15px', background:'lightgray'}} />
-            {orders && orders.map(order=>(
-                <div className="card" key={order.id}>
-                    <div className="card-content">
-                        <div className="rest-name">{order.product} R$ {order.price.toFixed(2)}</div>
-                        <b>Pedido feito em:</b> {order.moment} <br/>
-                        <b>Quantidade:</b> {order.quantity}<br/>
-                        <b>Total:</b> R$ {order.total.toFixed(2)}<br/>
-                        <b>Restaurante:</b> Clique <a onClick={() =>{
-                            localStorage.setItem('selectedOrderId', order.id)
-                            localStorage.setItem('restaurantId', order.restaurant)
-                            getRestaurantById(order.restaurant)
-                            navigate(`/ifuture_react/detail`)
-                        }}>aqui</a> para ver o restaurante do pedido
+            <div className="card-container">
+                {orders && orders.map(order=>(
+                    <div className="card" key={order.id}>
+                        <div className="card-content">
+                            <div className="rest-name">{order.product} R$ {order.price.toFixed(2)}</div>
+                            <b>Pedido feito em:</b> {order.moment} <br/>
+                            <b>Quantidade:</b> {order.quantity}<br/>
+                            <b>Total:</b> R$ {order.total.toFixed(2)}<br/>
+                            <b>Restaurante:</b> Clique <a onClick={() =>{
+                                localStorage.setItem('selectedOrderId', order.id)
+                                localStorage.setItem('restaurantId', order.restaurant)
+                                getRestaurantById(order.restaurant)
+                                navigate(`/ifuture_react/detail`)
+                            }}>aqui</a> para ver o restaurante do pedido
+                        </div>
+                        <MdDelete className='icon' style={{
+                                color: hoveredItemId === order.id ? 'red' : 'black'
+                            }}
+                            onMouseOver={() => setHoveredItemId(order.id)}
+                            onMouseOut={() => setHoveredItemId('')}
+                            onClick={() => deleteOrder(order.id)}/>
                     </div>
-                    <MdDelete className='icon' style={{
-                            color: hoveredItemId === order.id ? 'red' : 'black'
-                        }}
-                        onMouseOver={() => setHoveredItemId(order.id)}
-                        onMouseOut={() => setHoveredItemId('')}
-                        onClick={() => deleteOrder(order.id)}/>
-                </div>
-            ))}
+                ))}
+            </div>
         </Container>
         </>
     )

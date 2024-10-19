@@ -45,11 +45,12 @@ const Feed:FC = ()=>{
         setWord(e.target.value)
     }
 
+    
     const filteredSearch = restaurants && restaurants.filter(rest=>{
         return rest.name.toLocaleLowerCase().includes(word.toLocaleLowerCase())
     })
 
-
+    
     const categoryFilter = (category:string)=>{
         const filtered = restaurants.filter(rest => rest.category === category)
         setFilteredByCategory(filtered)
@@ -62,6 +63,10 @@ const Feed:FC = ()=>{
             }
         }
     }
+
+    const filteredByCategorySearch = filteredByCategory && filteredByCategory.filter(res=>{
+        return res.name.toLocaleLowerCase().includes(word.toLocaleLowerCase())
+    })
    
     
 
@@ -92,7 +97,7 @@ const Feed:FC = ()=>{
                     ))
                 }
             </div>
-            {filteredByCategory && filteredByCategory.map(item=>{
+            {filteredByCategorySearch && filteredByCategorySearch.map(item=>{
                 return(
                     <RestaurantCard key={item.id}
                         id={item.id}

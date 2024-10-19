@@ -62,6 +62,11 @@ export const Container = styled.div`
         margin: 5vh 0 3vh;
     }
 
+    .card-container{
+        display: flex;
+        flex-wrap: wrap;
+    }
+
     .card{
         border: 1px solid;
         border-radius: 10px;
