@@ -622,6 +622,7 @@ Error generating stack: `+o.message+`
         width: 100px;
         height: 130px;	
         border-radius: 10px;
+        box-shadow: 2px 2px 4px;
     }
 
     .select-btn-container{
@@ -749,8 +750,12 @@ Error generating stack: `+o.message+`
         width: 100%;
         border: .5px solid;
         border-radius: 10px;
-        padding-right: 20px;        
+        padding: 20px;        
         margin: 0 0 10px;
+
+        @media(max-width: 413px){
+            width: 115%;
+        }
     }
 
     .btn-container{
@@ -768,6 +773,7 @@ Error generating stack: `+o.message+`
         width: 150px;
         height: 150px;
         border-radius: 10px;    
+        box-shadow: 2px 2px 4px;
         
         @media(max-width: 660px){
             width: 600px;
