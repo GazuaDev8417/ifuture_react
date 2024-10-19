@@ -69,6 +69,7 @@ export const Container = styled.div`
         width: 100px;
         height: 130px;	
         border-radius: 10px;
+        box-shadow: 2px 2px 4px;
     }
 
     .select-btn-container{
