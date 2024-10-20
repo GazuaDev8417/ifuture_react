@@ -825,10 +825,6 @@ Error generating stack: `+o.message+`
     }
 
     @media(max-width: 734px){
-        
-    }
-
-    @media(max-width: 734px){
         h1{
             font-size: 1.5rem;
         }
@@ -871,6 +867,18 @@ Error generating stack: `+o.message+`
             div{
                 font-size: 1rem;
             }
+        }
+    }
+
+    @media(max-width: 400px){
+        .card{
+            width: 130%;
+        }
+    }
+
+    @media(max-width: 326px){
+        .card{
+            width: 150%;
         }
     }
 `,Mw=Oe.div`
