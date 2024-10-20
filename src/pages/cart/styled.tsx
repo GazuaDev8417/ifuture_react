@@ -127,10 +127,6 @@ export const Container = styled.div`
     }
 
     @media(max-width: 734px){
-        
-    }
-
-    @media(max-width: 734px){
         h1{
             font-size: 1.5rem;
         }
@@ -173,6 +169,18 @@ export const Container = styled.div`
             div{
                 font-size: 1rem;
             }
+        }
+    }
+
+    @media(max-width: 400px){
+        .card{
+            width: 130%;
+        }
+    }
+
+    @media(max-width: 326px){
+        .card{
+            width: 150%;
         }
     }
 `
