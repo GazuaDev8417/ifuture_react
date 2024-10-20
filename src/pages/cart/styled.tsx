@@ -162,6 +162,10 @@ export const Container = styled.div`
     }
 
     @media(max-width: 532px){
+        .address-section{
+            width: 120%;
+        }
+
         .select-container{
             flex-direction: column;
             gap: 10px;
@@ -172,7 +176,12 @@ export const Container = styled.div`
         }
     }
 
-    @media(max-width: 400px){
+    @media(max-width: 416px){
+        .address-section{
+            width: 140%;
+            font-size: 13px;
+        }
+
         .card{
             width: 130%;
         }
