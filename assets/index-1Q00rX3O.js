@@ -496,7 +496,7 @@ Error generating stack: `+o.message+`
     }
 
 /* MEDIA QUERIES */
-    @media(max-width: 830px){
+    @media(max-width: 900px){
         width: 70vw;
 
         .image{
@@ -537,7 +537,7 @@ Error generating stack: `+o.message+`
     }
 
 /* MEDIA QUERIES */
-    @media(max-width: 760px){
+    @media(max-width: 900px){
         input{
             width: 70vw;
         }
