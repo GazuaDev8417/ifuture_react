@@ -32,7 +32,7 @@ const Card = styled.div`
     }
 
 /* MEDIA QUERIES */
-    @media(max-width: 830px){
+    @media(max-width: 900px){
         width: 70vw;
 
         .image{

@@ -29,7 +29,7 @@ export const Container = styled.div`
     }
 
 /* MEDIA QUERIES */
-    @media(max-width: 760px){
+    @media(max-width: 900px){
         input{
             width: 70vw;
         }
