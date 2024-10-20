@@ -225,7 +225,7 @@ const Cart:FC = ()=>{
                     </span>
                     <span>
                         <div className="product-name">{item.product}</div>
-                        <div>
+                        <div className="product-details">
                             {/* <b>Descrição: </b>{item.description} <br /> */}
                             <b>Quantidade: </b>{item.quantity} <br />
                             <b>Preço: </b>R$ {item.price.toFixed(2)} <br />

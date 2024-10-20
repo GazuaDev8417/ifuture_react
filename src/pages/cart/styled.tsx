@@ -59,10 +59,6 @@ export const Container = styled.div`
         border-radius: 10px;
         padding: 20px;        
         margin: 0 0 10px;
-
-        @media(max-width: 413px){
-            width: 115%;
-        }
     }
 
     .btn-container{
@@ -81,10 +77,6 @@ export const Container = styled.div`
         height: 150px;
         border-radius: 10px;    
         box-shadow: 2px 2px 4px;
-        
-        @media(max-width: 660px){
-            width: 600px;
-        }
     }
 
     .subtotal{
@@ -124,7 +116,21 @@ export const Container = styled.div`
         font-size: 1.5rem;
     }
 /* MEDIA QUERY */
-    @media(max-width: 660px){
+    @media(max-width: 820px){
+        .product-name{
+            font-size: 1rem;
+        }
+
+        .product-details{
+            font-size: .7rem;
+        }
+    }
+
+    @media(max-width: 734px){
+        
+    }
+
+    @media(max-width: 734px){
         h1{
             font-size: 1.5rem;
         }
@@ -135,6 +141,7 @@ export const Container = styled.div`
 
         .card{
             flex-direction: column;
+            width: 110%;
         }
 
         .btn-container{
