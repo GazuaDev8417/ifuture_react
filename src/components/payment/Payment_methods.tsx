@@ -201,15 +201,23 @@ const Payment_methods = ({
 
 
     const handleKeyPress = (e: React.KeyboardEvent<HTMLInputElement>) => {
-        if (e.charCode < 48 || e.charCode > 57) {
+        /* if (e.charCode < 48 || e.charCode > 57) {
           e.preventDefault() 
+        } */
+
+        if (!/^[0-9]$/.test(e.key)) {
+            e.preventDefault();
         }
     }
 
     const nonNumericInput = (e:React.KeyboardEvent<HTMLInputElement>) =>{
-        if (e.charCode >= 48 && e.charCode <= 57) {
+        /* if (e.charCode >= 48 && e.charCode <= 57) {
             e.preventDefault() 
-        }  
+        }   */
+
+        if (/^[0-9]$/.test(e.key)) {
+            e.preventDefault();
+        }
     }
 
     
