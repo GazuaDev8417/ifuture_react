@@ -8,6 +8,11 @@ export const Container = styled.div`
     /* justify-content: center; */
     margin: 15vh 5rem;
 
+    @media(max-width: 517px){
+        margin: 15vh 1.5rem;
+        border: 1px solid;
+    }
+
     h1{
         text-align: center;
         margin: 5vh 0 10vh;
