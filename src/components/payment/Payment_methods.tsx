@@ -144,6 +144,19 @@ const Payment_methods = ({
         setForm({ ...form, [name]:value })        
     }   
 
+
+    const checkCardNumber = ()=>{
+        if(/^\d+$/.test(form.number)){
+            
+            return true
+        }else{
+            alert('Número de cartão inválido!')
+
+            return false
+        }
+    }
+    
+
     const checkDate = ()=>{
         const expiry = inputDate(form.expiry)
         const month = expiry.substring(0, 2)
@@ -153,14 +166,20 @@ const Payment_methods = ({
         
         
 
-        if(expiry.length < 5){
+        /* if(expiry.length < 5){
             alert('A data deve ter 4 algarismos, 2 para o mês e 2 para o anos. Ex.: 12/24, que informa a data 25 de dezembro')
 
             return
-        }
+        } */
 
-        if(expiry.indexOf('/') !== 2){
+        /* if(expiry.indexOf('/') !== 2){
             alert('Formato de data inválido')
+
+            return
+        } */
+
+        if(/^(0[1-9]|1[0-2])\/\d{2}$/.test(form.expiry)){
+            alert('Data inválida!')
 
             return
         }
@@ -188,7 +207,7 @@ const Payment_methods = ({
             && inputDate(form.expiry).length === 5
             && form.cvc.length === 3
         ){
-            if(!checkDate()) return
+            if(!checkDate() && !checkCardNumber()) return
             else setAllfieldsFilled(true)
         }else{
             alert('Complete os dados do cartão!')
@@ -196,7 +215,6 @@ const Payment_methods = ({
 
             return
         }
-
     }
 
 
