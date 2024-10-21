@@ -154,48 +154,50 @@ const Payment_methods = ({
 
             return false
         }
-    }
-    
+    }    
 
     const checkDate = ()=>{
         const expiry = inputDate(form.expiry)
         const month = expiry.substring(0, 2)
         const year = expiry.substring(3)
         const currentDate = new Date().toLocaleDateString()
+        const currentMonth = currentDate.substring(3, 5)
         const currentYear = currentDate.substring(8)
-        //const expiryIsValid = 
-        
-        
 
-        /* if(expiry.length < 5){
-            alert('A data deve ter 4 algarismos, 2 para o mês e 2 para o anos. Ex.: 12/24, que informa a data 25 de dezembro')
 
-            return
-        } */
-
-        /* if(expiry.indexOf('/') !== 2){
-            alert('Formato de data inválido')
-
-            return
-        } */
-
-        if(!/^(0[1-9]|1[0-2])\/\d{2}$/.test(expiry)){
-            alert('Data inválida! Utilize o formato MM/AA. Exemplo 12/24 que informa o mês 12 do ano 2024')
+        if(!/^\d{2}\/\d{2}$/.test(expiry)){
+            alert('FORMATO DE DATA INVÁLIDO!\nUtilize 2 algarismos para o mês e 2 para o ano.\nEx.: 10/24, que informa o mês 10 do ano 2024.')
 
             return
         }
 
         if(parseInt(month) > 12){
-            alert(`Data inválida. Não há mês ${month}`)
+            alert(`DATA INVÁLIDA!\nNão há mês ${month}`)
+
+            return false
+        }else if(parseInt(month) < parseInt(currentMonth) && parseInt(year) === parseInt(currentYear)){
+            alert(`DATA INVÁLIDA!\nO mês é inferior ao atual.`)
 
             return false
         }else if(parseInt(year) < parseInt(currentYear)){
-            alert('O vencimento aponta para um ano inferior ao atual!')
+            alert('DATA INVÁLIDA!\nO ano é inferior ao atual!')
             
             return false
         }
 
         return true
+    }
+
+
+    const checkCVC = ()=>{
+        if(/^\d+$/.test(form.cvc)){
+            
+            return true
+        }else{
+            alert('Código de segurança inválido!')
+
+            return false
+        }        
     }
 
 
@@ -208,7 +210,7 @@ const Payment_methods = ({
             && inputDate(form.expiry).length === 5
             && form.cvc.length === 3
         ){
-            if(!checkDate() && !checkCardNumber()) return
+            if(!checkDate() && !checkCardNumber() && !checkCVC()) return
             else setAllfieldsFilled(true)
         }else{
             alert('Complete os dados do cartão!')
