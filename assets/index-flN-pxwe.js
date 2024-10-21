@@ -910,6 +910,10 @@ Error generating stack: `+o.message+`
         flex-direction: column;
         align-items: center;
         gap: 15px;
+        
+        @media(max-width: 500px){
+            width: 300px;
+        }
     }
 
     .qrcode-container.active{
@@ -917,6 +921,7 @@ Error generating stack: `+o.message+`
         pointer-events: auto;
         transform: translate(-50%, -50%) scale(1);
     }
+
 `;Oe.div`
     .qrcode-container{
         background-color: rgba(245, 245, 245, .7);
