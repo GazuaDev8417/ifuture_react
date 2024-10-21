@@ -163,6 +163,7 @@ const Payment_methods = ({
         const year = expiry.substring(3)
         const currentDate = new Date().toLocaleDateString()
         const currentYear = currentDate.substring(8)
+        //const expiryIsValid = 
         
         
 
@@ -178,8 +179,8 @@ const Payment_methods = ({
             return
         } */
 
-        if(/^(0[1-9]|1[0-2])\/\d{2}$/.test(form.expiry)){
-            alert('Data inválida!')
+        if(!/^(0[1-9]|1[0-2])\/\d{2}$/.test(expiry)){
+            alert('Data inválida! Utilize o formato MM/AA. Exemplo 12/24 que informa o mês 12 do ano 2024')
 
             return
         }
