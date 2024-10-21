@@ -10,7 +10,6 @@ export const Container = styled.div`
 
     @media(max-width: 517px){
         margin: 15vh 1.5rem;
-        border: 1px solid;
     }
 
     h1{
