@@ -165,7 +165,7 @@ const Payment_methods = ({
         const currentYear = currentDate.substring(8)
 
 
-        if(!/^\d{2}\/\d{2}$/.test(expiry)){
+        if(!/^\d{2}\/\d{2}$/.test(expiry) && expiry !== ''){
             alert('FORMATO DE DATA INVÁLIDO!\nUtilize 2 algarismos para o mês e 2 para o ano.\nEx.: 10/24, que informa o mês 10 do ano 2024.')
 
             return
@@ -190,13 +190,13 @@ const Payment_methods = ({
 
 
     const checkCVC = ()=>{
-        if(/^\d+$/.test(form.cvc)){
-            
-            return true
-        }else{
+        if(!/^\d+$/.test(form.cvc) && form.cvc !== ''){
             alert('Código de segurança inválido!')
+            
+            return false 
+        }else{
 
-            return false
+            return true
         }        
     }
 
@@ -210,8 +210,10 @@ const Payment_methods = ({
             && inputDate(form.expiry).length === 5
             && form.cvc.length === 3
         ){
-            if(!checkDate() && !checkCardNumber() && !checkCVC()) return
-            else setAllfieldsFilled(true)
+            if(checkDate() && checkCardNumber() && checkCVC()){
+                setAllfieldsFilled(true)
+            } 
+            
         }else{
             alert('Complete os dados do cartão!')
             setAllfieldsFilled(false)
@@ -323,7 +325,8 @@ const Payment_methods = ({
                                         value={form.cvc}
                                         placeholder='CVC'
                                         onChange={onChange}
-                                        onFocus={changeFocus} />
+                                        onFocus={changeFocus}
+                                        onBlur={checkCVC} />
                                 </div>
                             </form>   
                             <div className="button-container">
