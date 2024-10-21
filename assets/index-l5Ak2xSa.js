@@ -374,7 +374,6 @@ Error generating stack: `+o.message+`
 
     @media(max-width: 517px){
         margin: 15vh 1.5rem;
-        border: 1px solid;
     }
 
     h1{
