@@ -181,19 +181,22 @@ const Payment_methods = ({
 
 
     const isFormValid = ()=>{
-        if(!checkDate()) return
-
+        
         if(
             form.number.length >= 16 && form.number.length <= 19
             && form.name.length > 0
             && inputDate(form.expiry).length === 5
             && form.cvc.length === 3
         ){
-            setAllfieldsFilled(true)
+            if(!checkDate()) return
+            else setAllfieldsFilled(true)
         }else{
             alert('Complete os dados do cartão!')
             setAllfieldsFilled(false)
+
+            return
         }
+
     }
 
 
