@@ -213,6 +213,10 @@ export const QRCodeBox = styled.div`
         flex-direction: column;
         align-items: center;
         gap: 15px;
+        
+        @media(max-width: 500px){
+            width: 300px;
+        }
     }
 
     .qrcode-container.active{
@@ -220,6 +224,7 @@ export const QRCodeBox = styled.div`
         pointer-events: auto;
         transform: translate(-50%, -50%) scale(1);
     }
+
 `
 
 export const CreditPayment = styled.div`
