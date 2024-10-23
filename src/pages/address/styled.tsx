@@ -11,7 +11,7 @@ export const Container = styled.div`
         position: absolute;
         top: 5%;
         left: 2%;
-        font-size: 3rem;
+        font-size: 2rem;
         cursor: pointer;
     }
 

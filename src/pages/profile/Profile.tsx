@@ -2,7 +2,8 @@ import { useContext, useEffect, useState } from 'react'
 import Context, { GlobalStateContext } from '../../global/Context'
 import { useNavigate } from 'react-router-dom'
 import { MdEdit } from 'react-icons/md'
-import { AiOutlineLogout, AiFillHome } from 'react-icons/ai'
+import { AiOutlineLogout } from 'react-icons/ai'
+import { IoIosArrowBack } from "react-icons/io"
 import { MdDelete } from "react-icons/md";
 import Header from "../../components/Header"
 import { Container } from './styled'
@@ -111,7 +112,7 @@ const Profile = ()=>{
                 <AiOutlineLogout className="header-icon" onClick={logout} />
             }
             leftIcon={
-                <AiFillHome className="header-icon" onClick={()=> navigate('/ifuture_react')}/>
+                <IoIosArrowBack className="header-icon" onClick={()=> navigate(-1)}/>
             }/>        
         <Container>    
             <h1>Perfil do usuário</h1>            
@@ -136,9 +137,9 @@ const Profile = ()=>{
                 <div className="rest-name"></div>
                 <div></div>
             </div>
-            <button type="button" style={{padding:10, color:'white'}} onClick={cleanHistory}>
+            {orders.length > 0 && <button type="button" style={{padding:10, color:'white'}} onClick={cleanHistory}>
                 Limpar Histórico
-            </button>
+            </button>}
             <div id='history' className="order-history">Histórico de pedidos</div>
             <hr style={{width:'100%', marginBottom:'15px', background:'lightgray'}} />
             <div className="card-container">

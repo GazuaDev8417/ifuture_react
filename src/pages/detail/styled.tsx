@@ -11,20 +11,26 @@ export const Temp = styled.div`
 
 
 export const Container = styled.div`
-    margin-top: 15vh;
+    margin-top: 25vh;
     h1{
         text-align: center;
         margin: 5vh 0 3vh;
     }
     .card{
+        display: flex;
+        flex-direction: column;
+        align-items: center;
         border: 1px solid red;
-        width: 50vw;
+        width: 70vw;
         margin: auto;
     }
 
     .image{
         width: 50vw;
-        width: 49.5vw;
+        height: 50vh;
+        margin-top: 20px;
+        box-shadow: 2px 2px 4px;
+        border-radius: 10px;
     }
 
     .desc{
@@ -62,6 +68,7 @@ export const Container = styled.div`
         padding-right: 20px;
         border: 1px solid;
         border-radius: 10px;
+        box-shadow: 2px 2px 4px;
         margin: 10px;
     }
 
