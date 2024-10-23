@@ -10,6 +10,13 @@ export const Container = styled.div`
 
     input{
         width: 50vw;
+        box-shadow: 2px 2px 4px;
+        border-radius: 20px;
+        border: 1px solid gray;
+    }
+
+    .input-search::placeholder{
+        color: rgba(128, 128, 128, .5);
     }
 
     .categories{
@@ -20,12 +27,22 @@ export const Container = styled.div`
         gap: 10px;
         padding: 10px 0;
         font-size: 1.2rem;
+        margin: 10px;
     }
 
     .loading{
         display: flex;
         margin: 20px 0;
         justify-content: center;
+    }
+
+    .card-category{
+        font-weight: bold;
+        color: rgba(255, 0, 0, .7);
+
+        &:hover{
+            text-shadow: 0px 0px 2px red;
+        }
     }
 
 /* MEDIA QUERIES */
@@ -35,14 +52,7 @@ export const Container = styled.div`
         }
 
         .categories{
-            display: grid;
-            grid-template-columns: repeat(4, 1fr);
-            width: 70vw;
-            margin: auto;            
-        }
-
-        .card-category{
-            font-size: 80%;;
+            font-size: 1rem;
         }
     }
 `

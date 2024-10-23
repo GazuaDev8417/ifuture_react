@@ -85,7 +85,8 @@ const Feed:FC = ()=>{
                 <input
                     placeholder="Digite o nome do restaurante" 
                     type="search"
-                    onChange={handleInput}/>
+                    onChange={handleInput}
+                    className="input-search"/>
             </div>
             <div className="categories">
                 {restaurants &&

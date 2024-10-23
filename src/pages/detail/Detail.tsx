@@ -2,8 +2,8 @@ import { FC, useContext, useEffect, useRef } from "react"
 import { useNavigate } from "react-router-dom"
 import Context, { GlobalStateContext } from "../../global/Context"
 import Header from "../../components/Header"
-import { AiOutlineShoppingCart } from 'react-icons/ai'
 import { BsFillPersonFill } from 'react-icons/bs'
+import { IoIosArrowBack } from "react-icons/io"
 import { Products } from "../../types/types"
 import { Container, Temp } from './styled'
 import axios from "axios"
@@ -79,16 +79,15 @@ const Detail:FC = ()=>{
         <Temp>
         <Header
             leftIcon={
-                <AiOutlineShoppingCart className="header-icon" onClick={()=>{
+                <IoIosArrowBack className="header-icon" onClick={()=>{
                     getAllOrders()
-                    navigate('/ifuture_react/cart')
+                    navigate(-1)
                 }} />
             }
             rightIcon={
                 <BsFillPersonFill className="header-icon" onClick={()=> navigate('/ifuture_react/profile')} />
             }/>
         <Container>
-            <h1>{menu.name}</h1>
             <div className="card">
                 <img 
                     src={menu.logourl}

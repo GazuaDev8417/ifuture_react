@@ -6,6 +6,8 @@ const Card = styled.div`
     flex-direction: column;
     align-items: center;
     border: 1px solid red;
+    border-radius: 10px;
+    box-shadow: 2px 2px 4px;
     margin: 20px auto 50px;
     width: 50vw;
     cursor: pointer;
@@ -40,10 +42,9 @@ const Card = styled.div`
         }
     }
 
-    @media(max-width: 390px){
-        .image{
-            width: 69vw;
-        }
+    @media(max-width: 500px){
+        width: 90vw;
+        height: 48vh;
     }
 `
 

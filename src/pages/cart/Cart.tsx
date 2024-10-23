@@ -3,7 +3,7 @@ import Context, { GlobalStateContext } from "../../global/Context"
 import axios from "axios"
 import { BASE_URL } from "../../constants/url"
 import Header from "../../components/Header"
-import { AiFillHome } from 'react-icons/ai'
+import { IoIosArrowBack } from "react-icons/io"
 import { BsFillPersonFill } from 'react-icons/bs'
 import { QRCodeSVG } from 'qrcode.react'
 import { MdEdit } from 'react-icons/md'
@@ -186,9 +186,9 @@ const Cart:FC = ()=>{
         <>
         <Header
             leftIcon={
-                <AiFillHome 
+                <IoIosArrowBack 
                     className="header-icon"
-                    onClick={()=> navigate('/ifuture_react/feed')} />
+                    onClick={()=> navigate(-1)} />
             }
             rightIcon={
                 <BsFillPersonFill 
@@ -208,12 +208,14 @@ const Cart:FC = ()=>{
                     navigate('/ifuture_react/address')
                 }} />
             </div>
-            <button 
-                type="button"
-                style={{padding:10, color:'white', marginTop:30}}
-                onClick={cleanOrders}>
-                Limpar Pedidos
-            </button>
+            {cart.length > 0 && (
+                <button 
+                    type="button"
+                    style={{padding:10, color:'white', marginTop:30}}
+                    onClick={cleanOrders}>
+                    Limpar Pedidos
+                </button>
+            )}
             <div className="addressAndName">
                 <div className="rest-name">Seus produtos</div>
             </div>

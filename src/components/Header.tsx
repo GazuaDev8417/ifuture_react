@@ -1,4 +1,5 @@
 import { ReactNode, useRef } from 'react'
+import { useNavigate } from 'react-router-dom'
 import styled from 'styled-components'
 import Logo from '../imgs/logo-future-eats-invert.png'
 
@@ -11,6 +12,10 @@ const Container = styled.div`
     align-items: center;
     justify-content: space-between;
     padding: .5rem 20px;
+
+    img:hover{
+        cursor: pointer;
+    }
 `
 
 interface HeaderProps{
@@ -20,6 +25,7 @@ interface HeaderProps{
 
 
 const Header = (props:HeaderProps)=>{
+    const navigate = useNavigate()
     const imageRef = useRef<HTMLImageElement | null>(null)
 
     const hideImage = ()=>{
@@ -38,7 +44,7 @@ const Header = (props:HeaderProps)=>{
     return(
         <Container>
             {props.leftIcon}
-            <img src={Logo} alt="Logo" ref={imageRef} />
+            <img src={Logo} alt="Logo" ref={imageRef} onClick={() => navigate('/ifuture_react/feed')} />
             {props.rightIcon}
         </Container>
     )
