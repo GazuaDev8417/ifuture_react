@@ -63,8 +63,13 @@ export const Container = styled.div`
 
     .btn-container{
         display: flex;
+        align-items: center;
         flex-direction: column;
         gap: 10px;
+
+        .input-number{
+            width: 50px;
+        }
     }
 
     .btn-remove{

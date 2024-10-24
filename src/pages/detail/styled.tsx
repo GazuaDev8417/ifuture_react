@@ -34,13 +34,13 @@ export const Container = styled.div`
     }
 
     .desc{
-        margin: 10px 20px;
+        margin: 30px 20px;
     }
 
     .rest-name{
         text-align: center;
         font-size: 1.5rem;
-        margin: 10px;
+        margin: 20px 10px 10px;
     }
 
     .time{

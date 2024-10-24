@@ -240,8 +240,7 @@ const Cart:FC = ()=>{
                             min={1} 
                             value={item.quantity}
                             onChange={(e) => handleNumber(e, item.id)}
-                            name="" 
-                            id="" />                 
+                            className="input-number" />                 
                         <button className="btn-remove" onClick={()=> removeItem(item)} >Remover</button> 
                     </div>
                 </div>
