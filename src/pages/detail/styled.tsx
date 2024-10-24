@@ -76,7 +76,6 @@ export const Container = styled.div`
         width: 100px;
         height: 130px;	
         border-radius: 10px;
-        box-shadow: 2px 2px 4px;
     }
 
     .select-btn-container{
@@ -92,15 +91,13 @@ export const Container = styled.div`
 
 /* MEDIA QUERIES */
     @media(max-width: 830px){
-        width: 70vw;
-        
         .card{
-            width: 70vw;
+            width: 80vw;
         }
 
         .image{
-            height: 90%;
-            width: 69.5vw;
+            height: 70vh;
+            width: 70vw;
         }
 
         .desc{

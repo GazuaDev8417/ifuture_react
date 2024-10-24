@@ -76,7 +76,6 @@ export const Container = styled.div`
         width: 150px;
         height: 150px;
         border-radius: 10px;    
-        box-shadow: 2px 2px 4px;
     }
 
     .subtotal{

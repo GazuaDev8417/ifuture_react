@@ -31,6 +31,7 @@ const GlobalStyle = createGlobalStyle`
 
   input{
     border-radius: 5px;
+    border: 1px solid gray;
     outline: none;
     font-size: 1rem;
     height: 40px;

@@ -80,11 +80,6 @@ const Login:FC = ()=>{
                     placeholder="name@email.com"
                     autoFocus 
                     required/>
-                    {
-                        !showPass ? (
-                            <FaEyeSlash onClick={()=> setShowPass(true)} className='eye-icon' />
-                        ) : <FaEye onClick={()=> setShowPass(false)} className='eye-icon' />
-                    }
                 <input
                     type={!showPass ? 'password' : 'text'}
                     className="form-input"
@@ -93,6 +88,11 @@ const Login:FC = ()=>{
                     onChange={onChange} 
                     placeholder="Mínimo de 6 caractéres"
                     required/>
+                {
+                    !showPass ? (
+                        <FaEyeSlash onClick={()=> setShowPass(true)} className='eye-icon' />
+                    ) : <FaEye onClick={()=> setShowPass(false)} className='eye-icon' />
+                }
                 <button>Entrar</button>
             </form>
             <p>
