@@ -89,12 +89,12 @@ const Detail:FC = ()=>{
             }/>
         <Container>
             <div className="card">
+                <div className="rest-name">{menu.category}</div>
                 <img 
                     src={menu.logourl}
                     alt="Imagem do restaurante"
                     className="image"/>                
                 <div className="desc">
-                    <div className="rest-name">{menu.category}</div>
                     <p>{menu.description}</p>
                     {/* <div className="time">
                         <span>Frete: R$ {menu.shipping.toFixed(2)}</span>
