@@ -2,8 +2,7 @@ import { useContext, useEffect, useState } from 'react'
 import Context, { GlobalStateContext } from '../../global/Context'
 import { useNavigate } from 'react-router-dom'
 import { MdEdit } from 'react-icons/md'
-import { AiOutlineLogout } from 'react-icons/ai'
-import { IoIosArrowBack } from "react-icons/io"
+import { AiOutlineLogout, AiOutlineShoppingCart } from 'react-icons/ai'
 import { MdDelete } from "react-icons/md";
 import Header from "../../components/Header"
 import { Container } from './styled'
@@ -112,7 +111,7 @@ const Profile = ()=>{
                 <AiOutlineLogout className="header-icon" onClick={logout} />
             }
             leftIcon={
-                <IoIosArrowBack className="header-icon" onClick={()=> navigate(-1)}/>
+                <AiOutlineShoppingCart className="header-icon" onClick={()=> navigate('/ifuture_react/cart')}/>
             }/>        
         <Container>    
             <h1>Perfil do usuário</h1>            
