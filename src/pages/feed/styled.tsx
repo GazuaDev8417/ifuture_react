@@ -2,11 +2,7 @@ import styled from 'styled-components'
 
 
 export const Container = styled.div`
-    margin-top: 15vh;
-    .input-container{
-        margin-top: 5vh;
-        text-align: center;
-    }
+    margin-top: 18.5vh;
 
     input{
         width: 50vw;
@@ -19,15 +15,21 @@ export const Container = styled.div`
         color: rgba(128, 128, 128, .5);
     }
 
+    .input-search{
+        position: fixed;
+        top: 13%;
+        left: 50%;
+        transform: translateX(-50%);
+    }
+
     .categories{
         display: flex;
         align-items: center;
         justify-content: center;
         cursor: pointer;
         gap: 10px;
-        padding: 10px 0;
         font-size: 1.2rem;
-        margin: 10px;
+        padding-top: 10px;
     }
 
     .loading{
