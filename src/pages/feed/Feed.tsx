@@ -106,7 +106,6 @@ const Feed:FC = ()=>{
                         <RestaurantCard key={item.id}
                             id={item.id}
                             logourl={item.logourl}
-                            name={item.name}
                             /* deliveryTime={item.deliveryTime}
                             shipping={item.shipping} */
                             getRestaurantById={()=>{
@@ -122,7 +121,6 @@ const Feed:FC = ()=>{
                     <RestaurantCard key={rest.id}
                         id={rest.id}
                         logourl={rest.logourl}
-                        name={rest.name}
                         /* deliveryTime={rest.deliveryTime}
                         shipping={rest.shipping} */
                         getRestaurantById={()=>{

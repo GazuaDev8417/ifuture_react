@@ -4,11 +4,13 @@ import styled from 'styled-components'
 const Card = styled.div`
     display: flex;
     flex-direction: column;
+    justify-content: center;
     align-items: center;
     border: 1px solid red;
     border-radius: 10px;
     box-shadow: 2px 2px 4px;
     margin: 20px auto 50px;
+    padding: 10px;
     width: 50vw;
     cursor: pointer;
 
@@ -53,7 +55,6 @@ const Card = styled.div`
 interface RestaurantCardProps{
     id:string
     logourl:string
-    name:string
     /* deliveryTime:number
     shipping:number */
     getRestaurantById: (id:string)=> void
@@ -68,13 +69,13 @@ const RestaurantCard = (props:RestaurantCardProps)=>{
                 alt="Imagem do restaurante"
                 className="image"
                 onClick={()=> props.getRestaurantById(props.id)} />
-            <div className="desc">
+           {/*  <div className="desc">
                 <div className="rest-name">{props.name}</div>
-                {/* <div className="time">
+                <div className="time">
                     <span>{props.deliveryTime} - {props.deliveryTime + 10} min</span>
                     <span>Frete: R$ {props.shipping.toFixed(2)}</span>
-                </div> */}
-            </div>
+                </div>
+            </div> */}
         </Card>
     )
 }
