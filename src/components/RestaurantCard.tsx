@@ -15,6 +15,7 @@ const Card = styled.div`
     .image{
         height: 50vh;
         width: 49.5vw;
+        border-radius: 10px;
     }
 
     .desc{

@@ -16,10 +16,10 @@ import { Loading } from "../../components/Loading"
 const Feed:FC = ()=>{
     const navigate = useNavigate()
     const { getRestaurantById } = useContext(Context) as GlobalStateContext
-    const card = useRef<HTMLDivElement | null>(null)
     const [word, setWord] = useState<string>('')
     const [restaurants, setRestaurants] = useState<Restaurant[]>([])
     const [filteredByCategory, setFilteredByCategory] = useState<Restaurant[]>([])
+    const [categorySelected, setCategorySelected] = useState<boolean>(false)
 
 
    
@@ -50,23 +50,25 @@ const Feed:FC = ()=>{
         return rest.name.toLocaleLowerCase().includes(word.toLocaleLowerCase())
     })
 
+    const filteredByCategorySearch = filteredByCategory && filteredByCategory.filter(res=>{
+        return res.name.toLocaleLowerCase().includes(word.toLocaleLowerCase())
+    })
     
     const categoryFilter = (category:string)=>{
         const filtered = restaurants.filter(rest => rest.category === category)
         setFilteredByCategory(filtered)
+        setCategorySelected(true)
 
-        if(card.current){
+
+        /* if(card.current){
             if(filteredByCategory.length === 0){            
                 card.current.style.display = 'block'
             }else{
                 card.current.style.display = 'none'                
             }
-        }
+        } */
     }
 
-    const filteredByCategorySearch = filteredByCategory && filteredByCategory.filter(res=>{
-        return res.name.toLocaleLowerCase().includes(word.toLocaleLowerCase())
-    })
    
     
 
@@ -98,24 +100,25 @@ const Feed:FC = ()=>{
                     ))
                 }
             </div>
-            {filteredByCategorySearch && filteredByCategorySearch.map(item=>{
-                return(
-                    <RestaurantCard key={item.id}
-                        id={item.id}
-                        logourl={item.logourl}
-                        name={item.name}
-                        /* deliveryTime={item.deliveryTime}
-                        shipping={item.shipping} */
-                        getRestaurantById={()=>{
-                            localStorage.setItem('restaurantId', item.id)
-                            getRestaurantById(item.id)
-                            navigate('/ifuture_react/detail')
-                        }}
-                    />
-                )
-            })}
-            <div id="restaurants" ref={card}>
-                {filteredSearch.length > 0 ? filteredSearch.map(rest=>(
+            {categorySelected ? (
+                filteredByCategorySearch.length > 0 && filteredByCategorySearch.map(item=>{
+                    return(
+                        <RestaurantCard key={item.id}
+                            id={item.id}
+                            logourl={item.logourl}
+                            name={item.name}
+                            /* deliveryTime={item.deliveryTime}
+                            shipping={item.shipping} */
+                            getRestaurantById={()=>{
+                                localStorage.setItem('restaurantId', item.id)
+                                getRestaurantById(item.id)
+                                navigate('/ifuture_react/detail')
+                            }}
+                        />
+                    )
+                })  
+            ) : (
+                filteredSearch.length > 0 ? filteredSearch.map(rest=>(
                     <RestaurantCard key={rest.id}
                         id={rest.id}
                         logourl={rest.logourl}
@@ -128,8 +131,8 @@ const Feed:FC = ()=>{
                             navigate('/ifuture_react/detail')
                         } }
                     />
-                )) : <div className="loading"><Loading/></div> }
-            </div>
+                )) : <div className="loading"><Loading/></div>
+            )}
         </Container>
         </>
     )
