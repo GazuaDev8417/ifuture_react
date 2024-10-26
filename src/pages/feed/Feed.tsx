@@ -1,4 +1,4 @@
-import { ChangeEvent, FC, useEffect, useState, useRef, useContext } from "react"
+import { ChangeEvent, FC, useEffect, useState, useContext } from "react"
 import { useNavigate } from "react-router-dom"
 import Context, { GlobalStateContext } from "../../global/Context"
 import axios from 'axios'
@@ -58,15 +58,6 @@ const Feed:FC = ()=>{
         const filtered = restaurants.filter(rest => rest.category === category)
         setFilteredByCategory(filtered)
         setCategorySelected(true)
-
-
-        /* if(card.current){
-            if(filteredByCategory.length === 0){            
-                card.current.style.display = 'block'
-            }else{
-                card.current.style.display = 'none'                
-            }
-        } */
     }
 
    
@@ -101,21 +92,25 @@ const Feed:FC = ()=>{
                 }
             </div>
             {categorySelected ? (
-                filteredByCategorySearch.length > 0 && filteredByCategorySearch.map(item=>{
-                    return(
-                        <RestaurantCard key={item.id}
-                            id={item.id}
-                            logourl={item.logourl}
-                            /* deliveryTime={item.deliveryTime}
-                            shipping={item.shipping} */
-                            getRestaurantById={()=>{
-                                localStorage.setItem('restaurantId', item.id)
-                                getRestaurantById(item.id)
-                                navigate('/ifuture_react/detail')
-                            }}
-                        />
-                    )
-                })  
+                filteredByCategorySearch.length > 0 ? (
+                    filteredByCategorySearch.map(item=>{
+                        return(
+                            <RestaurantCard key={item.id}
+                                id={item.id}
+                                logourl={item.logourl}
+                                /* deliveryTime={item.deliveryTime}
+                                shipping={item.shipping} */
+                                getRestaurantById={()=>{
+                                    localStorage.setItem('restaurantId', item.id)
+                                    getRestaurantById(item.id)
+                                    navigate('/ifuture_react/detail')
+                                }}
+                            />
+                        )
+                    })
+                )  : (
+                    word && <div className="no-results">Nenhum restaurante encontrado!</div>
+                )
             ) : (
                 filteredSearch.length > 0 ? filteredSearch.map(rest=>(
                     <RestaurantCard key={rest.id}
@@ -129,7 +124,10 @@ const Feed:FC = ()=>{
                             navigate('/ifuture_react/detail')
                         } }
                     />
-                )) : <div className="loading"><Loading/></div>
+                )) : (
+                    word ? <div className="no-results">Nenhum restaurante encontrado!</div>
+                    : <div className="loading"><Loading/></div>
+                ) 
             )}
         </Container>
         </>
