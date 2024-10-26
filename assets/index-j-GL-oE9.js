@@ -514,6 +514,7 @@ Error generating stack: `+o.message+`
 
         .image{
             width: 69.5vw;
+            height: 40vh;
         }
     }
 
@@ -549,13 +550,21 @@ Error generating stack: `+o.message+`
         cursor: pointer;
         gap: 10px;
         font-size: 1.2rem;
-        padding-top: 10px;
+        padding-top: 15px;
     }
 
     .loading{
         display: flex;
         margin: 20px 0;
         justify-content: center;
+    }
+
+    .no-results{
+        text-shadow: 2px 2px 4px;
+        font-size: 1.2rem;
+        font-weight: bold;
+        margin-top: 10vh;
+        text-align: center;
     }
 
     .card-category{
@@ -588,7 +597,7 @@ Error generating stack: `+o.message+`
     width: 50px;
     height: 50px;
     animation: ${ww} 1s infinite;
-`,Sw=()=>{const e=wt(),{getRestaurantById:t}=N.useContext(zt),[n,r]=N.useState(""),[i,o]=N.useState([]),[l,a]=N.useState([]),[s,u]=N.useState(!1);N.useEffect(()=>{c(),localStorage.getItem("token")||e("/ifuture_react")},[]);const c=()=>{we.get(`${Ee}/restaurants`).then(g=>{o(g.data)}).catch(g=>{alert(g.response.data.message)})},f=g=>{r(g.target.value)},d=i&&i.filter(g=>g.name.toLocaleLowerCase().includes(n.toLocaleLowerCase())),v=l&&l.filter(g=>g.name.toLocaleLowerCase().includes(n.toLocaleLowerCase())),h=g=>{const C=i.filter(y=>y.category===g);a(C),u(!0)};return w.jsxs(w.Fragment,{children:[w.jsx(wl,{leftIcon:w.jsx(Au,{className:"header-icon",onClick:()=>e("/ifuture_react/cart")}),rightIcon:w.jsx(Lu,{className:"header-icon",onClick:()=>e("/ifuture_react/profile")})}),w.jsxs(vw,{children:[w.jsx("div",{className:"input-container",children:w.jsx("input",{placeholder:"Digite o nome do restaurante",type:"search",onChange:f,className:"input-search"})}),w.jsx("div",{className:"categories",children:i&&[...new Set(i.map(g=>g.category))].map(g=>w.jsx("div",{className:"card-category",onClick:()=>h(g),children:g},g))}),s?v.length>0&&v.map(g=>w.jsx(Nf,{id:g.id,logourl:g.logourl,getRestaurantById:()=>{localStorage.setItem("restaurantId",g.id),t(g.id),e("/ifuture_react/detail")}},g.id)):d.length>0?d.map(g=>w.jsx(Nf,{id:g.id,logourl:g.logourl,getRestaurantById:()=>{localStorage.setItem("restaurantId",g.id),t(g.id),e("/ifuture_react/detail")}},g.id)):w.jsx("div",{className:"loading",children:w.jsx(xw,{})})]})]})},Ew=Oe.div`
+`,Sw=()=>{const e=wt(),{getRestaurantById:t}=N.useContext(zt),[n,r]=N.useState(""),[i,o]=N.useState([]),[l,a]=N.useState([]),[s,u]=N.useState(!1);N.useEffect(()=>{c(),localStorage.getItem("token")||e("/ifuture_react")},[]);const c=()=>{we.get(`${Ee}/restaurants`).then(g=>{o(g.data)}).catch(g=>{alert(g.response.data.message)})},f=g=>{r(g.target.value)},d=i&&i.filter(g=>g.name.toLocaleLowerCase().includes(n.toLocaleLowerCase())),v=l&&l.filter(g=>g.name.toLocaleLowerCase().includes(n.toLocaleLowerCase())),h=g=>{const C=i.filter(y=>y.category===g);a(C),u(!0)};return w.jsxs(w.Fragment,{children:[w.jsx(wl,{leftIcon:w.jsx(Au,{className:"header-icon",onClick:()=>e("/ifuture_react/cart")}),rightIcon:w.jsx(Lu,{className:"header-icon",onClick:()=>e("/ifuture_react/profile")})}),w.jsxs(vw,{children:[w.jsx("div",{className:"input-container",children:w.jsx("input",{placeholder:"Digite o nome do restaurante",type:"search",onChange:f,className:"input-search"})}),w.jsx("div",{className:"categories",children:i&&[...new Set(i.map(g=>g.category))].map(g=>w.jsx("div",{className:"card-category",onClick:()=>h(g),children:g},g))}),s?v.length>0?v.map(g=>w.jsx(Nf,{id:g.id,logourl:g.logourl,getRestaurantById:()=>{localStorage.setItem("restaurantId",g.id),t(g.id),e("/ifuture_react/detail")}},g.id)):n&&w.jsx("div",{className:"no-results",children:"Nenhum restaurante encontrado!"}):d.length>0?d.map(g=>w.jsx(Nf,{id:g.id,logourl:g.logourl,getRestaurantById:()=>{localStorage.setItem("restaurantId",g.id),t(g.id),e("/ifuture_react/detail")}},g.id)):n?w.jsx("div",{className:"no-results",children:"Nenhum restaurante encontrado!"}):w.jsx("div",{className:"loading",children:w.jsx(xw,{})})]})]})},Ew=Oe.div`
     display: flex;
     /* align-items: center; */
     justify-content: center;
