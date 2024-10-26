@@ -42,6 +42,7 @@ const Card = styled.div`
 
         .image{
             width: 69.5vw;
+            height: 40vh;
         }
     }
 

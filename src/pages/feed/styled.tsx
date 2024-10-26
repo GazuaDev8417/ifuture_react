@@ -29,13 +29,21 @@ export const Container = styled.div`
         cursor: pointer;
         gap: 10px;
         font-size: 1.2rem;
-        padding-top: 10px;
+        padding-top: 15px;
     }
 
     .loading{
         display: flex;
         margin: 20px 0;
         justify-content: center;
+    }
+
+    .no-results{
+        text-shadow: 2px 2px 4px;
+        font-size: 1.2rem;
+        font-weight: bold;
+        margin-top: 10vh;
+        text-align: center;
     }
 
     .card-category{
