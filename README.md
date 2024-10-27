@@ -1,10 +1,12 @@
+
 # Projeto Ifuture
 
-Aplicação que simula de forma demonstrativa o sistema de entregas de alimentos. Devido à isso a aplicação não apresenta os métodos de localização disponibilizado pelo Google, o que a deixaria mais aplicável. No entanto, tenho como único intuíto neste projeto, apresentar minhas skills de uma maneira tão ampla quanto generalizada, por isso uma aplicação fullstack.
+Aplicação que simula de forma demonstrativa o sistema de entregas de alimentos.<br>
+Por ser demonstrativa a aplicação não apresenta os métodos de localização disponibilizado pelo Google, o que a deixaria mais aplicável. No entanto, tenho como único intuíto neste projeto, apresentar minhas skills de uma maneira tão ampla quanto generalizada, por isso uma aplicação fullstack.
 
 Neste frontend é apresentada uma lista de restaurantes, que podem também ser dividos por categorias, como mostra figura abaixo:
 <br><br> <img src='./imgReadme/categorias.png'><br><br/>
-Ao clicar na categoria os respectivos restaurantes são listados de acordo com a categoria selecionada. Da mesma forma o input para busca resulta somente em restaurantes listados na respectiva categoria, sendo assim se usuário buscar por um restaurante que esteja na aplicação mas não pertence à categoria selecionada o resultado será 'Nenhum restaurante encontrado!'.
+Ao clicar na categoria os respectivos restaurantes são listados de acordo com a categoria selecionada. Da mesma forma o input para busca resulta somente em restaurantes listados na respectiva categoria, sendo assim se o suário buscar por um restaurante que esteja na aplicação mas não pertence à categoria selecionada o resultado será 'Nenhum restaurante encontrado!'.
 
 Ao clicar no card de um restaurante o usuário é direcionado para página de detalhes do mesmo, contendo sua descrição e cardápio principal. Esta página é onde o usuário pode fazer seus pedidos, adicioná-los ao carrinho e finalizar sua compra.
 <br><br> <img src='./imgReadme/detalhes.png'>
@@ -19,9 +21,10 @@ Ao clicar em copiar o valor total da compra vai para área de transfêrencia, o 
 
 No método cartão de crédito foi utilizada a biblioteca react-credit-cards.
 <br><br> <img src='./imgReadme/credit-card.png'>
-Ao preencher os dados do cartão você pode testar as verficações na data de vencimento, usando um ano anterior ao atual ou um mês anterior ao atual, no caso de usar o ano em questão. Bem como testar qualquer validação para verificação de coerência dos dados.
+Ao preencher os dados do cartão você pode testar as verficações na data de vencimento, usando um ano anterior ao atual ou um mês anterior ao atual, no caso de usar o ano em questão. Bem como testar qualquer validação para verificação de coerência dos dados.<br><br>
 
 
-><b>Obsservação</b>: Lembrando que, como se trata de uma demontração, ao selecionar o cartão o botão para finalizar a compra é habilitado. Está implementação se limita ao frontend, servindo unicamente para habilitação do botão 'Finalizar Compra'. Na <a href=''>API</a> acessando a rota 'app.patch('/finished_orders/:id', orderController.endOrders)' no arquivo index.ts e navegando por suas classes conseguintes, é possivel verificar que não há envio de dados de cartão de crédito.
+><b>Obsservação</b>: Lembrando que, como se trata de uma demontração, ao selecionar o cartão o botão para finalizar a compra é habilitado. Está implementação se limita ao frontend, servindo unicamente para habilitação do botão 'Finalizar Compra'. Na <a href='https://github.com/GazuaDev8417/ifuture_server'>API</a> acessando a rota 'app.patch('/finished_orders/:id', orderController.endOrders)' no arquivo index.ts e navegando por suas classes conseguintes, é possivel verificar que não há envio de dados de cartão de crédito.
 
-
+<br><br>
+>Link da aplicação: https://github.com/GazuaDev8417/ifuture_server 
