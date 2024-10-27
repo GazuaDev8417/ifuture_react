@@ -24,7 +24,7 @@ No método cartão de crédito foi utilizada a biblioteca react-credit-cards.
 Ao preencher os dados do cartão você pode testar as verficações na data de vencimento, usando um ano anterior ao atual ou um mês anterior ao atual, no caso de usar o ano em questão. Bem como testar qualquer validação para verificação de coerência dos dados.<br><br>
 
 
-><b>Obsservação</b>: Lembrando que, como se trata de uma demontração, ao selecionar o cartão o botão para finalizar a compra é habilitado. Está implementação se limita ao frontend, servindo unicamente para habilitação do botão 'Finalizar Compra'. Na <a href='https://github.com/GazuaDev8417/ifuture_server'>API</a>, acessando a rota 'app.patch('/finished_orders/:id', orderController.endOrders)', do arquivo index.ts, no diretório src, e navegando por suas classes conseguintes, é possivel verificar que não há envio de dados de cartão de crédito.
+><b>Obsservação</b>: Lembrando que, como se trata de uma demontração, ao selecionar o cartão o botão para finalizar a compra é habilitado. Está implementação se limita ao frontend, servindo unicamente para habilitação do botão 'Finalizar Compra'. Na <a href='https://github.com/GazuaDev8417/ifuture_react'>API</a>, acessando a rota 'app.patch('/finished_orders/:id', orderController.endOrders)', do arquivo index.ts, no diretório src, e navegando por suas classes conseguintes, é possivel verificar que não há envio de dados de cartão de crédito.
 
 <br><br>
 >Link da aplicação: https://github.com/GazuaDev8417/ifuture_server 
