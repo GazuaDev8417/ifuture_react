@@ -33,10 +33,13 @@ const Feed:FC = ()=>{
     
 
     const getRestaurants = ()=>{
-        axios.get(`${BASE_URL}/restaurants`).then(res=>{
+        const headers = {
+            headers: { Authorization: localStorage.getItem('token') }
+        }
+        axios.get(`${BASE_URL}/restaurants`, headers).then(res=>{
             setRestaurants(res.data)
         }).catch(e=>{
-            alert(e.response.data.message)
+            alert(e.response.data)
         })
     }
 

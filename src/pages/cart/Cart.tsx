@@ -163,7 +163,7 @@ const Cart:FC = ()=>{
     
     
    
-    const endRequests = (id:string)=>{
+    const endRequests = ()=>{
         const headers = {
             headers: { Authorization: localStorage.getItem('token')}
         }
@@ -172,7 +172,7 @@ const Cart:FC = ()=>{
             return alert('Selecione um método de pagamento')
         } */
 
-        axios.patch(`${BASE_URL}/finished_orders/${id}`, headers).then(res=>{
+        axios.patch(`${BASE_URL}/finished_orders/`, headers).then(res=>{
             alert(res.data)
             setAllfieldsFilled(false)
             getAllOrders()
@@ -267,7 +267,7 @@ const Cart:FC = ()=>{
                 className="requestOrder-btn"
                 style={{background: allFieldsFilled || selectedValue !== '' ? 'red' : 'gray'}}
                 disabled={allFieldsFilled || selectedValue !== '' ? false : true}
-                onClick={() => endRequests(user.id)}>
+                onClick={() => endRequests()}>
                 Finalizar Compra
             </button>
         </Container>

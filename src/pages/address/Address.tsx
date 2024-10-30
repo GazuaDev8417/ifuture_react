@@ -34,7 +34,7 @@ const Address:FC = ()=>{
         complement: updateAddress ? user.complement : ''
     })
     
-console.log({updateAddress, registAddress})
+
 
     useEffect(()=>{
         if(!updateAddress && !registAddress){
@@ -72,17 +72,19 @@ console.log({updateAddress, registAddress})
 
         const body = {
             street: form.street,
+            cep: form.cep,
             number: form.number,
             neighbourhood: form.neighbourhood,
             city: form.city,
             state: form.state,
             complement: form.complement
         }
+      console.log(body.cep)  
         const headers = {
             headers: { Authorization: localStorage.getItem('token') }
         }
         axios.patch(`${BASE_URL}/address`, body, headers).then(()=>{
-            navigate(updateAddress ? '/ifuture_react/profile' : '/ifuture_react/feed')
+            //navigate(updateAddress ? '/ifuture_react/profile' : '/ifuture_react/feed')
             setUpdateAddress(false)
         }).catch(e=>{
             alert(e.response.data)
@@ -140,7 +142,7 @@ console.log({updateAddress, registAddress})
                     name="cep"
                     onKeyPress={handleKeyPress}
                     value={cepInputMask(form.cep)}
-                    maxLength={11}
+                    maxLength={10}
                     onChange={onChange}
                     onBlur={findAddressByCep}
                     placeholder="CEP" 

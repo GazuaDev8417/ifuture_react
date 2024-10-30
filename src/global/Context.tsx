@@ -66,17 +66,19 @@ export const GlobalState = (props:GlobalStateProps)=>{
 
 
     const getRestaurantById = (id:string)=>{
-        axios.get(`${BASE_URL}/restaurants/${id}`, {
-        }).then(res=>{
+        const headers = {
+            headers: { Authorization: localStorage.getItem('token') }
+        }
+
+        axios.get(`${BASE_URL}/restaurants/${id}`, headers).then(res=>{
             setMenu(res.data)
-            axios.get(`${BASE_URL}/restaurant_products/${id}`).then(res=>{
+            axios.get(`${BASE_URL}/restaurant_products/${id}`, headers).then(res=>{
                 setProducts(res.data)
             }).catch(e=>{
                 alert(e.response.data)
             })
         }).catch(e=>{
             alert(e.response.data)
-            console.log(e)
         })
     }
  

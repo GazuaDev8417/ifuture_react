@@ -63,7 +63,6 @@ const Signup:FC = ()=>{
             navigate('/ifuture_react/address')
         }).catch(e=>{
             alert(e.response.data)
-            console.log(e.response.data)
         })
     }
 
