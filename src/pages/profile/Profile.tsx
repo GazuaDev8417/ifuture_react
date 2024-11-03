@@ -119,7 +119,7 @@ const Profile = ()=>{
             <div className="user-section">
                 <div>{user.username} <br />
                     {user.email} <br />
-                    {maskedCPF(user.cpf)}
+                    {/* {maskedCPF(user.cpf)} */}
                 </div>
                 <MdEdit className="icon" onClick={()=> navigate('/ifuture_react/edit-profile')} />
             </div>
