@@ -6,7 +6,6 @@ import { BASE_URL } from "../../constants/url"
 import ifutureLogo from '../../imgs/logo-future-eats-invert.png'
 import { Container } from "./styled"
 import { IoIosArrowBack } from 'react-icons/io'
-import { cepInputMask } from "../../utils/cpf_mask"
 
 
 
@@ -79,10 +78,10 @@ const Address:FC = ()=>{
             state: form.state,
             complement: form.complement
         }
-      
         const headers = {
             headers: { Authorization: localStorage.getItem('token') }
         }
+        
         axios.patch(`${BASE_URL}/address`, body, headers).then(()=>{
             navigate(updateAddress ? '/ifuture_react/profile' : '/ifuture_react/feed')
             setUpdateAddress(false)
