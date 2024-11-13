@@ -142,7 +142,7 @@ const Cart:FC = ()=>{
     }
 
 
-    const cleanOrders = async()=>{
+    const cleanOrders = ()=>{
         const headers = {
             headers: { Authorization: localStorage.getItem('token') }
         }
@@ -165,18 +165,16 @@ const Cart:FC = ()=>{
    
     const endRequests = ()=>{
         const headers = {
-            headers: { Authorization: localStorage.getItem('token')}
+            headers: { Authorization: localStorage.getItem('token') }
         }
-
-        /* if(payment === 'money' && selectedValue === ''){
-            return alert('Selecione um método de pagamento')
-        } */
-
-        axios.patch(`${BASE_URL}/finished_orders/`, headers).then(res=>{
+        
+        axios.patch(`${BASE_URL}/finished_orders`, {}, headers).then(res=>{
             alert(res.data)
             setAllfieldsFilled(false)
             getAllOrders()
-        }).catch(e => alert(e.response.data))
+        }).catch(e =>{
+            alert(e.response.data)
+        })
     }
     
         

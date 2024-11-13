@@ -5,7 +5,6 @@ import axios from "axios"
 import { BASE_URL } from "../../constants/url"
 import { IoIosArrowBack } from 'react-icons/io'
 import ifutureLogo from '../../imgs/logo-future-eats-invert.png'
-import { cpfInputMask } from "../../utils/cpf_mask"
 import { Container } from "./styled"
 
 
@@ -13,7 +12,6 @@ import { Container } from "./styled"
 interface FormData{
     username:string
     email:string
-    cpf:string
 }
 
 
@@ -22,8 +20,7 @@ const EditProfile:FC = ()=>{
     const { user } = useContext(Context) as GlobalStateContext
     const [form, setForm] = useState<FormData>({
         username: user.username,
-        email: user.email,
-        cpf: ''
+        email: user.email
     })
 
 
@@ -46,9 +43,8 @@ const EditProfile:FC = ()=>{
         e.preventDefault()
 
         const body = {
-            name: form.username,
-            email: form.email,
-            cpf: Number(form.cpf)
+            username: form.username,
+            email: form.email
         }
         const headers = {
             headers: { Authorization: localStorage.getItem('token') }
@@ -61,18 +57,17 @@ const EditProfile:FC = ()=>{
     }
 
 
-    const handleKeyPress = (e: React.KeyboardEvent<HTMLInputElement>) => {
+    /* const handleKeyPress = (e: React.KeyboardEvent<HTMLInputElement>) => {
         if (e.charCode < 48 || e.charCode > 57) {
           e.preventDefault()
         }
-    }
+    } */
 
 
     const clearForm = ()=>{
         setForm({
             username:'',
-            email:'',
-            cpf:''
+            email:''
         })
     }
 
@@ -95,16 +90,6 @@ const EditProfile:FC = ()=>{
                     value={form.username}
                     onChange={onChange}
                     placeholder="Nome e sobrenome" 
-                    required/>
-                <input
-                    type="text"
-                    className="form-input"
-                    name="cpf"
-                    onKeyPress={handleKeyPress}
-                    maxLength={11}
-                    value={cpfInputMask(form.cpf)}
-                    onChange={onChange}
-                    placeholder="CPF (Somente números)" 
                     required/>
                 <input
                     type="email"
