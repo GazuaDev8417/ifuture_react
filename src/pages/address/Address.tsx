@@ -79,12 +79,12 @@ const Address:FC = ()=>{
             state: form.state,
             complement: form.complement
         }
-      console.log(body.cep)  
+      
         const headers = {
             headers: { Authorization: localStorage.getItem('token') }
         }
         axios.patch(`${BASE_URL}/address`, body, headers).then(()=>{
-            //navigate(updateAddress ? '/ifuture_react/profile' : '/ifuture_react/feed')
+            navigate(updateAddress ? '/ifuture_react/profile' : '/ifuture_react/feed')
             setUpdateAddress(false)
         }).catch(e=>{
             alert(e.response.data)
@@ -141,7 +141,7 @@ const Address:FC = ()=>{
                     className="form-input"
                     name="cep"
                     onKeyPress={handleKeyPress}
-                    value={cepInputMask(form.cep)}
+                    value={form.cep}
                     maxLength={10}
                     onChange={onChange}
                     onBlur={findAddressByCep}

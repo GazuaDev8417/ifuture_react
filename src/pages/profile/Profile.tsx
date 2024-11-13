@@ -49,18 +49,6 @@ const Profile = ()=>{
     }
 
 
-    const maskedCPF = (cpf:string)=>{
-        if(cpf){
-            const digitsToMask = cpf.length - 3
-            const maskDigits = '*'.repeat(digitsToMask)
-            const lastDigits = cpf.slice(-3)
-            const result = maskDigits + lastDigits
-    
-            return result
-        }
-    }
-
-
     const logout = ()=>{
         const decide = window.confirm('Tem certeza que deseja deslogar?')
 
