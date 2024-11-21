@@ -17,11 +17,10 @@ Ao clicar no card de um restaurante o usuário é direcionado para página de de
 Dentre os métodos de pagamento a aplicação apresenta duas implementações, uma para dinheiro utilizando transferência pix com o auxílio de um QRCode que é gerado pela aplicação. O QRCode gerado representa o total da compra, se o usuário escaneá-lo verá a numeração correspondente ao valor.
 <br><br> <img src='./imgReadme/qrcode.png'>
 
-Ao clicar em copiar o valor total da compra vai para área de transfêrencia, o que no caso de um aplicação real seriam os dados de pagamento disponibilizados pelo estabelecimento à aplicação, como um código de barras ou pix copia e cola.
+Ao clicar em copiar o valor total da compra vai para área de transfêrencia.
 
 No método cartão de crédito foi utilizada a biblioteca react-credit-cards.
 <br><br> <img src='./imgReadme/credit-card.png'>
-Ao preencher os dados do cartão você pode testar as verficações na data de vencimento, usando um ano anterior ao atual ou um mês anterior ao atual, no caso de usar o ano em questão. Bem como testar qualquer validação para verificação de coerência dos dados.<br><br>
 
 
 ><b>Obsservação</b>: Lembrando que, como se trata de uma demontração, ao selecionar o cartão o botão para finalizar a compra é habilitado. Está implementação se limita ao frontend, servindo unicamente para habilitação do botão 'Finalizar Compra'. Na <a href='https://github.com/GazuaDev8417/ifuture_server'>API</a>, acessando a rota 'app.patch('/finished_orders/:id', orderController.endOrders)', do arquivo index.ts, no diretório src, e navegando por suas classes conseguintes, é possivel verificar que não há envio de dados de cartão de crédito.
