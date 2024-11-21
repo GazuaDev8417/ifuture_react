@@ -1,15 +1,19 @@
-import { FC, useContext, useEffect, useRef } from "react"
+import { FC, useContext, useEffect, useRef, useState } from "react"
 import { useNavigate } from "react-router-dom"
 import Context, { GlobalStateContext } from "../../global/Context"
 import Header from "../../components/Header"
 import { BsFillPersonFill } from 'react-icons/bs'
 import { AiOutlineShoppingCart } from 'react-icons/ai'
 import { Products } from "../../types/types"
-import { Container, Temp } from './styled'
+import { Container } from './styled'
 import axios from "axios"
 import { BASE_URL } from "../../constants/url"
+import { useLoadScript, Libraries } from "@react-google-maps/api"
 
 
+
+type Places = google.maps.places.PlaceResult
+const libraries:Libraries = ['places']
 
 
 const Detail:FC = ()=>{
@@ -17,7 +21,11 @@ const Detail:FC = ()=>{
     const selectedOrderId = localStorage.getItem('selectedOrderId')
     const ordersRef = useRef<{ [key:string]: HTMLElement | null }>({})
     const { menu, getAllOrders, getRestaurantById, products } = useContext(Context) as GlobalStateContext
-    /* const [products, setProducts] = useState<Products[]>([]) */
+    const [places, setPlaces] = useState<Places[]>([])
+    const { isLoaded } = useLoadScript({
+        googleMapsApiKey: import.meta.env.VITE_GOOGLE_MAPS_API_KEY,
+        libraries
+    })
 
 
 
@@ -48,6 +56,38 @@ const Detail:FC = ()=>{
     }, [selectedOrderId])
     
     
+    useEffect(()=>{
+        if(!isLoaded) return
+
+        navigator.geolocation.getCurrentPosition(position=>{
+            const { latitude, longitude } = position.coords
+            const service = new window.google.maps.places.PlacesService(
+                document.createElement('div')
+            )
+
+            const request = {
+                location: new window.google.maps.LatLng(latitude, longitude),
+                radius: 5000,
+                keyword: menu.name
+            }
+
+            service.nearbySearch(request, (results, status)=>{
+                if(status === window.google.maps.places.PlacesServiceStatus.OK && results){
+                    const filteredResults = results.filter(place =>(
+                        place.name?.toLocaleLowerCase().includes(menu.name.toLocaleLowerCase())
+                    ))
+                    setPlaces(filteredResults)
+                    console.log(filteredResults)
+                }else{
+                    console.error(`Falha no PlaceServices: ${status}`)
+                }
+            })
+        })
+    }, [isLoaded, menu.name])
+
+
+
+    
     const request = (product: Products)=>{
         const now = new Date()
         const headers = {
@@ -76,7 +116,7 @@ const Detail:FC = ()=>{
 
     
     return(
-        <Temp>
+        <>
         <Header
             leftIcon={
                 <AiOutlineShoppingCart className="header-icon" onClick={()=>{
@@ -96,10 +136,19 @@ const Detail:FC = ()=>{
                     className="image"/>                
                 <div className="desc">
                     <p>{menu.description}</p>
-                    {/* <div className="time">
-                        <span>Frete: R$ {menu.shipping.toFixed(2)}</span>
-                        <span>{menu.deliveryTime} - {menu.deliveryTime + 10} min</span>
-                    </div> */}
+                    <h3 style={{textAlign:'center', marginTop:'20px', marginBottom:'10px'}}>
+                        {menu.name} perto de você
+                    </h3>
+                    <div>
+                        {places.length > 0 ? (
+                            places.map(place=>(
+                                <div key={place.place_id} style={{marginBottom:'10px'}}>
+                                    {place.name}<br/>
+                                    {place.vicinity}
+                                </div>
+                            ))
+                        ) : <div>Não há {menu.name} em suas próximidades</div> }
+                    </div>
                     <p>{menu.address}</p>
                 </div>
                 <div className="products">Cardápio Principal</div>
@@ -128,7 +177,7 @@ const Detail:FC = ()=>{
                 </div>
             </div>
         </Container>
-        </Temp>
+        </>
     )
 }
 

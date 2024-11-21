@@ -3,11 +3,6 @@ import styled from 'styled-components'
 
 
 
-export const Temp = styled.div`
-    display: flex;
-    /* align-items: center; */
-    justify-content: center;
-`
 
 
 export const Container = styled.div`
@@ -41,13 +36,6 @@ export const Container = styled.div`
         text-align: center;
         font-size: 1.5rem;
         margin: 20px 10px 10px;
-    }
-
-    .time{
-        display: flex;
-        justify-content: space-between;
-        align-items: center;
-        padding-top: 20px;
     }
 
     .products{
