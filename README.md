@@ -8,7 +8,7 @@ Neste frontend é apresentada uma lista de restaurantes, que podem também ser d
 <br><br> <img src='./imgReadme/categorias.png'><br><br/>
 Ao clicar na categoria os respectivos restaurantes são listados de acordo com a categoria selecionada. Da mesma forma o input para busca resulta somente em restaurantes listados na respectiva categoria, sendo assim se o suário buscar por um restaurante que esteja na aplicação mas não pertence à categoria selecionada o resultado será 'Nenhum restaurante encontrado!'.
 
-Ao clicar no card de um restaurante o usuário é direcionado para página de detalhes do mesmo, contendo sua descrição e cardápio principal. Esta página é onde o usuário pode fazer seus pedidos, adicioná-los ao carrinho e finalizar sua compra.
+Ao clicar no card de um restaurante o usuário é direcionado para página de detalhes do mesmo, contendo sua descrição, cardápio e endereços próximos ao usuário logado. Esta página é onde o usuário pode fazer seus pedidos, adicioná-los ao carrinho e finalizar sua compra.
 <br><br> <img src='./imgReadme/detalhes.png'>
 <br><br>Todos os pedios realizados pelo usuário vão para o carrinho. Lá o usuário pode alterar a quantidade dos produtos do seu pedido. O valor de cada pedido juntamente com o total da compra altera de forma simultânea com a quantidade.
 <br><br> <img src='./imgReadme/cart.png' width='500'>&nbsp;&nbsp;&nbsp;<img src='./imgReadme/qnt.png' width='500'>
