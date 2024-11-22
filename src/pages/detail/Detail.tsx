@@ -147,7 +147,7 @@ const Detail:FC = ()=>{
                                     {place.vicinity}
                                 </div>
                             ))
-                        ) : <div>Não há {menu.name} em suas próximidades</div> }
+                        ) : <div>Não há {menu.name} em suas proximidades</div> }
                     </div>
                     <p>{menu.address}</p>
                 </div>
