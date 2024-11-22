@@ -9,6 +9,7 @@ import { Container } from './styled'
 import axios from "axios"
 import { BASE_URL } from "../../constants/url"
 import { useLoadScript, Libraries } from "@react-google-maps/api"
+import { isMobileApp } from "../../utils/isMobileApp"
 
 
 
@@ -31,7 +32,11 @@ const Detail:FC = ()=>{
 
     useEffect(()=>{
         const token = localStorage.getItem('token')
-
+        
+        if(isMobileApp()){
+            alert('É necessário abrir pelo navegador para ver os estabelecimentos nas suas proximidades.S')
+        }
+        
         if(!token){
             navigate('/ifuture_react')
         }
@@ -77,7 +82,6 @@ const Detail:FC = ()=>{
                         place.name?.toLocaleLowerCase().includes(menu.name.toLocaleLowerCase())
                     ))
                     setPlaces(filteredResults)
-                    console.log(filteredResults)
                 }else{
                     console.error(`Falha no PlaceServices: ${status}`)
                 }
