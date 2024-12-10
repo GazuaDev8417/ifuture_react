@@ -104,7 +104,8 @@ const Detail:FC = ()=>{
             quantity: 1,
             total: product.price,
             moment: `${now.toLocaleDateString()} - ${now.toLocaleTimeString()}`, 
-            restaurant: product.provider
+            restaurant: product.provider,
+            description: product.description
         }
         
         axios.post(`${BASE_URL}/order`, body, headers).then(res=>{
