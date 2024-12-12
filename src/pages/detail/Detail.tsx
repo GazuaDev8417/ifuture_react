@@ -162,7 +162,9 @@ const Detail:FC = ()=>{
                         <div 
                             className="products-card"
                             key={product.id}
-                            ref={el => ordersRef.current[product.id] = el}
+                            ref={el =>{
+                                ordersRef.current[product.id] = el
+                            }}
                             >
                             <img
                                 className="product-image" 
