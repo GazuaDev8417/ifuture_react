@@ -113,33 +113,9 @@ export const Container = styled.div`
     }
 
 /* MEDIA QUERY */
-@media(max-width: 930px){
-        .form-input{
-            width: 40vw;
-        }
-
-        .submit-btn, button, .btn-container{
-            width: 40vw;
-        }
-    }
-
-    @media(max-width: 690px){
-        .form-input{
-            width: 50vw;
-        }
-        
-        .submit-btn, button, .btn-container{
-            width: 50vw;
-        }
-    }
-
-    @media(max-width: 510px){
-        .form-input{
-            width: 65vw;
-        }
-
-        .submit-btn, button, .btn-container{
-            width: 65vw;
+    @media(max-width: 320px){
+        .input-exception, .submit-btn, .signup-button-exception{
+            width: 285px;
         }
     }
     

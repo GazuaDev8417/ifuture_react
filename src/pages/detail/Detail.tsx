@@ -24,7 +24,7 @@ const Detail:FC = ()=>{
     const { menu, getAllOrders, getRestaurantById, products } = useContext(Context) as GlobalStateContext
     const [places, setPlaces] = useState<Places[]>([])
     const { isLoaded } = useLoadScript({
-        googleMapsApiKey: import.meta.env.VITE_GOOGLE_MAPS_API_KEY,
+        googleMapsApiKey: 'AIzaSyDRDtZy_CrM0csM_Y51FU01-tiW4F2SapU',
         libraries
     })
 
