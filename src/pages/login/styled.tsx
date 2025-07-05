@@ -113,33 +113,9 @@ export const Container = styled.div`
     }
 
 /* MEDIA QUERY */
-    @media(max-width: 930px){
-        .form-input{
-            width: 40vw;
-        }
-
-        button{
-            width: 40vw;
-        }
-    }
-
-    @media(max-width: 690px){
-        .form-input{
-            width: 50vw;
-        }
-
-        button{
-            width: 50vw;
-        }
-    }
-
-    @media(max-width: 510px){
-        .form-input{
-            width: 65vw;
-        }
-
-        button{
-            width: 65vw;
+    @media(max-width: 320px){
+        .btn-container{
+            width: 100%;
         }
     }
 
