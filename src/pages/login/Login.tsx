@@ -70,30 +70,43 @@ const Login:FC = ()=>{
                 alt="imagem"/>
             <div className="title">Login</div>
             {/* { showModal && <Modal setShowModal={setShowModal}/> } */}
-            <form onSubmit={login}>
-                <input
-                    type="email"
-                    className="form-input"
-                    name="email"
-                    value={form.email}
-                    onChange={onChange}
-                    placeholder="name@email.com"
-                    autoFocus 
-                    required/>
-                <input
-                    type={!showPass ? 'password' : 'text'}
-                    className="form-input"
-                    name="password"
-                    value={form.password}
-                    onChange={onChange} 
-                    placeholder="Mínimo de 6 caractéres"
-                    required/>
-                {
-                    !showPass ? (
-                        <FaEyeSlash onClick={()=> setShowPass(true)} className='eye-icon' />
-                    ) : <FaEye onClick={()=> setShowPass(false)} className='eye-icon' />
-                }
-                <button>Entrar</button>
+            <form onSubmit={login}>               
+                <div className="input-icon-container">
+                    <label htmlFor="email" className="sr-only">Email</label>
+                    <input
+                        id="email"
+                        type="email"
+                        className="form-input"
+                        name="email"
+                        value={form.email}
+                        onChange={onChange}
+                        placeholder="name@email.com"
+                        autoComplete="email"
+                        aria-label="Endereço de email"
+                        autoFocus 
+                        required/>
+                    <label htmlFor="password" className="sr-only">Senha</label>
+                    <input
+                        id="password"
+                        type={!showPass ? 'password' : 'text'}
+                        name="password"
+                        className="form-input"
+                        value={form.password}
+                        onChange={onChange} 
+                        placeholder="Sua senha"
+                        autoComplete="current-password"
+                        aria-label="Senha"
+                        required/>
+                    {
+                        !showPass ? (
+                            <FaEyeSlash onClick={()=> setShowPass(true)} className='eye-icon' />
+                        ) : <FaEye onClick={()=> setShowPass(false)} className='eye-icon' />
+                    }
+                </div>
+                <div className="btn-container">
+                    <button className="login-button" onClick={() => setForm({ email:'', password:'' })}>Limpar</button>
+                    <button className="login-button" type="submit">Entrar</button>
+                </div>
             </form>
             <p>
                 Não possui cadastro? clique <Link to='/ifuture_react/signup'> aqui</Link>

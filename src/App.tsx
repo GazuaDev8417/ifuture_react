@@ -46,9 +46,6 @@ const GlobalStyle = createGlobalStyle`
       outline: none;
       cursor: pointer;
       transition: .5s;
-      &:hover{
-          background-color: #dc2b2b;
-      }
       &:active{
         transform: scale(.9);
       }

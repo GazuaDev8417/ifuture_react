@@ -15,7 +15,6 @@ interface FormData{
     email:string
     cpf:string
     password:string
-    confirmPass:string
 }
 
 
@@ -23,13 +22,11 @@ const Signup:FC = ()=>{
     const navigate = useNavigate()
     const { setRegistAddress } = useContext(Context) as GlobalStateContext
     const [showPass, setShowPass] = useState<boolean>(false)
-    const [showPass2, setShowPass2] = useState<boolean>(false)
     const [form, setForm] = useState<FormData>({
         username:'',
         email:'',
         cpf: '',
-        password:'',
-        confirmPass:''
+        password:''
     })
 
 
@@ -54,8 +51,7 @@ const Signup:FC = ()=>{
             name: form.username,
             email: form.email,
             cpf: form.cpf,
-            password: form.password,
-            confirmPass: form.confirmPass
+            password: form.password
         }
         axios.post(`${BASE_URL}/signup`, body).then(res=>{
             localStorage.setItem('token',res.data)
@@ -79,8 +75,7 @@ const Signup:FC = ()=>{
             username:'',
             email:'',
             cpf:'',
-            password:'',
-            confirmPass:''
+            password:''
         })
     }
 
@@ -93,15 +88,21 @@ const Signup:FC = ()=>{
                 alt="imagem"/>
             <div className="title">Cadastro</div>
             <form onSubmit={signup}>
+                <label htmlFor="name" className="sr-only">Nome</label>
                 <input
+                    id="name"
                     type="text"
                     className="form-input"
                     name="username"
                     value={form.username}
                     onChange={onChange}
                     placeholder="Nome e sobrenome" 
+                    autoComplete="name"
+                    aria-label="Nome do usuário"
                     required/>
+                <label htmlFor="cpf" className="sr-only">CPF</label>
                 <input
+                    id="cpf"
                     type="text"
                     className="form-input"
                     name="cpf"
@@ -110,47 +111,47 @@ const Signup:FC = ()=>{
                     value={cpfInputMask(form.cpf)}
                     onChange={onChange}
                     placeholder="CPF (Somente números)" 
+                    autoComplete="username"
+                    aria-label="Número do cpf"
                     required/>
+                <label htmlFor="email" className="sr-only">E-mail</label>
                 <input
+                    id="email"
                     type="email"
                     className="form-input"
                     name="email"
                     value={form.email}
                     onChange={onChange}
                     placeholder="name@email.com" 
+                    autoComplete="email"
+                    aria-label="Endereço de email"
                     required/>
-                <input
-                    type={showPass ? 'text' : 'password'}
-                    className="form-input"
-                    name="password"
-                    value={form.password}
-                    onChange={onChange} 
-                    placeholder="Mínimo de 6 caractéres"
-                    required/>
+                <div className="input-icon-container">
+                    <label htmlFor="password" className="sr-only">Senha</label>
+                    <input
+                        type={showPass ? 'text' : 'password'}
+                        className="form-input input-exception"
+                        name="password"
+                        value={form.password}
+                        onChange={onChange} 
+                        placeholder="Sua senha"
+                        autoComplete="current-password"
+                        aria-label="Senha"
+                        required/>
                 {
                     !showPass ? (
                         <FaEyeSlash onClick={()=> setShowPass(true)} className='eye-icon' />
                     ) : <FaEye onClick={()=> setShowPass(false)} className='eye-icon' />
                 }
-                <input
-                    type={showPass2 ? 'text' : 'password'}
-                    className="form-input"
-                    name="confirmPass"
-                    value={form.confirmPass}
-                    onChange={onChange} 
-                    placeholder="Confirme sua senha"
-                    required/>
-                {
-                    !showPass2 ? (
-                        <FaEyeSlash onClick={()=> setShowPass2(true)} className='eye-icon2' />
-                    ) : <FaEye onClick={()=> setShowPass2(false)} className='eye-icon2' />
-                }
+                </div>
                 <div className="btn-container">
                     <div className="submit-btn">
-                        <button type="button" onClick={clearForm}>Limpar</button>
-                        <button type="submit">Registrar</button>
+                        <button className="signup-button" type="button" onClick={clearForm}>Limpar</button>
+                        <button className="signup-button" type="submit">Registrar</button>
                     </div>
-                    <button type="button"
+                    <button 
+                        className="signup-button signup-button-exception"
+                        type="button"
                         onClick={()=> navigate('/ifuture_react')}>Voltar para login</button>
                 </div>
             </form>
