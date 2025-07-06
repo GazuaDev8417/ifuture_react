@@ -6,6 +6,7 @@ import { BASE_URL } from "../../constants/url"
 import ifutureLogo from '../../imgs/logo-future-eats-invert.png'
 import { Container } from "./styled"
 import { IoIosArrowBack } from 'react-icons/io'
+import { handleKeyPress } from "../../utils/cpf_mask"
 
 
 
@@ -25,7 +26,7 @@ const Address:FC = ()=>{
     const { user, getProfile, updateAddress, setUpdateAddress, registAddress } = useContext(Context) as GlobalStateContext
     const [form, setForm] = useState<FormData>({
         street: updateAddress ? user.street : '',
-        cep: '',
+        cep: updateAddress ? user.cep : '',
         number: updateAddress ? user.number : '',
         neighbourhood: updateAddress ? user.neighbourhood : '',
         city: updateAddress ? user.city : '',
@@ -91,13 +92,6 @@ const Address:FC = ()=>{
     }
 
 
-    const handleKeyPress = (e: React.KeyboardEvent<HTMLInputElement>) => {
-        if (e.charCode < 48 || e.charCode > 57) {
-          e.preventDefault() // Prevent input of non-numeric characters
-        }
-    }
-
-
     const clearForm = ()=>{
         setForm({
             street:'',
@@ -127,15 +121,21 @@ const Address:FC = ()=>{
                 alt="imagem"/>
             <div className="title">{updateAddress ? 'Atualizar endereço' : 'Cadastrar endereço'}</div>
             <form onSubmit={alterAddress}>
+                <label htmlFor="address" className="sr-only">Endereço</label>
                 <input
+                    id="address"
                     type="text"
                     className="form-input"
                     name="street"
                     value={form.street}
                     onChange={onChange}
                     placeholder="Rua / Avenida / Travessa ..." 
+                    autoComplete="street-address"
+                    aria-label="Endereço"
                     required/>
+                <label htmlFor="cep" className="sr-only">CEP</label>
                 <input
+                    id="cep"
                     type="text"
                     className="form-input"
                     name="cep"
@@ -145,49 +145,71 @@ const Address:FC = ()=>{
                     onChange={onChange}
                     onBlur={findAddressByCep}
                     placeholder="CEP" 
+                    autoComplete="postal-code"
+                    aria-label="cep"
                     required/>
+                <label htmlFor="number" className="sr-only">Número</label>
                 <input
+                    id="number"
                     type="text"
                     className="form-input"
                     name="number"
                     onKeyPress={handleKeyPress}
                     value={form.number}
                     onChange={onChange}
-                    placeholder="Número"/>
+                    placeholder="Número"
+                    autoComplete="street-address"
+                    aria-label="número"/>
+                <label htmlFor="neighbourhood" className="sr-only">Bairro</label>
                 <input
+                    id="neighbourhood"
                     type="text"
                     className="form-input"
                     name="neighbourhood"
                     value={form.neighbourhood}
                     onChange={onChange}
                     placeholder="Bairro" 
+                    autoComplete="street-address"
+                    aria-label="Bairro"
                     required/>
+                <label htmlFor="city" className="sr-only">Cidade</label>
                 <input
+                    id="city"
                     type="text"
                     className="form-input"
                     name="city"
                     value={form.city}
                     onChange={onChange} 
                     placeholder="Cidade"
+                    autoComplete="street-address"
+                    aria-label="Cidade"
                     required/>
+                <label htmlFor="state" className="sr-only">Estado</label>
                 <input
+                    id="state"
                     type="text"
                     className="form-input"
                     name="state"
                     value={form.state}
                     onChange={onChange} 
                     placeholder="Estado"
+                    autoComplete="street-address"
+                    aria-label="Estado"
                     required/>
+                <label htmlFor="complement" className="sr-only">Complemento</label>
                 <input
+                    id="complement"
                     type="text"
                     className="form-input"
                     name="complement"
                     value={form.complement}
                     onChange={onChange} 
-                    placeholder="Complemento"/>
+                    placeholder="Complemento"
+                    autoComplete="street-address"
+                    aria-label="Complemento"/>
                 <div className="btn-container">
-                    <button type="button" onClick={clearForm}>Limpar</button>
-                    <button type="submit">{updateAddress ? 'Atualizar' : 'Registrar'}</button>
+                    <button className="address-button" type="button" onClick={clearForm}>Limpar</button>
+                    <button className="address-button" type="submit">{updateAddress ? 'Atualizar' : 'Registrar'}</button>
                 </div>
             </form>
         </Container>

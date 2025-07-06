@@ -22,7 +22,6 @@ export interface Products{
 export interface User{
     id:string
     username:string
-    cpf:string
     email:string
     street:string,
     number:string
@@ -30,6 +29,8 @@ export interface User{
     city:string
     state:string
     complement:string
+    phone:string
+    cep:string
 }
 
 export interface Order{

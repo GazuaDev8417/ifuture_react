@@ -6,12 +6,15 @@ import { BASE_URL } from "../../constants/url"
 import { IoIosArrowBack } from 'react-icons/io'
 import ifutureLogo from '../../imgs/logo-future-eats-invert.png'
 import { Container } from "./styled"
+import formatPhoneNumber from "../../utils/formatPhoneNumber"
+import { handleKeyPress } from "../../utils/cpf_mask"
 
 
 
 interface FormData{
     username:string
     email:string
+    phone:string
 }
 
 
@@ -20,7 +23,8 @@ const EditProfile:FC = ()=>{
     const { user } = useContext(Context) as GlobalStateContext
     const [form, setForm] = useState<FormData>({
         username: user.username,
-        email: user.email
+        email: user.email,
+        phone: formatPhoneNumber(user.phone)
     })
 
 
@@ -67,7 +71,8 @@ const EditProfile:FC = ()=>{
     const clearForm = ()=>{
         setForm({
             username:'',
-            email:''
+            email:'',
+            phone:''
         })
     }
 
@@ -83,21 +88,42 @@ const EditProfile:FC = ()=>{
                 alt="imagem"/>
             <div className="title">Atualizar dados do usuário</div>
             <form onSubmit={updaeProfile}>
+                <label htmlFor="username" className="sr-only">Nome do usuário</label>
                 <input
+                    id="username"
                     type="text"
                     className="form-input"
                     name="username"
                     value={form.username}
                     onChange={onChange}
                     placeholder="Nome e sobrenome" 
+                    autoComplete="name"
+                    aria-label="Nome do usuário"
                     required/>
+                <label htmlFor="email" className="sr-only">Email</label>
                 <input
+                    id="email"
                     type="email"
                     className="form-input"
                     name="email"
                     value={form.email}
                     onChange={onChange}
                     placeholder="name@email.com" 
+                    autoComplete="email"
+                    aria-label="Email"
+                    required/>
+                <label htmlFor="phone" className="sr-only">Telefone</label>
+                <input
+                    id="phone"
+                    type="tel"
+                    className="form-input"
+                    name="phone"
+                    value={formatPhoneNumber(form.phone)}
+                    onChange={onChange}
+                    onKeyPress={handleKeyPress}
+                    placeholder="Número de telefone" 
+                    autoComplete="tel"
+                    aria-label="Número de telefone"
                     required/>
                 <div className="btn-container">
                     <button className="btn" type="button" onClick={clearForm}>Limpar</button>

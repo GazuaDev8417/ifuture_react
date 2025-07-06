@@ -4,16 +4,17 @@ import { useNavigate } from "react-router-dom"
 import axios from "axios"
 import { BASE_URL } from "../../constants/url"
 import ifutureLogo from '../../imgs/logo-future-eats-invert.png'
-import { cpfInputMask } from "../../utils/cpf_mask"
+import { handleKeyPress } from "../../utils/cpf_mask"
 import { FaEyeSlash, FaEye } from 'react-icons/fa'
 import { Container } from "./styled"
+import formatPhoneNumber from "../../utils/formatPhoneNumber"
 
 
 
 interface FormData{
     username:string
     email:string
-    cpf:string
+    phone:string
     password:string
 }
 
@@ -25,7 +26,7 @@ const Signup:FC = ()=>{
     const [form, setForm] = useState<FormData>({
         username:'',
         email:'',
-        cpf: '',
+        phone: '',
         password:''
     })
 
@@ -41,7 +42,9 @@ const Signup:FC = ()=>{
 
     const onChange = (e:ChangeEvent<HTMLInputElement>):void=>{
         const { name, value } = e.target
-        setForm({ ...form, [name]:value })
+        const updatedValue = name === 'phone' ? value.replace(/\D/g, '') : value
+
+        setForm({ ...form, [name]: updatedValue })
     }
 
     const signup = (e:FormEvent<HTMLFormElement>):void=>{
@@ -50,9 +53,10 @@ const Signup:FC = ()=>{
         const body = {
             name: form.username,
             email: form.email,
-            cpf: form.cpf,
+            phone: form.phone.replace(/\D/g, ''),
             password: form.password
         }
+        
         axios.post(`${BASE_URL}/signup`, body).then(res=>{
             localStorage.setItem('token',res.data)
             setRegistAddress(true)
@@ -63,18 +67,11 @@ const Signup:FC = ()=>{
     }
 
 
-    const handleKeyPress = (e: React.KeyboardEvent<HTMLInputElement>) => {
-        if (e.charCode < 48 || e.charCode > 57) {
-          e.preventDefault() 
-        }
-    }
-
-
     const clearForm = ()=>{
         setForm({
             username:'',
             email:'',
-            cpf:'',
+            phone:'',
             password:''
         })
     }
@@ -100,19 +97,19 @@ const Signup:FC = ()=>{
                     autoComplete="name"
                     aria-label="Nome do usuário"
                     required/>
-                <label htmlFor="cpf" className="sr-only">CPF</label>
+                <label htmlFor="tel" className="sr-only">Telefone</label>
                 <input
-                    id="cpf"
+                    id="tel"
                     type="text"
                     className="form-input"
-                    name="cpf"
+                    name="phone"
                     onKeyPress={handleKeyPress}
-                    maxLength={11}
-                    value={cpfInputMask(form.cpf)}
+                    maxLength={15}
+                    value={formatPhoneNumber(form.phone)}
                     onChange={onChange}
-                    placeholder="CPF (Somente números)" 
-                    autoComplete="username"
-                    aria-label="Número do cpf"
+                    placeholder="Número de telefone" 
+                    autoComplete="tel"
+                    aria-label="Número de telefone"
                     required/>
                 <label htmlFor="email" className="sr-only">E-mail</label>
                 <input

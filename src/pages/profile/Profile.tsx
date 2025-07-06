@@ -5,6 +5,7 @@ import { MdEdit } from 'react-icons/md'
 import { AiOutlineLogout, AiOutlineShoppingCart } from 'react-icons/ai'
 import { MdDelete } from "react-icons/md";
 import Header from "../../components/Header"
+import formatPhoneNumber from '../../utils/formatPhoneNumber'
 import { Container } from './styled'
 import { BASE_URL } from '../../constants/url'
 import axios from 'axios'
@@ -15,7 +16,6 @@ import { Order } from '../../types/types'
 const Profile = ()=>{
     const navigate = useNavigate()
     const { user, getProfile, setUpdateAddress, getRestaurantById } = useContext(Context) as GlobalStateContext
-    //const [cpf, setCpf] = useState<string | undefined>('')
     const [orders, setOrders] = useState<Order[]>([])
     const [hoveredItemId, setHoveredItemId] = useState<string>('')
 
@@ -105,15 +105,22 @@ const Profile = ()=>{
             <h1>Perfil do usuário</h1>            
             <hr style={{width:'100%', marginBottom:'15px', background:'lightgray'}} />
             <div className="user-section">
-                <div>{user.username} <br />
-                    {user.email} <br />
-                    {/* {maskedCPF(user.cpf)} */}
+                <div>
+                    <span className='properties'>Nome:</span> {user.username} <br />
+                    <span className='properties'>Email:</span> {user.email} <br />
+                    <span className='properties'>Telefone:</span> {formatPhoneNumber(user.phone)}
                 </div>
                 <MdEdit className="icon" onClick={()=> navigate('/ifuture_react/edit-profile')} />
             </div>
             <div className="address-section">
-                <div>Endereço cadastrado: <br />
-                    {user.street} Nº {user.number}, {user.neighbourhood}, {user.city} - {user.state}
+                <div style={{width:'100%'}}>
+                    <div style={{textAlign:'center', fontSize:'1.5rem', marginBottom:10}}>Endereço cadastrado:</div>
+                    <div style={{maxWidth:'90%'}}>
+                        <span className="properties">Local:</span> {user.street} {user.number ? user.number : 'S/N'} <br />
+                        <span className="properties">Bairro:</span> {user.neighbourhood} <br />
+                        <span className="properties">Cidade/Estado:</span> {user.city} - {user.state} <br />
+                        <span className="properties">CEP:</span> {user.cep}
+                    </div>
                 </div>
                 <MdEdit className="icon" onClick={()=> {
                     navigate('/ifuture_react/address')

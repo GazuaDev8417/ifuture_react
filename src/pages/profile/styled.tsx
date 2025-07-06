@@ -5,7 +5,6 @@ export const Container = styled.div`
     display: flex;
     align-items: center;
     flex-direction: column;
-    /* justify-content: center; */
     margin: 15vh 5rem;
 
     @media(max-width: 517px){
@@ -33,7 +32,11 @@ export const Container = styled.div`
         padding: 0 0 20px;
         line-height: 30px;
         border-radius: 10px;
-    }    
+    }   
+    
+    .properties{
+        font-weight: bold;
+    }
 
     .address-section{
         display: flex;

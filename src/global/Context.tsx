@@ -54,14 +54,15 @@ export const GlobalState = (props:GlobalStateProps)=>{
     const [user, setUser] = useState<User>({
         id:'',
         username:'',
-        cpf:'',
         email:'',
         street:'',
         number:'',
         neighbourhood:'',
         city:'',
         state:'',
-        complement:''
+        complement:'',
+        phone:'',
+        cep:''
     })
 
 
