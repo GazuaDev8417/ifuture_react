@@ -13,13 +13,14 @@ import { Order } from '../../types/types'
 
 
 
+
 const Profile = ()=>{
     const navigate = useNavigate()
     const { user, getProfile, setUpdateAddress, getRestaurantById } = useContext(Context) as GlobalStateContext
     const [orders, setOrders] = useState<Order[]>([])
     const [hoveredItemId, setHoveredItemId] = useState<string>('')
-
-    
+  
+  
 
 
     useEffect(()=>{
@@ -140,10 +141,10 @@ const Profile = ()=>{
                 {orders && orders.map(order=>(
                     <div className="card" key={order.id}>
                         <div className="card-content">
-                            <div className="rest-name">{order.product} R$ {order.price.toFixed(2)}</div>
+                            <div className="rest-name">{order.product} R$ {Number(order.price).toFixed(2)}</div>
                             <b>Pedido feito em:</b> {order.moment} <br/>
                             <b>Quantidade:</b> {order.quantity}<br/>
-                            <b>Total:</b> R$ {order.total.toFixed(2)}<br/>
+                            <b>Total:</b> R$ {Number(order.total).toFixed(2)}<br/>
                             <b>Restaurante:</b> Clique <a onClick={() =>{
                                 localStorage.setItem('selectedOrderId', order.id)
                                 localStorage.setItem('restaurantId', order.restaurant)

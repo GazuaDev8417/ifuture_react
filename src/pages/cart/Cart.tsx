@@ -24,9 +24,11 @@ const Cart:FC = ()=>{
     const { 
         cart, user, getProfile, getAllOrders, setUpdateAddress, allFieldsFilled, setAllfieldsFilled
     } = useContext(Context) as GlobalStateContext
-    const [total, setTotal] = useState<number>(cart.reduce((acc, item) => acc + item.total, 0))
+    const [total, setTotal] = useState<number>(cart.reduce((acc, item) => acc + Number(item.total) * Number(item.quantity), 0))
 
-    
+
+    console.log(Number(total).toFixed(2))
+    console.log(total)
     
     useEffect(()=>{
         const token = localStorage.getItem('token')
@@ -44,7 +46,7 @@ const Cart:FC = ()=>{
         }else{
             setCartLength(true)
         }
-        setTotal(cart.reduce((acc, item) => acc + item.total, 0))
+        setTotal(cart.reduce((acc, item) => acc + Number(item.price) * Number(item.quantity), 0))
     // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [cart])
 
@@ -211,7 +213,7 @@ const Cart:FC = ()=>{
                     type="button"
                     style={{padding:10, color:'white', marginTop:30}}
                     onClick={cleanOrders}>
-                    Limpar Pedidos
+                    Limpar mmm
                 </button>
             )}
             <div className="addressAndName">
@@ -228,8 +230,8 @@ const Cart:FC = ()=>{
                         <div className="product-details">
                             {/* <b>Descrição: </b>{item.description} <br /> */}
                             <b>Quantidade: </b>{item.quantity} <br />
-                            <b>Preço: </b>R$ {item.price.toFixed(2)} <br />
-                            <b>Total: </b>R$ {((item.price) * (item.quantity)).toFixed(2)} <br />
+                            <b>Preço: </b>R$ {Number(item.price).toFixed(2)} <br />
+                            <b>Total: </b>R$ {(Number(item.price) * Number(item.quantity)).toFixed(2)} <br />
                         </div>
                     </span>
                     <div className="btn-container">
@@ -259,7 +261,7 @@ const Cart:FC = ()=>{
                     <option value="money" defaultChecked>Dinheiro</option>
                     <option value="creditcard">Cartão de crédito</option>
                 </select>
-                <div className="total-price">Total da compra: R$ {total.toFixed(2)}</div>
+                <div className="total-price">Total da compra: R$ {Number(total).toFixed(2)}</div>
             </div>
             <button 
                 className="requestOrder-btn"

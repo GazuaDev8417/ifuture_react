@@ -94,6 +94,8 @@ const Detail:FC = ()=>{
     
     const request = (product: Products)=>{
         const now = new Date()
+        const time = `${now.getHours()}:${now.getMinutes()}`
+        const date = now.toLocaleDateString()
         const headers = {
             headers: { Authorization: localStorage.getItem('token')}
         }
@@ -103,14 +105,17 @@ const Detail:FC = ()=>{
             photoUrl: product.photoUrl,
             quantity: 1,
             total: product.price,
-            moment: `${now.toLocaleDateString()} - ${now.toLocaleTimeString()}`, 
+            moment: `${date} às ${time}`, 
             restaurant: product.provider,
             description: product.description
         }
         
         axios.post(`${BASE_URL}/order`, body, headers).then(res=>{
-            alert(res.data)
             getAllOrders()
+            const decide = confirm(res.data)
+            if(decide){
+                navigate('/ifuture_react/cart')
+            }
         }).catch(e=>{
             const decide = confirm(e.response.data)
             if(decide){
@@ -173,7 +178,7 @@ const Detail:FC = ()=>{
                             <div className="product-desc">
                                 <h4>{product.name}</h4><br/>
                                 {product.description}<br/><br/>
-                                <div>R$ {product.price.toFixed(2)}</div>
+                                <div>R$ {Number(product.price).toFixed(2)}</div>
                             </div>
                                 <button 
                                     onClick={()=> request(product)}>
