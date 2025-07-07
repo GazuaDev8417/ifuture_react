@@ -43,4 +43,5 @@ export interface Order{
     moment:string
     restaurant:string 
     client:string
+    paymentmethod:string
 }

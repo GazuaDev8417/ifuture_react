@@ -42,10 +42,18 @@ const GlobalStyle = createGlobalStyle`
       border: none;
       border-radius: 5px;
       background-color: #b11717;
-      box-shadow: 0 0 8px;
-      outline: none;
+      padding: .75rem;
+      color: white;
+      font-weight: 500;
+      box-shadow: 1px 1px 4px black;
       cursor: pointer;
       transition: .5s;
+
+      &:hover{
+        box-shadow: 0 0 6px #a11414;
+        background-color: #990f0f;
+      }
+
       &:active{
         transform: scale(.9);
       }

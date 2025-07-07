@@ -3,8 +3,6 @@ import styled from 'styled-components'
 
 
 
-
-
 export const Container = styled.div`
     margin-top: 25vh;
     h1{
@@ -73,8 +71,10 @@ export const Container = styled.div`
     }
 
     .products-card button{
-        padding: 5px;
+        padding: 10px;
         color: #fff;
+        font-size: 1.2rem;
+        width: 100px;
     }
 
 /* MEDIA QUERIES */

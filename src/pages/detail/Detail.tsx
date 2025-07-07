@@ -167,8 +167,7 @@ const Detail:FC = ()=>{
                             key={product.id}
                             ref={el =>{
                                 ordersRef.current[product.id] = el
-                            }}
-                            >
+                            }}>
                             <img
                                 className="product-image" 
                                 src={product.photoUrl}
@@ -179,6 +178,7 @@ const Detail:FC = ()=>{
                                 <div>R$ {Number(product.price).toFixed(2)}</div>
                             </div>
                                 <button 
+                                    className="request-button"
                                     onClick={()=> request(product)}>
                                     Pedir
                                 </button>

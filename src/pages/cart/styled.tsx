@@ -73,8 +73,9 @@ export const Container = styled.div`
     }
 
     .btn-remove{
-        padding: 5px;
+        padding: 10px;
         color: #fff;
+        font-size: .8rem;
     }
     
     .card img{

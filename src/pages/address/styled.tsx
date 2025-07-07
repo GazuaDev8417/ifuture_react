@@ -76,19 +76,7 @@ export const Container = styled.div`
         color: white;
         font-size: 1rem;
         font-weight: 500;
-        box-shadow: 1px 1px 4px black;
     }
-
-    .address-button:hover{
-        box-shadow: 0 0 6px #a11414;
-        background-color: #990f0f;
-    }
-
-    .address-button:focus {
-        outline: 3px solid #a11414;
-        box-shadow: 0 0 6px #000;
-    }
-
 /* MEDIA QUERY */
     @media(max-width: 930px){
             .form-input{

@@ -51,6 +51,14 @@ const Cart:FC = ()=>{
 
 
     useEffect(() => {
+        if(cart.length === 0){
+            setSelectedValue('')
+            setCartLength(false)
+            setAllfieldsFilled(false)
+        }else{
+            setCartLength(true)
+        }
+        
         setTotal(cart.reduce((acc, item) => acc + Number(item.price) * Number(item.quantity), 0))
     }, [cart])
 
@@ -169,11 +177,14 @@ const Cart:FC = ()=>{
     
    
     const endRequests = ()=>{
+        const body = {
+            paymentMethod: payment
+        }
         const headers = {
             headers: { Authorization: localStorage.getItem('token') }
         }
         
-        axios.patch(`${BASE_URL}/finished_orders`, {}, headers).then(res=>{
+        axios.patch(`${BASE_URL}/finished_orders`, body, headers).then(res=>{
             alert(res.data)
             setAllfieldsFilled(false)
             getAllOrders()
@@ -214,7 +225,7 @@ const Cart:FC = ()=>{
             {cart.length > 0 && (
                 <button 
                     type="button"
-                    style={{padding:10, color:'white', marginTop:30}}
+                    style={{padding:10, color:'white', marginTop:30, fontSize:'1rem'}}
                     onClick={cleanOrders}>
                     Limpar Lista
                 </button>
