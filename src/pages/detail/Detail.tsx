@@ -93,9 +93,7 @@ const Detail:FC = ()=>{
 
     
     const request = (product: Products)=>{
-        const now = new Date()
-        const time = `${now.getHours()}:${now.getMinutes()}`
-        const date = now.toLocaleDateString()
+        const now = new Date().toISOString()
         const headers = {
             headers: { Authorization: localStorage.getItem('token')}
         }
@@ -105,7 +103,7 @@ const Detail:FC = ()=>{
             photoUrl: product.photoUrl,
             quantity: 1,
             total: product.price,
-            moment: `${date} às ${time}`, 
+            moment: now, 
             restaurant: product.provider,
             description: product.description
         }
