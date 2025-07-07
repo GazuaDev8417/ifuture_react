@@ -16,7 +16,6 @@
     "@react-google-maps/api": "^2.20.3",
     "axios": "^1.7.9",
     "gh-pages": "^6.2.0",
-    "moment-timezone": "^0.6.0",
     "prop-types": "^15.8.1",
     "qrcode.react": "^4.1.0",
     "react": "^19.0.0",

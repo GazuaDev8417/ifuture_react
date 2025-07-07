@@ -22,13 +22,12 @@ const Cart:FC = ()=>{
     const [cartLength, setCartLength] = useState<boolean>(false)
     const [textPopup ,setTextPopup] = useState<boolean>(false)
     const { 
-        cart, user, getProfile, getAllOrders, setUpdateAddress, allFieldsFilled, setAllfieldsFilled
+        cart, setCart, user, getProfile, getAllOrders, setUpdateAddress, allFieldsFilled, setAllfieldsFilled
     } = useContext(Context) as GlobalStateContext
     const [total, setTotal] = useState<number>(cart.reduce((acc, item) => acc + Number(item.total) * Number(item.quantity), 0))
 
 
-    console.log(Number(total).toFixed(2))
-    console.log(total)
+
     
     useEffect(()=>{
         const token = localStorage.getItem('token')
@@ -48,7 +47,13 @@ const Cart:FC = ()=>{
         }
         setTotal(cart.reduce((acc, item) => acc + Number(item.price) * Number(item.quantity), 0))
     // eslint-disable-next-line react-hooks/exhaustive-deps
+    }, [])
+
+
+    useEffect(() => {
+        setTotal(cart.reduce((acc, item) => acc + Number(item.price) * Number(item.quantity), 0))
     }, [cart])
+
 
 
     useEffect(()=>{
@@ -81,24 +86,22 @@ const Cart:FC = ()=>{
         const newQuantity = Number(e.target.value)
         const updatedCart = cart.map(item=>{
             if(item.id === id){
-                //const newTotal = item.price * newQuantity
-                return { ...item, quantity: newQuantity/* , total: newTotal */ }
+                return { ...item, quantity: newQuantity }
             }
             return item
         })
+
+        setCart(updatedCart)
+        setTotal(cart.reduce((acc, item) => acc + Number(item.price) * Number(item.quantity), 0))
+
         const headers = {
             headers: { Authorization: localStorage.getItem('token')}
         }
-
-        //setCart(updatedCart)
         
         axios.patch(`${BASE_URL}/order/${id}`, {
             quantity: newQuantity
         }, headers).then(()=>{
-            getAllOrders()
         }).catch(e => alert(e.response.data) )
-
-        setTotal(updatedCart.reduce((acc, cart) => acc + cart.total, 0))
     }
 
 
@@ -213,7 +216,7 @@ const Cart:FC = ()=>{
                     type="button"
                     style={{padding:10, color:'white', marginTop:30}}
                     onClick={cleanOrders}>
-                    Limpar mmm
+                    Limpar Lista
                 </button>
             )}
             <div className="addressAndName">
@@ -228,7 +231,6 @@ const Cart:FC = ()=>{
                     <span>
                         <div className="product-name">{item.product}</div>
                         <div className="product-details">
-                            {/* <b>Descrição: </b>{item.description} <br /> */}
                             <b>Quantidade: </b>{item.quantity} <br />
                             <b>Preço: </b>R$ {Number(item.price).toFixed(2)} <br />
                             <b>Total: </b>R$ {(Number(item.price) * Number(item.quantity)).toFixed(2)} <br />
@@ -253,9 +255,7 @@ const Cart:FC = ()=>{
                 textPopup={textPopup}
                 setTextPopup={setTextPopup}
                 setShowQRcode={setShowQRcode}
-                cartLength={cartLength}
-                //total={total}
-                />
+                cartLength={cartLength}/>
             <div className="select-container">
                 <select className="select" value={payment} onChange={handleSelect}>
                     <option value="money" defaultChecked>Dinheiro</option>
