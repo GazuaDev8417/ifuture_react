@@ -46,9 +46,10 @@ const EditProfile:FC = ()=>{
     const updaeProfile = (e:FormEvent<HTMLFormElement>):void=>{
         e.preventDefault()
 
-        const body = {
+        const body:FormData = {
             username: form.username,
-            email: form.email
+            email: form.email,
+            phone: form.phone
         }
         const headers = {
             headers: { Authorization: localStorage.getItem('token') }
