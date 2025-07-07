@@ -103,7 +103,7 @@ const Detail:FC = ()=>{
             photoUrl: product.photoUrl,
             quantity: 1,
             total: product.price,
-            moment: now, 
+            momentString: now, 
             restaurant: product.provider,
             description: product.description
         }
