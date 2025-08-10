@@ -18,30 +18,24 @@ interface FormData{
     city:string
     state:string
     complement:string
+    person:string
 }
 
 
 const Address:FC = ()=>{
     const navigate = useNavigate()
-    const { user, getProfile, updateAddress, setUpdateAddress, registAddress } = useContext(Context) as GlobalStateContext
+    const { updateAddress, setUpdateAddress } = useContext(Context) as GlobalStateContext
     const [form, setForm] = useState<FormData>({
-        street: updateAddress ? user.street : '',
-        cep: updateAddress ? user.cep : '',
-        number: updateAddress ? user.number : '',
-        neighbourhood: updateAddress ? user.neighbourhood : '',
-        city: updateAddress ? user.city : '',
-        state: updateAddress ? user.state : '',
-        complement: updateAddress ? user.complement : ''
+        street:'',
+        cep:'',
+        number:'',
+        neighbourhood:'',
+        city:'',
+        state:'',
+        complement:'',
+        person:''
     })
     
-
-
-    useEffect(()=>{
-        if(!updateAddress && !registAddress){
-            navigate('/ifuture_react/feed')
-        }       
-        getProfile()
-    }, [])
     
 
     const findAddressByCep = ()=>{
@@ -53,7 +47,8 @@ const Address:FC = ()=>{
                 neighbourhood:res.data.bairro,
                 city:res.data.localidade,
                 state:res.data.estado,
-                complement:''
+                complement:'',
+                person:''
             })
         }).catch(e=>{
             alert(e.response.data)
@@ -67,7 +62,7 @@ const Address:FC = ()=>{
     }
 
 
-    const alterAddress = (e:FormEvent<HTMLFormElement>):void=>{
+    const registAddress = (e:FormEvent<HTMLFormElement>):void=>{
         e.preventDefault()
 
         const body = {
@@ -77,15 +72,16 @@ const Address:FC = ()=>{
             neighbourhood: form.neighbourhood,
             city: form.city,
             state: form.state,
-            complement: form.complement
+            complement: form.complement,
+            person: form.person
         }
+        
         const headers = {
             headers: { Authorization: localStorage.getItem('token') }
         }
         
         axios.patch(`${BASE_URL}/address`, body, headers).then(()=>{
-            navigate(updateAddress ? '/ifuture_react/profile' : '/ifuture_react/feed')
-            setUpdateAddress(false)
+            navigate('/ifuture_react/cart')
         }).catch(e=>{
             alert(e.response.data)
         })
@@ -100,7 +96,8 @@ const Address:FC = ()=>{
             neighbourhood: '',
             city:'',
             state:'',
-            complement:''
+            complement:'',
+            person:''
         })
     }
     
@@ -120,7 +117,7 @@ const Address:FC = ()=>{
                 src={ifutureLogo}
                 alt="imagem"/>
             <div className="title">{updateAddress ? 'Atualizar endereço' : 'Cadastrar endereço'}</div>
-            <form onSubmit={alterAddress}>
+            <form onSubmit={registAddress}>
                 <label htmlFor="address" className="sr-only">Endereço</label>
                 <input
                     id="address"
@@ -196,7 +193,7 @@ const Address:FC = ()=>{
                     autoComplete="street-address"
                     aria-label="Estado"
                     required/>
-                <label htmlFor="complement" className="sr-only">Complemento</label>
+                <label htmlFor="complement" className="sr-only">Ponto de referência</label>
                 <input
                     id="complement"
                     type="text"
@@ -204,12 +201,25 @@ const Address:FC = ()=>{
                     name="complement"
                     value={form.complement}
                     onChange={onChange} 
-                    placeholder="Complemento"
+                    placeholder="Ponto de referência"
                     autoComplete="street-address"
-                    aria-label="Complemento"/>
+                    aria-label="Complemento"
+                    required/>
+                <label htmlFor="person" className="sr-only">Falar com</label>
+                <input
+                    id="person"
+                    type="text"
+                    className="form-input"
+                    name="person"
+                    value={form.person}
+                    onChange={onChange} 
+                    placeholder="Falar com"
+                    autoComplete="name"
+                    aria-label="person"
+                    required/>
                 <div className="btn-container">
                     <button className="address-button" type="button" onClick={clearForm}>Limpar</button>
-                    <button className="address-button" type="submit">{updateAddress ? 'Atualizar' : 'Registrar'}</button>
+                    <button className="address-button" type="submit">Registrar</button>
                 </div>
             </form>
         </Container>

@@ -1,7 +1,7 @@
 import { FC } from "react"
 import { Routes, Route } from "react-router-dom"
-import Signup from "../pages/signup/Signup"
-import Login from "../pages/login/Login"
+/* import Signup from "../pages/signup/Signup"
+import Login from "../pages/login/Login" */
 import Profile from "../pages/profile/Profile"
 import Feed from "../pages/feed/Feed"
 import Detail from "../pages/detail/Detail"
@@ -15,9 +15,9 @@ import EditProfile from "../pages/editProfile/EditProfile"
 const Router:FC = ()=>{
     return(
         <Routes>
-            <Route path="/ifuture_react/signup" element={<Signup/>} />
-            <Route path="/ifuture_react" element={<Login/>} />
-            <Route path="/ifuture_react/feed" element={<Feed/>} />
+            {/* <Route path="/ifuture_react/signup" element={<Signup/>} />
+            <Route path="/ifuture_react" element={<Login/>} /> */}
+            <Route path="/ifuture_react/" element={<Feed/>} />
             <Route path="/ifuture_react/detail" element={<Detail/>} />
             <Route path="/ifuture_react/cart" element={<Cart/>} />
             <Route path="/ifuture_react/profile" element={<Profile/>} />

@@ -20,10 +20,18 @@ const Feed:FC = ()=>{
     const [restaurants, setRestaurants] = useState<Restaurant[]>([])
     const [filteredByCategory, setFilteredByCategory] = useState<Restaurant[]>([])
     const [categorySelected, setCategorySelected] = useState<boolean>(false)
+    
 
 
+
+    const login = ()=>{
+        axios.post(`${BASE_URL}/login`).then(res=>{
+            localStorage.setItem('token', res.data)
+        }).catch(e => alert(e.response.data))
+    }
    
     useEffect(()=>{
+        login()
         getRestaurants()
 
         if(!localStorage.getItem('token')){
@@ -33,10 +41,8 @@ const Feed:FC = ()=>{
     
 
     const getRestaurants = ()=>{
-        const headers = {
-            headers: { Authorization: localStorage.getItem('token') }
-        }
-        axios.get(`${BASE_URL}/restaurants`, headers).then(res=>{
+        
+        axios.get(`${BASE_URL}/restaurants`).then(res=>{
             setRestaurants(res.data)
         }).catch(e=>{
             alert(e.response.data)
@@ -71,10 +77,10 @@ const Feed:FC = ()=>{
         <>
         <Header
             leftIcon={
-                <AiOutlineShoppingCart className="header-icon" onClick={()=> navigate('/ifuture_react/cart')} />
+                <div/>
             }
             rightIcon={
-                <BsFillPersonFill className="header-icon" onClick={()=> navigate('/ifuture_react/profile')} />
+                <div/>
             }/>
         <Container>
             <div className="input-container">

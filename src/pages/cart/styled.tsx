@@ -8,11 +8,6 @@ export const Container = styled.div`
     flex-direction: column;
     margin: 15vh 5rem;
 
-    &.active{
-        filter: blur(3px);
-        pointer-events: none;
-    }
-
     h1{
         text-align: center;
         margin: 20px 0 10vh;

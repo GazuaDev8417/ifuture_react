@@ -4,91 +4,48 @@ import axios from "axios"
 import { BASE_URL } from "../../constants/url"
 import Header from "../../components/Header"
 import { IoIosArrowBack } from "react-icons/io"
-import { BsFillPersonFill } from 'react-icons/bs'
-import { QRCodeSVG } from 'qrcode.react'
 import { MdEdit } from 'react-icons/md'
 import { Order } from "../../types/types"
 import { useNavigate } from "react-router-dom"
-import { Container, QRCodeBox } from "./styled"
-import Payment_methods from "../../components/payment/Payment_methods"
+import { Container, } from "./styled"
 
 
 
 const Cart:FC = ()=>{
     const navigate = useNavigate()
-    const [payment, setPayment] = useState<string>('money')
-    const [selectedValue, setSelectedValue] = useState<string>('')
-    const [showQRcode, setShowQRcode] = useState<boolean>(false)
-    const [cartLength, setCartLength] = useState<boolean>(false)
-    const [textPopup ,setTextPopup] = useState<boolean>(false)
     const { 
-        cart, setCart, user, getProfile, getAllOrders, setUpdateAddress, allFieldsFilled, setAllfieldsFilled
+        cart, setCart, getAllOrders, setUpdateAddress
     } = useContext(Context) as GlobalStateContext
+    const fullAddress = cart.length > 0 ? cart[0].address : ''
+    const address = fullAddress?.substring(0, fullAddress.indexOf(','))
+    const nextPoint = fullAddress?.indexOf(',') + 1
+    const cep = fullAddress?.substring(nextPoint, nextPoint + 10)
+    const local = fullAddress?.substring(nextPoint + 11, fullAddress.lastIndexOf('-'))
+    const referencia = fullAddress?.substring(fullAddress.lastIndexOf('-') + 1, fullAddress.lastIndexOf(','))
+    const talkTo = fullAddress?.substring(fullAddress.lastIndexOf(',') + 1, fullAddress.length)
     const [total, setTotal] = useState<number>(cart.reduce((acc, item) => acc + Number(item.total) * Number(item.quantity), 0))
 
 
 
-    
     useEffect(()=>{
         const token = localStorage.getItem('token')
         
         if(!token){
             navigate('/ifuture_react')
         }
-
-        getProfile()
+        
         getAllOrders()
-        if(cart.length === 0){
-            setSelectedValue('')
-            setCartLength(false)
-            setAllfieldsFilled(false)
-        }else{
-            setCartLength(true)
-        }
+
         setTotal(cart.reduce((acc, item) => acc + Number(item.price) * Number(item.quantity), 0))
     // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [])
 
 
     useEffect(() => {
-        if(cart.length === 0){
-            setSelectedValue('')
-            setCartLength(false)
-            setAllfieldsFilled(false)
-        }else{
-            setCartLength(true)
-        }
         
         setTotal(cart.reduce((acc, item) => acc + Number(item.price) * Number(item.quantity), 0))
     }, [cart])
-
-
-
-    useEffect(()=>{
-        const handleKeydown = (e:KeyboardEvent)=>{
-            if(e.key === 'Escape' || e.key === 'Esc'){
-                setShowQRcode(false)
-                //setShowCreditCard(false)
-                setSelectedValue('')
-            }
-        }
-
-        document.addEventListener('keydown', handleKeydown)
-        return () =>{
-            document.removeEventListener('keydown', handleKeydown)
-        }
-    }, [])
-
-
-    const handleSelect = (e:ChangeEvent<HTMLSelectElement>)=>{
-        setPayment(e.target.value)
-        
-        if(e.target.value !== 'money'){
-            setSelectedValue('')
-        }else{
-            setAllfieldsFilled(false)
-        }
-    }
+    
 
     const handleNumber = (e:ChangeEvent<HTMLInputElement>, id:string)=>{
         const newQuantity = Number(e.target.value)
@@ -101,33 +58,13 @@ const Cart:FC = ()=>{
 
         setCart(updatedCart)
         setTotal(cart.reduce((acc, item) => acc + Number(item.price) * Number(item.quantity), 0))
-
-        const headers = {
-            headers: { Authorization: localStorage.getItem('token')}
-        }
         
         axios.patch(`${BASE_URL}/order/${id}`, {
             quantity: newQuantity
-        }, headers).then(()=>{
+        }).then(()=>{
         }).catch(e => alert(e.response.data) )
     }
-
-
-    const handleRadioButton = (e:ChangeEvent<HTMLInputElement>)=>{
-        if(cart.length === 0){
-            alert('Você ainda não fez nenhum pedido')
-            setShowQRcode(false)
-            // setShowCreditCard(false)
-            return
-        }
-
-        setSelectedValue(e.target.value)
-        if(e.target.value === 'PayPal' && cart.length > 0){
-            setShowQRcode(true)
-        }else{
-            setShowQRcode(false)
-        }
-    }
+    
 
     const removeItem = (cartItem:Order)=>{
         const headers = {
@@ -138,19 +75,6 @@ const Cart:FC = ()=>{
             () => getAllOrders()
         ).catch(e=>{
             alert(e.response.data)
-        })
-    }
-
-
-    const handleCopy = (textToCopy:string)=>{
-        navigator.clipboard.writeText(textToCopy).then(()=>{
-            setTextPopup(true)
-            setShowQRcode(true)
-            setTimeout(()=>{
-                setShowQRcode(false)
-            }, 1000)
-        }).catch(e=>{
-            alert(`Erro ao copiar: ${e}`)
         })
     }
 
@@ -175,22 +99,12 @@ const Cart:FC = ()=>{
     }
     
     
-   
     const endRequests = ()=>{
-        const body = {
-            paymentMethod: payment
-        }
-        const headers = {
-            headers: { Authorization: localStorage.getItem('token') }
-        }
+        const produtos = cart.map(item => item.product).join(',')
+        const mensagemUrl = `Novo pedido:\n${produtos}\nPara o endereço: ${address}\nCEP: ${cep}\nLocal: ${local}\n${referencia}\nFalar com: ${talkTo}`
+        const url = `https://wa.me/5571982551522?text=${encodeURIComponent(mensagemUrl)}`
         
-        axios.patch(`${BASE_URL}/finished_orders`, body, headers).then(res=>{
-            alert(res.data)
-            setAllfieldsFilled(false)
-            getAllOrders()
-        }).catch(e =>{
-            alert(e.response.data)
-        })
+        window.open(url, '_blank')
     }
     
         
@@ -205,23 +119,30 @@ const Cart:FC = ()=>{
                     onClick={()=> navigate(-1)} />
             }
             rightIcon={
-                <BsFillPersonFill 
-                    className="header-icon"
-                    onClick={()=> navigate('/ifuture_react/profile')} />
+                <div/>
             }/>
-        <Container className={showQRcode ? 'active' : ''}>
+        <Container>
             <h1>Meu Carrinho</h1>
             <hr style={{width:'100%', marginBottom:'15px', background:'lightgray'}} />
             <div className="address-section">
-                <div>Endereço para entrega: <br />
-                    {user.street} {user.number}, {user.neighbourhood}<br/>
-                    {user.city} - {user.state}
+                <div>
+                    <b>Endereço</b>: {address}<br />
+                    <b>CEP</b>: {cep}<br />
+                    <b>Local</b>: {local}<br />
+                    <b>Ponto de referência</b>: {referencia} <br />
+                    <b>Falar com</b>: {talkTo}
                 </div>
                 <MdEdit className="icon" onClick={()=> {
                     setUpdateAddress(true)
                     navigate('/ifuture_react/address')
                 }} />
             </div>
+            {fullAddress === null && (
+                <div>
+                    Necessário adicionar um endereo para entrega.<br />
+                    Clique no ícone do lápis para adicionar
+                </div>
+            )}
             {cart.length > 0 && (
                 <button 
                     type="button"
@@ -259,40 +180,17 @@ const Cart:FC = ()=>{
                 </div>
             )) : <div style={{margin:10}}>Você ainda não fez nenhum pedido</div> }
             <hr style={{width:'100%', marginBottom:'15px', background:'lightgray'}} />
-            <Payment_methods 
-                paymentMethod={payment}
-                handleRadioButton={handleRadioButton}
-                selectedValue={selectedValue}
-                textPopup={textPopup}
-                setTextPopup={setTextPopup}
-                setShowQRcode={setShowQRcode}
-                cartLength={cartLength}/>
             <div className="select-container">
-                <select className="select" value={payment} onChange={handleSelect}>
-                    <option value="money" defaultChecked>Dinheiro</option>
-                    <option value="creditcard">Cartão de crédito</option>
-                </select>
                 <div className="total-price">Total da compra: R$ {Number(total).toFixed(2)}</div>
             </div>
             <button 
                 className="requestOrder-btn"
-                style={{background: allFieldsFilled || selectedValue !== '' ? 'red' : 'gray'}}
-                disabled={allFieldsFilled || selectedValue !== '' ? false : true}
+                style={{background: cart.length > 0 && fullAddress !== null ? 'red' : 'gray'}}
+                disabled={cart.length > 0 && fullAddress !== null ? false : true}
                 onClick={() => endRequests()}>
-                Finalizar Compra
+                Finalizar Pedido
             </button>
         </Container>
-        <QRCodeBox>
-            <div className={`qrcode-container ${showQRcode ? 'active' : ''}`}>
-                <small style={{background:'white'}}>
-                    Lembrando que o projeto se trata de uma simulação, então este QRCode representa nada mais
-                    que o valor total dos pedidos, não copiando nenhuma chave ou código de barras.
-                </small>
-                <QRCodeSVG value={`Valor total: R$ ${total}`} size={250} />
-                {textPopup && <span className="textPopup">Copiado!</span>}
-                <button style={{padding:10}} onClick={() => handleCopy(String(total.toFixed(2)))}>Copiar</button>
-            </div>
-        </QRCodeBox>
         </>
     )
 }

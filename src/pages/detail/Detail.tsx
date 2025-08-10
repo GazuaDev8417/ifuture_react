@@ -133,7 +133,7 @@ const Detail:FC = ()=>{
                 }} />
             }
             rightIcon={
-                <BsFillPersonFill className="header-icon" onClick={()=> navigate('/ifuture_react/profile')} />
+                <div/>
             }/>
         <Container>
             <div className="card">

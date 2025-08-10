@@ -44,7 +44,7 @@ const Header = (props:HeaderProps)=>{
     return(
         <Container>
             {props.leftIcon}
-            <img src={Logo} alt="Logo" ref={imageRef} onClick={() => navigate('/ifuture_react/feed')} />
+            <img src={Logo} alt="Logo" ref={imageRef} onClick={() => navigate('/ifuture_react')} />
             {props.rightIcon}
         </Container>
     )
