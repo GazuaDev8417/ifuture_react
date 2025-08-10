@@ -100,11 +100,12 @@ const Cart:FC = ()=>{
     
     
     const endRequests = ()=>{
-        const produtos = cart.map(item => item.product).join(',')
+        const produtos = cart.map(item => item.product).join(', ')
         const mensagemUrl = `Novo pedido:\n${produtos}\nPara o endereço: ${address}\nCEP: ${cep}\nLocal: ${local}\n${referencia}\nFalar com: ${talkTo}`
         const url = `https://wa.me/5571984407882?text=${encodeURIComponent(mensagemUrl)}`
         
         window.open(url, '_blank')
+        localStorage.clear()
     }
     
         

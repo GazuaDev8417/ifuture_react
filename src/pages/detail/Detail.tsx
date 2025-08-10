@@ -129,7 +129,7 @@ const Detail:FC = ()=>{
                 <AiOutlineShoppingCart className="header-icon" onClick={()=>{
                     getAllOrders()
                     navigate('/ifuture_react/cart')
-                }} />
+                }}/>
             }
             rightIcon={
                 <div/>

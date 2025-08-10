@@ -1,6 +1,7 @@
 import { ChangeEvent, FC, useEffect, useState, useContext } from "react"
 import { useNavigate } from "react-router-dom"
 import Context, { GlobalStateContext } from "../../global/Context"
+import { AiOutlineShoppingCart } from 'react-icons/ai'
 import axios from 'axios'
 import { BASE_URL } from "../../constants/url"
 import RestaurantCard from "../../components/RestaurantCard"
@@ -18,6 +19,7 @@ const Feed:FC = ()=>{
     const [restaurants, setRestaurants] = useState<Restaurant[]>([])
     const [filteredByCategory, setFilteredByCategory] = useState<Restaurant[]>([])
     const [categorySelected, setCategorySelected] = useState<boolean>(false)
+    const token = localStorage.getItem('token')
     
 
 
@@ -29,12 +31,11 @@ const Feed:FC = ()=>{
     }
    
     useEffect(()=>{
-        login()
-        getRestaurants()
-
-        if(!localStorage.getItem('token')){
-            navigate('/ifuture_react')
+        if(!token){
+            login()
         }
+
+        getRestaurants()
     }, [])
     
 
@@ -75,7 +76,9 @@ const Feed:FC = ()=>{
         <>
         <Header
             leftIcon={
-                <div/>
+                <AiOutlineShoppingCart className="header-icon" onClick={()=>{
+                    navigate('/ifuture_react/cart')
+                }}/>
             }
             rightIcon={
                 <div/>
@@ -123,8 +126,6 @@ const Feed:FC = ()=>{
                     <RestaurantCard key={rest.id}
                         id={rest.id}
                         logourl={rest.logourl}
-                        /* deliveryTime={rest.deliveryTime}
-                        shipping={rest.shipping} */
                         getRestaurantById={()=>{
                             localStorage.setItem('restaurantId', rest.id)
                             getRestaurantById(rest.id)
