@@ -145,7 +145,6 @@ const Profile = ()=>{
                             <b>Pedido feito em:</b> {order.moment} <br/>
                             <b>Quantidade:</b> {order.quantity}<br/>
                             <b>Total:</b> R$ {Number(order.total).toFixed(2)}<br/>
-                            <b>Pagamento:</b> {order.paymentmethod === 'money' ? 'Dinheiro' : 'Crédito'}<br/>
                             <b>Restaurante:</b> Clique <a onClick={() =>{
                                 localStorage.setItem('selectedOrderId', order.id)
                                 localStorage.setItem('restaurantId', order.restaurant)

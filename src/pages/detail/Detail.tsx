@@ -2,7 +2,6 @@ import { FC, useContext, useEffect, useRef, useState } from "react"
 import { useNavigate } from "react-router-dom"
 import Context, { GlobalStateContext } from "../../global/Context"
 import Header from "../../components/Header"
-import { BsFillPersonFill } from 'react-icons/bs'
 import { AiOutlineShoppingCart } from 'react-icons/ai'
 import { Products } from "../../types/types"
 import { Container } from './styled'

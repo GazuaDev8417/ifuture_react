@@ -5,8 +5,6 @@ import axios from 'axios'
 import { BASE_URL } from "../../constants/url"
 import RestaurantCard from "../../components/RestaurantCard"
 import Header from "../../components/Header"
-import { BsFillPersonFill } from 'react-icons/bs'
-import { AiOutlineShoppingCart } from 'react-icons/ai'
 import { Restaurant } from "../../types/types"
 import { Container } from "./styled"
 import { Loading } from "../../components/Loading"
