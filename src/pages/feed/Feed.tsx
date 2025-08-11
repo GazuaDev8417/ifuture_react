@@ -12,22 +12,21 @@ import { Loading } from "../../components/Loading"
 
 
 
+
 const Feed:FC = ()=>{
     const navigate = useNavigate()
     const { getRestaurantById } = useContext(Context) as GlobalStateContext
     const [word, setWord] = useState<string>('')
     const [restaurants, setRestaurants] = useState<Restaurant[]>([])
-    const [filteredByCategory, setFilteredByCategory] = useState<Restaurant[]>([])
-    const [categorySelected, setCategorySelected] = useState<boolean>(false)
+    const [category, setCategory] = useState<string | null>(null)
     const token = localStorage.getItem('token')
-    
 
 
 
     const login = ()=>{
         axios.post(`${BASE_URL}/login`).then(res=>{
             localStorage.setItem('token', res.data)
-        }).catch(e => alert(e.response.data))
+        }).catch(e => alert(e.response?.data))
     }
    
     useEffect(()=>{
@@ -44,7 +43,7 @@ const Feed:FC = ()=>{
         axios.get(`${BASE_URL}/restaurants`).then(res=>{
             setRestaurants(res.data)
         }).catch(e=>{
-            alert(e.response.data)
+            alert(e.response?.data)
         })
     }
 
@@ -54,21 +53,9 @@ const Feed:FC = ()=>{
     }
 
     
-    const filteredSearch = restaurants && restaurants.filter(rest=>{
-        return rest.name.toLocaleLowerCase().includes(word.toLocaleLowerCase())
-    })
-
-    const filteredByCategorySearch = filteredByCategory && filteredByCategory.filter(res=>{
-        return res.name.toLocaleLowerCase().includes(word.toLocaleLowerCase())
-    })
-    
-    const categoryFilter = (category:string)=>{
-        const filtered = restaurants.filter(rest => rest.category === category)
-        setFilteredByCategory(filtered)
-        setCategorySelected(true)
-    }
-
-   
+    const filteredRestaurants = restaurants
+        .filter(rest => !category || rest.category === category)
+        .filter(rest => rest.name.toLocaleLowerCase().includes(word.toLocaleLowerCase()))
     
 
 
@@ -95,48 +82,27 @@ const Feed:FC = ()=>{
                 {restaurants &&
                     [...new Set(restaurants.map(rest => rest.category))].map(category => (
                         <div className="card-category" key={category}
-                            onClick={() => categoryFilter(category)}>
+                            onClick={() => setCategory(category)}>
                                 {category}
                             </div>
                     ))
                 }
             </div>
-            {categorySelected ? (
-                filteredByCategorySearch.length > 0 ? (
-                    filteredByCategorySearch.map(item=>{
-                        return(
-                            <RestaurantCard key={item.id}
-                                id={item.id}
-                                logourl={item.logourl}
-                                /* deliveryTime={item.deliveryTime}
-                                shipping={item.shipping} */
-                                getRestaurantById={()=>{
-                                    localStorage.setItem('restaurantId', item.id)
-                                    getRestaurantById(item.id)
-                                    navigate('/ifuture_react/detail')
-                                }}
-                            />
-                        )
-                    })
-                )  : (
-                    word && <div className="no-results">Nenhum restaurante encontrado!</div>
-                )
-            ) : (
-                filteredSearch.length > 0 ? filteredSearch.map(rest=>(
-                    <RestaurantCard key={rest.id}
-                        id={rest.id}
-                        logourl={rest.logourl}
-                        getRestaurantById={()=>{
-                            localStorage.setItem('restaurantId', rest.id)
-                            getRestaurantById(rest.id)
-                            navigate('/ifuture_react/detail')
-                        } }
-                    />
-                )) : (
-                    word ? <div className="no-results">Nenhum restaurante encontrado!</div>
-                    : <div className="loading"><Loading/></div>
-                ) 
-            )}
+                {filteredRestaurants.length > 0 ? (
+                    filteredRestaurants.map(rest=>(
+                        <RestaurantCard key={rest.id}
+                            id={rest.id}
+                            logourl={rest.logourl}
+                            getRestaurantById={()=>{
+                                localStorage.setItem('restaurantId', rest.id)
+                                getRestaurantById(rest.id)
+                                navigate('/ifuture_react/detail')}}/>
+                            ))
+                    ) : word ? (
+                        <div className="no-results">Nenhum restaurante encontrado!</div>
+                    ) : (
+                        <div className="loading"><Loading/></div>
+                )}
         </Container>
         </>
     )
