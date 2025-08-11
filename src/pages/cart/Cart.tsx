@@ -23,7 +23,9 @@ const Cart:FC = ()=>{
     const local = fullAddress?.substring(nextPoint + 11, fullAddress.lastIndexOf('-'))
     const referencia = fullAddress?.substring(fullAddress.lastIndexOf('-') + 1, fullAddress.lastIndexOf(','))
     const talkTo = fullAddress?.substring(fullAddress.lastIndexOf(',') + 1, fullAddress.length)
-    const [total, setTotal] = useState<number>(cart.reduce((acc, item) => acc + Number(item.total) * Number(item.quantity), 0))
+    const calculateTotal = (cart:Order[]) =>
+        cart.reduce((acc, item) => acc + Number(item.price) * Number(item.quantity), 0)
+    const [total, setTotal] = useState<number>(calculateTotal(cart))
 
 
 
@@ -35,9 +37,6 @@ const Cart:FC = ()=>{
         }
         
         getAllOrders()
-
-        setTotal(cart.reduce((acc, item) => acc + Number(item.price) * Number(item.quantity), 0))
-    // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [])
 
 
@@ -57,7 +56,7 @@ const Cart:FC = ()=>{
         })
 
         setCart(updatedCart)
-        setTotal(cart.reduce((acc, item) => acc + Number(item.price) * Number(item.quantity), 0))
+        setTotal(calculateTotal(updatedCart))
         
         axios.patch(`${BASE_URL}/order/${id}`, {
             quantity: newQuantity
@@ -100,12 +99,12 @@ const Cart:FC = ()=>{
     
     
     const endRequests = ()=>{
-        const produtos = cart.map(item => item.product).join(', ')
-        const mensagemUrl = `Novo pedido:\n${produtos}\nPara o endereço: ${address}\nCEP: ${cep}\nLocal: ${local}\n${referencia}\nFalar com: ${talkTo}`
+        const newMsg = cart.map(item => `${item.quantity} ${item.product} R$ ${Number(item.price).toFixed(2)} - Total R$ ${item.total}`).join('\n')
+        const totalGeral = cart.reduce((acc, item) => acc + Number(item.price) * Number(item.quantity), 0)
+        const mensagemUrl = `Novo pedido:\n${newMsg}\nTotal Geral: R$ ${totalGeral}\n\nPara o endereço: ${address}\nCEP: ${cep}\nLocal: ${local}\n${referencia}\nFalar com: ${talkTo}`
         const url = `https://wa.me/5571984407882?text=${encodeURIComponent(mensagemUrl)}`
-        
-        window.open(url, '_blank')
-        localStorage.clear()
+
+        window.open(url, '_blank')        
     }
     
         
@@ -138,7 +137,7 @@ const Cart:FC = ()=>{
                     navigate('/ifuture_react/address')
                 }} />
             </div>
-            {fullAddress === null && (
+            {!fullAddress && (
                 <div>
                     Necessário adicionar um endereo para entrega.<br />
                     Clique no ícone do lápis para adicionar
@@ -186,8 +185,8 @@ const Cart:FC = ()=>{
             </div>
             <button 
                 className="requestOrder-btn"
-                style={{background: cart.length > 0 && fullAddress !== null ? 'red' : 'gray'}}
-                disabled={cart.length > 0 && fullAddress !== null ? false : true}
+                style={{background: cart.length > 0 && fullAddress ? 'red' : 'gray'}}
+                disabled={cart.length === 0 || !fullAddress}
                 onClick={() => endRequests()}>
                 Finalizar Pedido
             </button>
