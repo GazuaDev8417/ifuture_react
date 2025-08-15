@@ -40,8 +40,7 @@ const Cart:FC = ()=>{
     }, [])
 
 
-    useEffect(() => {
-        
+    useEffect(() => {        
         setTotal(cart.reduce((acc, item) => acc + Number(item.price) * Number(item.quantity), 0))
     }, [cart])
     
@@ -83,17 +82,15 @@ const Cart:FC = ()=>{
             headers: { Authorization: localStorage.getItem('token') }
         }
 
-        if(cart.length === 0){
-            alert('Sua lista de pedidos está vázia')
+        axios.delete(`${BASE_URL}/requested_orders`, headers).then(
+            () => getAllOrders()
+        ).catch(e => alert(e.response.data))
+    }
 
-            return
-        }
-
+    const confirmClearOrders = ()=>{    
         const decide = window.confirm('Tem certeza que deseja deletar sua lista de pedidos?')
         if(decide){
-            axios.delete(`${BASE_URL}/requested_orders`, headers).then(
-                () => getAllOrders()
-            ).catch(e => alert(e.response.data))
+            cleanOrders()
         }
     }
     
@@ -104,7 +101,8 @@ const Cart:FC = ()=>{
         const mensagemUrl = `Novo pedido:\n${newMsg}\nTotal Geral: R$ ${totalGeral}\n\nPara o endereço: ${address}\nCEP: ${cep}\nLocal: ${local}\n${referencia}\nFalar com: ${talkTo}`
         const url = `https://wa.me/5571984407882?text=${encodeURIComponent(mensagemUrl)}`
 
-        window.open(url, '_blank')        
+        window.open(url, '_blank')  
+        cleanOrders()      
     }
     
         
@@ -147,7 +145,7 @@ const Cart:FC = ()=>{
                 <button 
                     type="button"
                     style={{padding:10, color:'white', marginTop:30, fontSize:'1rem'}}
-                    onClick={cleanOrders}>
+                    onClick={confirmClearOrders}>
                     Limpar Lista
                 </button>
             )}

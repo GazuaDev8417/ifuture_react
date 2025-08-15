@@ -38,8 +38,7 @@ const Feed:FC = ()=>{
     }, [])
     
 
-    const getRestaurants = ()=>{
-        
+    const getRestaurants = ()=>{        
         axios.get(`${BASE_URL}/restaurants`).then(res=>{
             setRestaurants(res.data)
         }).catch(e=>{

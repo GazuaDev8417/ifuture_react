@@ -18,52 +18,57 @@ const libraries:Libraries = ['places']
 
 const Detail:FC = ()=>{
     const navigate = useNavigate()
-    const selectedOrderId = localStorage.getItem('selectedOrderId')
-    const ordersRef = useRef<{ [key:string]: HTMLElement | null }>({})
     const { menu, getAllOrders, getRestaurantById, products } = useContext(Context) as GlobalStateContext
+    const selectedOrderId = localStorage.getItem('selectedOrderId')
+    const restaurantId = localStorage.getItem('restaurantId')
+    const token = localStorage.getItem('token')
+    const ordersRef = useRef<{ [key:string]: HTMLElement | null }>({})
     const [places, setPlaces] = useState<Places[]>([])
     const { isLoaded } = useLoadScript({
-        googleMapsApiKey: 'AIzaSyDRDtZy_CrM0csM_Y51FU01-tiW4F2SapU',
+        googleMapsApiKey: import.meta.env.VITE_GOOGLE_API_KEY as string,
         libraries
     })
 
 
 
     useEffect(()=>{
-        const token = localStorage.getItem('token')
-        
         if(isMobileApp()){
             alert('É necessário abrir pelo navegador para ver os estabelecimentos nas suas proximidades.S')
         }
         
         if(!token){
             navigate('/ifuture_react')
+            return
         }
 
-        const restaurantId = localStorage.getItem('restaurantId')
         if(restaurantId){
             getRestaurantById(restaurantId)            
         }
-    }, [])
+    }, [restaurantId, token, navigate, getRestaurantById])
 
 
     useEffect(()=>{
         if(selectedOrderId && ordersRef.current[selectedOrderId]){
-            setTimeout(() => {
+            const timeout =  setTimeout(() => {
                 ordersRef.current[selectedOrderId]?.scrollIntoView({
                     behavior: 'smooth',
                     block: 'center',
                     inline: 'nearest'
                 })
             }, 100)
+
+            return () => clearTimeout(timeout)
         }
     }, [selectedOrderId])
     
     
     useEffect(()=>{
-        if(!isLoaded) return
+        if(!isLoaded || !menu?.name) return
+
+        let isCancelled = false
 
         navigator.geolocation.getCurrentPosition(position=>{
+            if(isCancelled) return
             const { latitude, longitude } = position.coords
             const service = new window.google.maps.places.PlacesService(
                 document.createElement('div')
@@ -76,6 +81,7 @@ const Detail:FC = ()=>{
             }
 
             service.nearbySearch(request, (results, status)=>{
+                if(isCancelled) return
                 if(status === window.google.maps.places.PlacesServiceStatus.OK && results){
                     const filteredResults = results.filter(place =>(
                         place.name?.toLocaleLowerCase().includes(menu.name.toLocaleLowerCase())
@@ -85,8 +91,15 @@ const Detail:FC = ()=>{
                     console.error(`Falha no PlaceServices: ${status}`)
                 }
             })
-        })
-    }, [isLoaded, menu.name])
+        },
+        (error) =>{
+            console.error('Erro ao obter localização', error)
+        }
+    )
+    return () =>{
+        isCancelled = true
+    }
+    }, [isLoaded, menu?.name])
 
 
 
@@ -114,7 +127,8 @@ const Detail:FC = ()=>{
                 navigate('/ifuture_react/cart')
             }
         }).catch(e=>{
-            const decide = confirm(e.response.data)
+            const message = e.response?.data || 'Erro ao enviar pedido. Tente novamente.'
+            const decide = confirm(message)
             if(decide){
                 navigate('/ifuture_react/cart')
             }
