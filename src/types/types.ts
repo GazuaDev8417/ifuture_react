@@ -7,6 +7,7 @@ export interface Restaurant{
     logourl:string
     name:string
     shipping:number
+    phone:string
 }
 
 export interface Products{

@@ -13,6 +13,8 @@ import { Loading } from "../../components/Loading"
 
 
 
+
+
 const Feed:FC = ()=>{
     const navigate = useNavigate()
     const { getRestaurantById } = useContext(Context) as GlobalStateContext
@@ -20,7 +22,9 @@ const Feed:FC = ()=>{
     const [restaurants, setRestaurants] = useState<Restaurant[]>([])
     const [category, setCategory] = useState<string | null>(null)
     const token = localStorage.getItem('token')
-
+    
+    
+    
 
 
     const login = ()=>{
@@ -87,21 +91,21 @@ const Feed:FC = ()=>{
                     ))
                 }
             </div>
-                {filteredRestaurants.length > 0 ? (
-                    filteredRestaurants.map(rest=>(
-                        <RestaurantCard key={rest.id}
-                            id={rest.id}
-                            logourl={rest.logourl}
-                            getRestaurantById={()=>{
-                                localStorage.setItem('restaurantId', rest.id)
-                                getRestaurantById(rest.id)
-                                navigate('/ifuture_react/detail')}}/>
-                            ))
-                    ) : word ? (
-                        <div className="no-results">Nenhum restaurante encontrado!</div>
-                    ) : (
-                        <div className="loading"><Loading/></div>
-                )}
+            {filteredRestaurants.length > 0 ? (
+                filteredRestaurants.map(rest=>(
+                    <RestaurantCard key={rest.id}
+                        id={rest.id}
+                        logourl={rest.logourl}
+                        getRestaurantById={()=>{
+                            localStorage.setItem('restaurantId', rest.id)
+                            getRestaurantById(rest.id)
+                            navigate('/ifuture_react/detail')}}/>
+                        ))
+                ) : word ? (
+                    <div className="no-results">Nenhum restaurante encontrado!</div>
+                ) : (
+                    <div className="loading"><Loading/></div>
+            )}
         </Container>
         </>
     )

@@ -6,7 +6,7 @@ import { BASE_URL } from "../../constants/url"
 import ifutureLogo from '../../imgs/logo-future-eats-invert.png'
 import { Container } from "./styled"
 import { IoIosArrowBack } from 'react-icons/io'
-import { handleKeyPress } from "../../utils/cpf_mask"
+import { handleKeyPress } from "../../utils/inputsAndKeys"
 
 
 

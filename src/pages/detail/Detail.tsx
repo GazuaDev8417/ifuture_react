@@ -8,7 +8,10 @@ import { Container } from './styled'
 import axios from "axios"
 import { BASE_URL } from "../../constants/url"
 import { useLoadScript, Libraries } from "@react-google-maps/api"
-import { isMobileApp } from "../../utils/isMobileApp"
+//import { isMobileApp } from "../../utils/isMobileApp"
+
+
+
 
 
 
@@ -29,12 +32,10 @@ const Detail:FC = ()=>{
         libraries
     })
 
-
-
     useEffect(()=>{
-        if(isMobileApp()){
+        /* if(isMobileApp()){
             alert('É necessário abrir pelo navegador para ver os estabelecimentos nas suas proximidades.S')
-        }
+        } */
         
         if(!token){
             navigate('/ifuture_react')
@@ -102,7 +103,6 @@ const Detail:FC = ()=>{
     }, [isLoaded, menu?.name])
 
 
-
     
     const request = (product: Products)=>{
         const now = new Date().toISOString()
@@ -154,9 +154,11 @@ const Detail:FC = ()=>{
                 <img 
                     src={menu.logourl}
                     alt="Imagem do restaurante"
-                    className="image"/>                
+                    className="image"/>               
                 <div className="desc">
-                    <p>{menu.description}</p>
+                    <p>
+                        {menu.description}
+                    </p>
                     <h3 style={{textAlign:'center', marginTop:'20px', marginBottom:'10px'}}>
                         {menu.name} perto de você
                     </h3>

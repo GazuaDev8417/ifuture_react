@@ -49,7 +49,8 @@ export const GlobalState = (props:GlobalStateProps)=>{
         id:'',
         logourl:'',
         name:'',
-        shipping:0
+        shipping:0,
+        phone:''
     })
     const [user, setUser] = useState<User>({
         id:'',
@@ -72,10 +73,10 @@ export const GlobalState = (props:GlobalStateProps)=>{
             axios.get(`${BASE_URL}/restaurant_products/${id}`).then(res=>{
                 setProducts(res.data)
             }).catch(e=>{
-                alert(e.response.data)
+                alert(e.response?.data)
             })
         }).catch(e=>{
-            alert(e.response.data)
+            alert(e.response?.data)
         })
     }
  
