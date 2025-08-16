@@ -1,4 +1,4 @@
-import { ChangeEvent, FC, useEffect, useState, useContext } from "react"
+import { ChangeEvent, FC, useEffect, useState, useContext, useRef } from "react"
 import { useNavigate } from "react-router-dom"
 import Context, { GlobalStateContext } from "../../global/Context"
 import { AiOutlineShoppingCart } from 'react-icons/ai'
@@ -9,7 +9,9 @@ import Header from "../../components/Header"
 import { Restaurant } from "../../types/types"
 import { Container } from "./styled"
 import { Loading } from "../../components/Loading"
-import { restaurantImages } from '../../../public/imgs/restaurants'
+import { restaurantImages } from '../../constants/index'
+import Logo from '/imgs/logo-future-eats-invert.png'
+import hideImage from "../../utils/hideImage"
 
 
 
@@ -18,6 +20,7 @@ import { restaurantImages } from '../../../public/imgs/restaurants'
 
 const Feed:FC = ()=>{
     const navigate = useNavigate()
+    const imageRef = useRef<HTMLImageElement>(null)
     const { getRestaurantById } = useContext(Context) as GlobalStateContext
     const [word, setWord] = useState<string>('')
     const [restaurants, setRestaurants] = useState<Restaurant[]>([])
@@ -33,6 +36,7 @@ const Feed:FC = ()=>{
             localStorage.setItem('token', res.data)
         }).catch(e => alert(e.response?.data))
     }
+
    
     useEffect(()=>{
         if(!token){
@@ -40,6 +44,15 @@ const Feed:FC = ()=>{
         }
 
         getRestaurants()
+    }, [])
+
+
+    useEffect(()=>{
+        const onScroll = () => hideImage(imageRef)
+
+        window.addEventListener('scroll', onScroll)
+        
+        return () => window.removeEventListener('scroll', onScroll)
     }, [])
     
 
@@ -62,6 +75,9 @@ const Feed:FC = ()=>{
         .filter(rest => rest.name.toLocaleLowerCase().includes(word.toLocaleLowerCase()))
     
 
+    
+    
+
 
     return(
         <>
@@ -71,9 +87,11 @@ const Feed:FC = ()=>{
                     navigate('/ifuture_react/cart')
                 }}/>
             }
+            center={<img src={Logo} alt="Logo" ref={imageRef} onClick={() => navigate('/ifuture_react')} />}
             rightIcon={
                 <div/>
-            }/>
+            }
+        />
         <Container>
             <div className="input-container">
                 <input

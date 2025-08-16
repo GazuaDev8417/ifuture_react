@@ -19,8 +19,8 @@ export const Container = styled.div`
     }
 
     .image{
-        width: 50vw;
-        height: 50vh;
+        /* width: 50vw;
+        height: 50vh; */
         margin-top: 20px;
         box-shadow: 2px 2px 4px;
         border-radius: 10px;

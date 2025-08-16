@@ -4,6 +4,7 @@ import axios from "axios"
 import { BASE_URL } from "../../constants/url"
 import Header from "../../components/Header"
 import { IoIosArrowBack } from "react-icons/io"
+import { FaRegListAlt } from "react-icons/fa"
 import { MdEdit } from 'react-icons/md'
 import { Order } from "../../types/types"
 import { useNavigate } from "react-router-dom"
@@ -116,8 +117,10 @@ const Cart:FC = ()=>{
                     className="header-icon"
                     onClick={()=> navigate(-1)} />
             }
+            center={ <div/> }
             rightIcon={
-                <div/>
+                <FaRegListAlt className="header-icon"
+                onClick={() => navigate('/ifuture_react/')} />
             }/>
         <Container>
             <h1>Meu Carrinho</h1>

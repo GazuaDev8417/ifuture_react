@@ -3,6 +3,7 @@ import { useNavigate } from "react-router-dom"
 import Context, { GlobalStateContext } from "../../global/Context"
 import Header from "../../components/Header"
 import { AiOutlineShoppingCart } from 'react-icons/ai'
+import { IoIosArrowBack } from "react-icons/io"
 import { Products } from "../../types/types"
 import { Container } from './styled'
 import axios from "axios"
@@ -148,13 +149,15 @@ const Detail:FC = ()=>{
         <>
         <Header
             leftIcon={
+                <IoIosArrowBack 
+                    className="header-icon"
+                    onClick={()=> navigate(-1)} />
+            }
+            center={ <div/> }
+            rightIcon={
                 <AiOutlineShoppingCart className="header-icon" onClick={()=>{
                     getAllOrders()
-                    navigate('/ifuture_react/cart')
-                }}/>
-            }
-            rightIcon={
-                <div/>
+                    navigate('/ifuture_react/cart')}}/>
             }/>
         <Container>
             <div className="card">

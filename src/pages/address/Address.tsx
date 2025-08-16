@@ -3,7 +3,6 @@ import Context, { GlobalStateContext } from "../../global/Context"
 import { useNavigate } from "react-router-dom"
 import axios from "axios"
 import { BASE_URL } from "../../constants/url"
-import ifutureLogo from '../../../public/imgs/logo-future-eats-invert.png'
 import { Container } from "./styled"
 import { IoIosArrowBack } from 'react-icons/io'
 import { handleKeyPress } from "../../utils/inputsAndKeys"
@@ -113,9 +112,6 @@ const Address:FC = ()=>{
                     }} 
                     className='icon'/>
             ) : null}
-            <img  
-                src={ifutureLogo}
-                alt="imagem"/>
             <div className="title">{updateAddress ? 'Atualizar endereço' : 'Cadastrar endereço'}</div>
             <form onSubmit={registAddress}>
                 <label htmlFor="address" className="sr-only">Endereço</label>
