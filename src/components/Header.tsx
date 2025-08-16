@@ -1,7 +1,7 @@
 import { ReactNode, useRef } from 'react'
 import { useNavigate } from 'react-router-dom'
 import styled from 'styled-components'
-import Logo from '../imgs/logo-future-eats-invert.png'
+import Logo from '../../public/imgs/logo-future-eats-invert.png'
 
 
 const Container = styled.div`

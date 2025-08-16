@@ -15,8 +15,8 @@ const Card = styled.div`
     cursor: pointer;
 
     .image{
-        height: 50vh; //283.5px
-        width: 49.5vw; //656.37px
+        /* height: 50vh; //283.5px
+        width: 49.5vw; //656.37px */
         border-radius: 10px;
     }
 

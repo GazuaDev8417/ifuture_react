@@ -8,7 +8,6 @@ import { Container } from './styled'
 import axios from "axios"
 import { BASE_URL } from "../../constants/url"
 import { useLoadScript, Libraries } from "@react-google-maps/api"
-//import { isMobileApp } from "../../utils/isMobileApp"
 
 
 
@@ -31,12 +30,11 @@ const Detail:FC = ()=>{
         googleMapsApiKey: import.meta.env.VITE_GOOGLE_API_KEY as string,
         libraries
     })
+    
 
-    useEffect(()=>{
-        /* if(isMobileApp()){
-            alert('É necessário abrir pelo navegador para ver os estabelecimentos nas suas proximidades.S')
-        } */
-        
+
+    useEffect(()=>{        
+        console.log("useEffect[restaurantId, token, getRestaurantById] rodou", { restaurantId, token })
         if(!token){
             navigate('/ifuture_react')
             return
@@ -45,10 +43,11 @@ const Detail:FC = ()=>{
         if(restaurantId){
             getRestaurantById(restaurantId)            
         }
-    }, [restaurantId, token, navigate, getRestaurantById])
+    }, [restaurantId, token, navigate])
 
 
     useEffect(()=>{
+        console.log("useEffect[selectedOrderId] rodou", { selectedOrderId })
         if(selectedOrderId && ordersRef.current[selectedOrderId]){
             const timeout =  setTimeout(() => {
                 ordersRef.current[selectedOrderId]?.scrollIntoView({
@@ -64,6 +63,7 @@ const Detail:FC = ()=>{
     
     
     useEffect(()=>{
+        console.log("useEffect[isLoaded, menu?.name] rodou", { isLoaded, menuName: menu?.name })
         if(!isLoaded || !menu?.name) return
 
         let isCancelled = false
@@ -135,6 +135,14 @@ const Detail:FC = ()=>{
         })
     }
 
+
+    const  formatName = (name:string)=>{
+        return name
+            .replace(/sua/, 'Sua ')
+            .trim()
+            .replace(/\b\w/g, c => c.toLocaleUpperCase())
+    }
+
     
     return(
         <>
@@ -152,7 +160,7 @@ const Detail:FC = ()=>{
             <div className="card">
                 <div className="rest-name">{menu.category}</div>
                 <img 
-                    src={menu.logourl}
+                    src={`imgs/restaurants/${menu.logourl}`}
                     alt="Imagem do restaurante"
                     className="image"/>               
                 <div className="desc">
@@ -160,7 +168,7 @@ const Detail:FC = ()=>{
                         {menu.description}
                     </p>
                     <h3 style={{textAlign:'center', marginTop:'20px', marginBottom:'10px'}}>
-                        {menu.name} perto de você
+                        {formatName(menu.name)} perto de você
                     </h3>
                     <div>
                         {places.length > 0 ? (
@@ -170,7 +178,7 @@ const Detail:FC = ()=>{
                                     {place.vicinity}
                                 </div>
                             ))
-                        ) : <div>Não há {menu.name} em suas proximidades</div> }
+                        ) : <div>Não há {formatName(menu.name)} em suas proximidades</div> }
                     </div>
                     <p>{menu.address}</p>
                 </div>

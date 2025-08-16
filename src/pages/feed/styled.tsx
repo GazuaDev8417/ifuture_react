@@ -4,25 +4,26 @@ import styled from 'styled-components'
 export const Container = styled.div`
     margin-top: 18.5vh;
 
-    input{
+    .input-container{
+        padding-bottom: 10px;
+    }
+
+    .input-search{
         width: 50vw;
         box-shadow: 2px 2px 4px;
         border-radius: 20px;
         border: 1px solid gray;
-    }
-
-    .input-search::placeholder{
-        color: rgba(128, 128, 128, .5);
-    }
-
-    .input-search{
         position: fixed;
         top: 13%;
         left: 50%;
         transform: translateX(-50%);
     }
 
-    .categories{
+    .input-search::placeholder{
+        color: rgba(128, 128, 128, .5);
+    }
+
+    /* .categories{
         display: flex;
         align-items: center;
         justify-content: center;
@@ -30,7 +31,7 @@ export const Container = styled.div`
         gap: 10px;
         font-size: 1.2rem;
         padding-top: 15px;
-    }
+    } */
 
     .loading{
         display: flex;

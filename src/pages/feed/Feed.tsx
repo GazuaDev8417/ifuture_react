@@ -9,6 +9,7 @@ import Header from "../../components/Header"
 import { Restaurant } from "../../types/types"
 import { Container } from "./styled"
 import { Loading } from "../../components/Loading"
+import { restaurantImages } from '../../../public/imgs/restaurants'
 
 
 
@@ -20,7 +21,7 @@ const Feed:FC = ()=>{
     const { getRestaurantById } = useContext(Context) as GlobalStateContext
     const [word, setWord] = useState<string>('')
     const [restaurants, setRestaurants] = useState<Restaurant[]>([])
-    const [category, setCategory] = useState<string | null>(null)
+    //const [category, setCategory] = useState<string | null>(null)
     const token = localStorage.getItem('token')
     
     
@@ -57,7 +58,7 @@ const Feed:FC = ()=>{
 
     
     const filteredRestaurants = restaurants
-        .filter(rest => !category || rest.category === category)
+        /* .filter(rest => !category || rest.category === category) */
         .filter(rest => rest.name.toLocaleLowerCase().includes(word.toLocaleLowerCase()))
     
 
@@ -81,7 +82,7 @@ const Feed:FC = ()=>{
                     onChange={handleInput}
                     className="input-search"/>
             </div>
-            <div className="categories">
+            {/* <div className="categories">
                 {restaurants &&
                     [...new Set(restaurants.map(rest => rest.category))].map(category => (
                         <div className="card-category" key={category}
@@ -90,12 +91,12 @@ const Feed:FC = ()=>{
                             </div>
                     ))
                 }
-            </div>
+            </div> */}
             {filteredRestaurants.length > 0 ? (
                 filteredRestaurants.map(rest=>(
                     <RestaurantCard key={rest.id}
                         id={rest.id}
-                        logourl={rest.logourl}
+                        logourl={restaurantImages[rest.name]}
                         getRestaurantById={()=>{
                             localStorage.setItem('restaurantId', rest.id)
                             getRestaurantById(rest.id)
