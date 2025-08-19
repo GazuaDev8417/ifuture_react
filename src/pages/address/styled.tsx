@@ -23,7 +23,7 @@ export const Container = styled.div`
     }
 
     .title{
-        font-size: 2rem;
+        font-size: 1.5rem;
         margin-bottom: 2rem;
         font-weight: 500;
     }

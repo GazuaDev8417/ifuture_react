@@ -1,5 +1,4 @@
-import { ChangeEvent, FC, FormEvent, useState, useContext } from "react"
-import Context, { GlobalStateContext } from "../../global/Context"
+import { ChangeEvent, FC, FormEvent, useState } from "react"
 import { useNavigate } from "react-router-dom"
 import axios from "axios"
 import { BASE_URL } from "../../constants/url"
@@ -23,7 +22,6 @@ interface FormData{
 
 const Address:FC = ()=>{
     const navigate = useNavigate()
-    const { updateAddress, setUpdateAddress } = useContext(Context) as GlobalStateContext
     const [form, setForm] = useState<FormData>({
         street:'',
         cep:'',
@@ -104,15 +102,12 @@ const Address:FC = ()=>{
     
     return(
         <Container>
-            {updateAddress ? (
-                <IoIosArrowBack
-                    onClick={()=> {
-                        setUpdateAddress(false)
-                        navigate(-1)
-                    }} 
-                    className='icon'/>
-            ) : null}
-            <div className="title">{updateAddress ? 'Atualizar endereço' : 'Cadastrar endereço'}</div>
+            <IoIosArrowBack
+                onClick={()=> {
+                    navigate(-1)
+                }} 
+                className='icon'/>
+            <div className="title">{'Adicionar endereço'}</div>
             <form onSubmit={registAddress}>
                 <label htmlFor="address" className="sr-only">Endereço</label>
                 <input

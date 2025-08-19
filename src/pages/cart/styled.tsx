@@ -45,6 +45,10 @@ export const Container = styled.div`
         margin: 2vh 0;
     }
 
+    .card-container{
+        width: 100%;
+    }
+
     .card{
         display: flex;
         align-items: center;
@@ -52,7 +56,7 @@ export const Container = styled.div`
         width: 100%;
         border: .5px solid;
         border-radius: 10px;
-        padding: 20px;        
+        padding: 10px;        
         margin: 0 0 10px;
     }
 
@@ -74,17 +78,13 @@ export const Container = styled.div`
     }
     
     .card img{
-        width: 150px;
-        height: 150px;
-        border-radius: 10px;    
+        /* width: 150px;
+        height: 150px; */
+        border-radius: 10px;  
+        box-shadow: 2px 2px 4px;
     }
 
-    .subtotal{
-        margin: 20px 0 15px;
-        font-size: 1.2rem;
-    }
-
-    .select-container{
+    /* .select-container{
         display: flex;
         align-items: center;
         justify-content: space-between;
@@ -100,6 +100,16 @@ export const Container = styled.div`
         height: 30px;
         font-size: 1rem;
         border-radius: 5px;
+    } */
+
+    .totalByGroup{
+        font-size: 1.2rem;
+    }
+
+    .total-container{
+        display: flex;
+        align-items: center;
+        flex-direction: column;
     }
 
     .requestOrder-btn{
@@ -107,7 +117,6 @@ export const Container = styled.div`
         font-weight: bold;
         color: #fff;
         height: 40px;
-        width: 100%;  
     }
 
     .product-name{

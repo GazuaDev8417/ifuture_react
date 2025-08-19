@@ -2,13 +2,14 @@ import { FC, useContext, useEffect, useRef, useState } from "react"
 import { useNavigate } from "react-router-dom"
 import Context, { GlobalStateContext } from "../../global/Context"
 import Header from "../../components/Header"
-import { AiOutlineShoppingCart } from 'react-icons/ai'
+import { IoMenu } from "react-icons/io5";
 import { IoIosArrowBack } from "react-icons/io"
-import { Products } from "../../types/types"
-import { Container } from './styled'
+import { Products, Restaurant } from "../../types/types"
+import { Container, Overlay, Sidebar } from './styled'
 import axios from "axios"
 import { BASE_URL } from "../../constants/url"
 import { useLoadScript, Libraries } from "@react-google-maps/api"
+import { productsImages } from '../../constants/index'
 
 
 
@@ -27,6 +28,8 @@ const Detail:FC = ()=>{
     const token = localStorage.getItem('token')
     const ordersRef = useRef<{ [key:string]: HTMLElement | null }>({})
     const [places, setPlaces] = useState<Places[]>([])
+    const [restaurants, setRestaurants] = useState<Restaurant[]>([])
+    const [isActive, setIsActive] = useState<boolean>(false)
     const { isLoaded } = useLoadScript({
         googleMapsApiKey: import.meta.env.VITE_GOOGLE_API_KEY as string,
         libraries
@@ -34,8 +37,7 @@ const Detail:FC = ()=>{
     
 
 
-    useEffect(()=>{        
-        console.log("useEffect[restaurantId, token, getRestaurantById] rodou", { restaurantId, token })
+    useEffect(()=>{ 
         if(!token){
             navigate('/ifuture_react')
             return
@@ -48,7 +50,6 @@ const Detail:FC = ()=>{
 
 
     useEffect(()=>{
-        console.log("useEffect[selectedOrderId] rodou", { selectedOrderId })
         if(selectedOrderId && ordersRef.current[selectedOrderId]){
             const timeout =  setTimeout(() => {
                 ordersRef.current[selectedOrderId]?.scrollIntoView({
@@ -64,7 +65,6 @@ const Detail:FC = ()=>{
     
     
     useEffect(()=>{
-        console.log("useEffect[isLoaded, menu?.name] rodou", { isLoaded, menuName: menu?.name })
         if(!isLoaded || !menu?.name) return
 
         let isCancelled = false
@@ -102,6 +102,18 @@ const Detail:FC = ()=>{
         isCancelled = true
     }
     }, [isLoaded, menu?.name])
+
+
+    useEffect(()=> getRestaurants(), [])
+
+
+    const getRestaurants = ()=>{        
+        axios.get(`${BASE_URL}/restaurants`).then(res=>{
+            setRestaurants(res.data)
+        }).catch(e=>{
+            alert(e.response?.data)
+        })
+    }
 
 
     
@@ -155,11 +167,27 @@ const Detail:FC = ()=>{
             }
             center={ <div/> }
             rightIcon={
-                <AiOutlineShoppingCart className="header-icon" onClick={()=>{
-                    getAllOrders()
-                    navigate('/ifuture_react/cart')}}/>
+                <IoMenu className="header-icon" onClick={()=>{
+                    setIsActive(true)
+                }}/>
             }/>
         <Container>
+            <Overlay className={isActive ? 'active' : ''} onClick={() => setIsActive(false)}/>
+            <Sidebar className={isActive ? 'active' : ''}>
+                <h3>Restaurantes</h3>
+                <ul>{restaurants.map(rest=>(
+                        <li key={rest.id} onClick={()=>{
+                            localStorage.setItem('restaurantId', rest.id)
+                            setIsActive(false)
+                        }}>
+                            {formatName(rest.name)}
+                        </li>
+                    ))}
+                    <li onClick={() => navigate('/ifuture_react/cart')}>
+                        Carrinho
+                    </li>
+                </ul>
+            </Sidebar>
             <div className="card">
                 <div className="rest-name">{menu.category}</div>
                 <img 
@@ -196,7 +224,7 @@ const Detail:FC = ()=>{
                             }}>
                             <img
                                 className="product-image" 
-                                src={product.photoUrl}
+                                src={productsImages[product.photoUrl]}
                                 alt="Foto do produto" />
                             <div className="product-desc">
                                 <h4>{product.name}</h4><br/>
