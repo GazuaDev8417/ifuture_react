@@ -37,16 +37,11 @@ const Detail:FC = ()=>{
     
 
 
-    useEffect(()=>{ 
-        if(!token){
-            navigate('/ifuture_react')
-            return
-        }
-
+    useEffect(()=>{
         if(restaurantId){
             getRestaurantById(restaurantId)            
         }
-    }, [restaurantId, token, navigate])
+    }, [restaurantId, navigate])
 
 
     useEffect(()=>{
@@ -118,6 +113,14 @@ const Detail:FC = ()=>{
 
     
     const request = (product: Products)=>{
+        if(!token){
+            const decide = window.confirm('Necessário efetuar login para fazer pedidos')
+            if(decide){
+                navigate('/ifuture_react/login')
+            }
+            return
+        }
+        
         const now = new Date().toISOString()
         const headers = {
             headers: { Authorization: localStorage.getItem('token')}

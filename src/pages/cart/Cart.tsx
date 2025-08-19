@@ -40,11 +40,10 @@ const Cart:FC = ()=>{
     useEffect(()=>{
         const token = localStorage.getItem('token')
         
-        if(!token){
-            navigate('/ifuture_react')
+        if(token){
+            getAllOrders()            
         }
         
-        getAllOrders()
     }, [])
 
 
@@ -162,12 +161,12 @@ const Cart:FC = ()=>{
                     navigate('/ifuture_react/address')
                 }} />
             </div>
-            {!fullAddress && (
+            {/* {!fullAddress && (
                 <div>
-                    Necessário adicionar um endereo para entrega.<br />
+                    Necessário efetuar login.<br />
                     Clique no ícone do lápis para adicionar
                 </div>
-            )}
+            )} */}
             {/* {cart.length > 0 && (
                 <button 
                     type="button"

@@ -25,24 +25,10 @@ const Feed:FC = ()=>{
     const [word, setWord] = useState<string>('')
     const [restaurants, setRestaurants] = useState<Restaurant[]>([])
     //const [category, setCategory] = useState<string | null>(null)
-    const token = localStorage.getItem('token')
-    
-    
     
 
 
-    const login = ()=>{
-        axios.post(`${BASE_URL}/login`).then(res=>{
-            localStorage.setItem('token', res.data)
-        }).catch(e => alert(e.response?.data))
-    }
-
-   
     useEffect(()=>{
-        if(!token){
-            login()
-        }
-
         getRestaurants()
     }, [])
 
