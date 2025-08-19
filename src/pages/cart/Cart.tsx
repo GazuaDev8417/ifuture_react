@@ -1,4 +1,4 @@
-import { ChangeEvent, FC, useContext, useEffect, useState } from "react"
+import { ChangeEvent, FC, useContext, useEffect } from "react"
 import Context, { GlobalStateContext } from "../../global/Context"
 import axios from "axios"
 import { BASE_URL } from "../../constants/url"
@@ -31,9 +31,9 @@ const Cart:FC = ()=>{
     const local = fullAddress?.substring(nextPoint + 11, fullAddress.lastIndexOf('-'))
     const referencia = fullAddress?.substring(fullAddress.lastIndexOf('-') + 1, fullAddress.lastIndexOf(','))
     const talkTo = fullAddress?.substring(fullAddress.lastIndexOf(',') + 1, fullAddress.length)
-    const calculateTotal = (cart:Order[]) =>
-        cart.reduce((acc, item) => acc + Number(item.price) * Number(item.quantity), 0)
-    const [total, setTotal] = useState<number>(calculateTotal(cart))
+    /* const calculateTotal = (cart:Order[]) =>
+        cart.reduce((acc, item) => acc + Number(item.price) * Number(item.quantity), 0) */
+    //const [total, setTotal] = useState<number>(calculateTotal(cart))
 
 
 
@@ -48,9 +48,9 @@ const Cart:FC = ()=>{
     }, [])
 
 
-    useEffect(() => {        
+    /* useEffect(() => {        
         setTotal(cart.reduce((acc, item) => acc + Number(item.price) * Number(item.quantity), 0))
-    }, [cart])
+    }, [cart]) */
 
 
 
@@ -76,7 +76,7 @@ const Cart:FC = ()=>{
         })
 
         setCart(updatedCart)
-        setTotal(calculateTotal(updatedCart))
+        //setTotal(calculateTotal(updatedCart))
         
         axios.patch(`${BASE_URL}/order/${id}`, {
             quantity: newQuantity
@@ -98,22 +98,22 @@ const Cart:FC = ()=>{
     }
 
 
-    const cleanOrders = (restaurantId:string)=>{
+    const cleanOrders = (provider:string)=>{
         const headers = {
             headers: { Authorization: localStorage.getItem('token') }
         }
 
-        axios.delete(`${BASE_URL}/requested_orders/${restaurantId}`, headers).then(
+        axios.delete(`${BASE_URL}/requested_orders/${provider}`, headers).then(
             () => getAllOrders()
         ).catch(e => alert(e.response.data))
     }
 
-    const confirmClearOrders = ()=>{    
+    /* const confirmClearOrders = ()=>{    
         const decide = window.confirm('Tem certeza que deseja deletar sua lista de pedidos?')
         if(decide){
             cleanOrders()
         }
-    }
+    } */
     
     
     const endRequests = (provider:string)=>{
@@ -163,14 +163,14 @@ const Cart:FC = ()=>{
                     Clique no ícone do lápis para adicionar
                 </div>
             )}
-            {cart.length > 0 && (
+            {/* {cart.length > 0 && (
                 <button 
                     type="button"
                     style={{padding:10, color:'white', marginTop:30, fontSize:'1rem'}}
                     onClick={confirmClearOrders}>
                     Limpar Lista
                 </button>
-            )}
+            )} */}
             <div className="addressAndName">
                 <div className="rest-name">Seus produtos</div>
             </div>
