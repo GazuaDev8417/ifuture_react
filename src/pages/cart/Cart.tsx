@@ -60,7 +60,7 @@ const Cart:FC = ()=>{
                 groups[item.restaurant] = { orders: [], total: 0}
             }
             groups[item.restaurant].orders.push(item)
-            groups[item.restaurant].total += Number(item.total)
+            groups[item.restaurant].total += Number(item.price) * Number(item.quantity)
             return groups
         }, {})
     }
@@ -76,11 +76,9 @@ const Cart:FC = ()=>{
         })
 
         setCart(updatedCart)
-        //setTotal(calculateTotal(updatedCart))
         
         axios.patch(`${BASE_URL}/order/${id}`, {
             quantity: newQuantity
-        }).then(()=>{
         }).catch(e => alert(e.response.data) )
     }
     
@@ -117,9 +115,16 @@ const Cart:FC = ()=>{
     
     
     const endRequests = (provider:string)=>{
-        const newMsg = cart.map(item => `${item.quantity} ${item.product} R$ ${Number(item.price).toFixed(2)} - Total R$ ${item.total}`).join('\n')
-        const totalGeral = cart.reduce((acc, item) => acc + Number(item.price) * Number(item.quantity), 0)
-        const mensagemUrl = `Novo pedido:\n${newMsg}\nTotal Geral: R$ ${totalGeral}\n\nPara o endereço: ${address}\nCEP: ${cep}\nLocal: ${local}\n${referencia}\nFalar com: ${talkTo}`
+        const groups = groupedByRestaurants()
+        const group = groups[provider]
+
+        if(!group) return
+
+        const newMsg = group.orders.map(item =>
+            `${item.quantity} ${item.product} R$ ${Number(item.price).toFixed(2)}\nTotal R$ ${Number(item.price) * Number(item.quantity)}`
+        ).join('\n')
+        const totalGroup = `Total Geral R$ ${Number(group.total).toFixed(2)}`
+        const mensagemUrl = `Novo pedido:\n\n${newMsg}\n\n${totalGroup}\n\nPara o endereço: ${address}\nCEP: ${cep}\nLocal: ${local}\n${referencia.trim()}\nFalar com: ${talkTo}`
         const url = `https://wa.me/5571984407882?text=${encodeURIComponent(mensagemUrl)}`
 
         window.open(url, '_blank')  
