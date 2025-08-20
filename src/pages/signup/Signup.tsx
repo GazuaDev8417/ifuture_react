@@ -33,7 +33,7 @@ const Signup:FC = ()=>{
         const token = localStorage.getItem('token')
 
         if(token){
-            navigate('/ifuture_react/feed')
+            navigate('/ifuture_react/')
         }
     }, [])
 

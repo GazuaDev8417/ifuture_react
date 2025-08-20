@@ -60,7 +60,7 @@ const Profile = ()=>{
 
         if(decide){
             localStorage.clear()
-            navigate('/ifuture_react')
+            navigate('/ifuture_react/login')
         }
     }
 

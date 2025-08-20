@@ -153,14 +153,14 @@ const Cart:FC = ()=>{
             <hr style={{width:'100%', marginBottom:'15px', background:'lightgray'}} />
             <div className="address-section">
                 <div>
-                    <b>Endereço</b>: {address}<br />
+                    <b>Endereço</b>: {address} {user.number ? user.number : 'S/N'}<br />
                     <b>CEP</b>: {cep}<br />
                     <b>Local</b>: {local}<br />
                     <b>Ponto de referência</b>: {referencia} <br />
                     <b>Falar com</b>: {talkTo}
                 </div>
                 <MdEdit className="icon" onClick={()=> {
-                    navigate('/ifuture_react/address')
+                    navigate('/ifuture_react/user-address')
                 }} />
             </div>
             {/* {!fullAddress && (
