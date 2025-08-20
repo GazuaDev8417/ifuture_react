@@ -58,7 +58,7 @@ const Login:FC = ()=>{
 
         axios.post(`${BASE_URL}/login`, body).then(res=>{
             localStorage.setItem('token', res.data)
-            navigate('/ifuture_react/feed')
+            navigate('/ifuture_react/')
         }).catch(e=>{
             alert(e.response.data)
         })
@@ -86,7 +86,7 @@ const Login:FC = ()=>{
                             id="login-email"
                             type="email"
                             className="form-input"
-                            name="userEmail"
+                            name="email"
                             value={form.email}
                             onChange={onChange}
                             placeholder="name@email.com"
@@ -97,7 +97,7 @@ const Login:FC = ()=>{
                         <input
                             id="login-password"
                             type={!showPass ? 'password' : 'text'}
-                            name="userPassword"
+                            name="password"
                             className="form-input"
                             value={form.password}
                             onChange={onChange} 

@@ -88,10 +88,10 @@ export const GlobalState = (props:GlobalStateProps)=>{
 
     const getProfile = ()=>{
         axios.get(`${BASE_URL}/profile`, {
-            headers: { Authorization: localStorage.getItem('token') || '' }
+            headers: { Authorization: localStorage.getItem('token') }
         }).then(res=>{
             setUser(res.data)
-        }).catch(e => alert(e.response.data))
+        }).catch(e => console.error(e.response.data))
     }
     
 
