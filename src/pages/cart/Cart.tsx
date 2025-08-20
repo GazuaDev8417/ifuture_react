@@ -94,14 +94,17 @@ const Cart:FC = ()=>{
     }
 
 
-    const cleanOrders = (provider:string)=>{
+    const endOrders = (provider:string)=>{
         const headers = {
             headers: { Authorization: localStorage.getItem('token') }
         }
 
-        axios.delete(`${BASE_URL}/requested_orders/${provider}`, headers).then(
-            () => getAllOrders()
-        ).catch(e => alert(e.response.data))
+        axios.patch(`${BASE_URL}/finish_orders/${provider}`, null, headers)
+            .then(() =>{
+                getAllOrders()
+                setCart([])
+            }
+        ).catch(e => console.error(e.response.data))
     }
 
     /* const confirmClearOrders = ()=>{    
@@ -126,7 +129,7 @@ const Cart:FC = ()=>{
         const url = `https://wa.me/5571984407882?text=${encodeURIComponent(mensagemUrl)}`
 
         window.open(url, '_blank')  
-        cleanOrders(provider)      
+        endOrders(provider)      
     }
     
         

@@ -49,9 +49,9 @@ const Profile = ()=>{
             headers: { Authorization: localStorage.getItem('token') }
         }
 
-        axios.get(`${BASE_URL}/active_orders`, headers).then(res=>{
+        axios.get(`${BASE_URL}/finished_orders`, headers).then(res=>{
             setOrders(res.data)
-        }).catch(e => alert(e.response.data))
+        }).catch(e => console.error(e.response.data))
     }
 
 
@@ -71,6 +71,7 @@ const Profile = ()=>{
         }
 
         axios.delete(`${BASE_URL}/order/${id}`, headers).then(()=>{
+            setOrders(prevOrders => prevOrders.filter(order => order.id !== id))
             orderHistory()
         }).catch(e => alert(e.response.data))
     }
@@ -91,7 +92,8 @@ const Profile = ()=>{
         if(decide){
             axios.delete(`${BASE_URL}/orders`, headers).then(()=>{
                 orderHistory()
-            }).catch(e => alert(e.response.data))
+                setOrders([])
+            }).catch(e => console.error(e.response.data))
         }
     }
     

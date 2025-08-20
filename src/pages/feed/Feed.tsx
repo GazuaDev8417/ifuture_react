@@ -78,7 +78,9 @@ const Feed:FC = ()=>{
             }
             center={ <h2 className="logo-title">REDE SOCIAL FAST-FOOD</h2> }
             rightIcon={
-                token ? <IoPersonSharp className="header-icon"/> : <div/>
+                token ? <IoPersonSharp className="header-icon" onClick={()=>{
+                    navigate('/ifuture_react/profile')
+                }} /> : <div/>
             }
         />
         <Container>
