@@ -70,9 +70,11 @@ const Feed:FC = ()=>{
         <>
         <Header
             leftIcon={
-                <AiOutlineShoppingCart className="header-icon" onClick={()=>{
-                    navigate('/ifuture_react/cart')
-                }}/>
+                token ? (
+                    <AiOutlineShoppingCart className="header-icon" onClick={()=>{
+                        navigate('/ifuture_react/cart')
+                    }}/>
+                ) : <div/>
             }
             center={ <h2 className="logo-title">REDE SOCIAL FAST-FOOD</h2> }
             rightIcon={

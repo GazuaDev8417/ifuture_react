@@ -189,7 +189,8 @@ const UserAddress:FC = ()=>{
                     onChange={onChange} 
                     placeholder="Complemento"
                     autoComplete="street-address"
-                    aria-label="Complemento"/>
+                    aria-label="Complemento"
+                    required/>
                 <div className="btn-container">
                     <button className="address-button" type="button" onClick={clearForm}>Limpar</button>
                     <button className="address-button" type="submit">Registrar</button>

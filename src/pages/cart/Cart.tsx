@@ -22,15 +22,14 @@ interface GroupedOrders{
 const Cart:FC = ()=>{
     const navigate = useNavigate()
     const { 
-        cart, setCart, getAllOrders, 
+        cart, setCart, getAllOrders, getProfile, user
     } = useContext(Context) as GlobalStateContext
-    const fullAddress = cart.length > 0 ? cart[0].address : ''
-    const address = fullAddress?.substring(0, fullAddress.indexOf(','))
-    const nextPoint = fullAddress?.indexOf(',') + 1
-    const cep = fullAddress?.substring(nextPoint, nextPoint + 10)
-    const local = fullAddress?.substring(nextPoint + 11, fullAddress.lastIndexOf('-'))
-    const referencia = fullAddress?.substring(fullAddress.lastIndexOf('-') + 1, fullAddress.lastIndexOf(','))
-    const talkTo = fullAddress?.substring(fullAddress.lastIndexOf(',') + 1, fullAddress.length)
+    const token = localStorage.getItem('token')
+    const address = user ? user.street : ''
+    const cep = user ? user.cep : ''
+    const local = user ? `${user.neighbourhood} - ${user.city}/${user.state}` : ''
+    const referencia = user ? user.complement : ''
+    const talkTo = user ? user.username.split(' ')[0] : ''
     /* const calculateTotal = (cart:Order[]) =>
         cart.reduce((acc, item) => acc + Number(item.price) * Number(item.quantity), 0) */
     //const [total, setTotal] = useState<number>(calculateTotal(cart))
@@ -38,13 +37,11 @@ const Cart:FC = ()=>{
 
 
     useEffect(()=>{
-        const token = localStorage.getItem('token')
-        
         if(!token){
             navigate('/ifuture_react/')
             return
         }
-        
+        getProfile()
         getAllOrders()            
     }, [])
 
@@ -212,8 +209,8 @@ const Cart:FC = ()=>{
                         <hr style={{background:'lightgray', margin:'3px', width:'10%'}} />
                         <button 
                             className="requestOrder-btn"
-                            style={{background: cart.length > 0 && fullAddress ? 'red' : 'gray'}}
-                            disabled={cart.length === 0 || !fullAddress}
+                            style={{background: cart.length > 0 && user ? 'red' : 'gray'}}
+                            disabled={cart.length === 0 || !user}
                             onClick={() => endRequests(restaurant)}>
                             Finalizar Pedido
                         </button>
