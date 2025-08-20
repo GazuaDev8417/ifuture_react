@@ -186,9 +186,11 @@ const Detail:FC = ()=>{
                             {formatName(rest.name)}
                         </li>
                     ))}
-                    <li onClick={() => navigate('/ifuture_react/cart')}>
-                        Carrinho
-                    </li>
+                    {token && (
+                        <li onClick={() => navigate('/ifuture_react/cart')}>
+                            Carrinho
+                        </li>
+                    )}
                 </ul>
             </Sidebar>
             <div className="card">

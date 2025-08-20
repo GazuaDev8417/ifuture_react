@@ -29,6 +29,12 @@ const GlobalStyle = createGlobalStyle`
     font-family: "Roboto", sans-serif;
   }
 
+  .logo-title{
+    font-family: 'Bebas Neue', sans-serif;
+    letter-spacing: 2px;
+    color: #a52a2a;
+  }
+
   input{
     border-radius: 5px;
     border: 1px solid gray;

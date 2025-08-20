@@ -47,4 +47,5 @@ export interface Order{
     state:string
     address:string
     description:string
+    paymentmethod:string
 }

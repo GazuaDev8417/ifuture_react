@@ -7,6 +7,7 @@ import Address from "../pages/address/Address"
 import Signup from "../pages/signup/Signup"
 import UserAddress from "../pages/address/UserAddress"
 import Login from "../pages/login/Login"
+import Profile from "../pages/profile/Profile"
 
 
 
@@ -16,6 +17,7 @@ const Router:FC = ()=>{
             <Route path="/ifuture_react/" element={<Feed/>} />
             <Route path="/ifuture_react/detail" element={<Detail/>} />
             <Route path="/ifuture_react/cart" element={<Cart/>} />
+            <Route path="/ifuture_react/profile" element={<Profile/>} />
             <Route path="/ifuture_react/address" element={<Address/>} />
             <Route path="/ifuture_react/signup" element={<Signup/>} />
             <Route path="/ifuture_react/user-address" element={<UserAddress/>} />

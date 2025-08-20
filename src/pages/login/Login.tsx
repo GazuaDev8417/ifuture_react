@@ -3,10 +3,9 @@ import axios from "axios"
 import { BASE_URL } from "../../constants/url"
 import Header from "../../components/Header"
 import { IoIosArrowBack } from "react-icons/io"
-import ifutureLogo from '/imgs/logo-future-eats-invert.png'
 import { FaEyeSlash, FaEye } from 'react-icons/fa'
 import { Link, useNavigate } from "react-router-dom"
-import { Container, LogoWrapper } from "./styled"
+import { Container } from "./styled"
 //import Modal from "../../components/Modal"
 
 
@@ -67,22 +66,13 @@ const Login:FC = ()=>{
     
     return(
         <>
-            {/* <LogoWrapper>
-                <img  
-                    src={ifutureLogo}
-                    alt="imagem"/>
-            </LogoWrapper> */}
             <Header
                 leftIcon={
                     <IoIosArrowBack 
                         className="header-icon"
-                        onClick={()=> navigate(-1)} />
+                        onClick={()=> navigate('/ifuture_react/detail')} />
                 }
-                center={
-                    <img  
-                        src={ifutureLogo}
-                        alt="imagem"/>
-                }
+                center={ <h2 className="logo-title">REDE SOCIAL FAST-FOOD</h2> }
                 rightIcon={ <div/> }
                 />
             <Container>

@@ -2,6 +2,7 @@ import { ChangeEvent, FC, useEffect, useState, useContext, useRef } from "react"
 import { useNavigate } from "react-router-dom"
 import Context, { GlobalStateContext } from "../../global/Context"
 import { AiOutlineShoppingCart } from 'react-icons/ai'
+import { IoPersonSharp } from "react-icons/io5";
 import axios from 'axios'
 import { BASE_URL } from "../../constants/url"
 import RestaurantCard from "../../components/RestaurantCard"
@@ -10,7 +11,6 @@ import { Restaurant } from "../../types/types"
 import { Container } from "./styled"
 import { Loading } from "../../components/Loading"
 import { restaurantImages } from '../../constants/index'
-import Logo from '/imgs/logo-future-eats-invert.png'
 import hideImage from "../../utils/hideImage"
 
 
@@ -24,6 +24,7 @@ const Feed:FC = ()=>{
     const { getRestaurantById } = useContext(Context) as GlobalStateContext
     const [word, setWord] = useState<string>('')
     const [restaurants, setRestaurants] = useState<Restaurant[]>([])
+    const token = localStorage.getItem('token')
     //const [category, setCategory] = useState<string | null>(null)
     
 
@@ -73,9 +74,9 @@ const Feed:FC = ()=>{
                     navigate('/ifuture_react/cart')
                 }}/>
             }
-            center={<img src={Logo} alt="Logo" ref={imageRef} onClick={() => navigate('/ifuture_react')} />}
+            center={ <h2 className="logo-title">REDE SOCIAL FAST-FOOD</h2> }
             rightIcon={
-                <div/>
+                token ? <IoPersonSharp className="header-icon"/> : <div/>
             }
         />
         <Container>

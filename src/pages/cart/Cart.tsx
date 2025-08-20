@@ -40,10 +40,12 @@ const Cart:FC = ()=>{
     useEffect(()=>{
         const token = localStorage.getItem('token')
         
-        if(token){
-            getAllOrders()            
+        if(!token){
+            navigate('/ifuture_react/')
+            return
         }
         
+        getAllOrders()            
     }, [])
 
 
