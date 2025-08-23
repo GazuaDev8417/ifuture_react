@@ -166,7 +166,7 @@ const Detail:FC = ()=>{
             leftIcon={
                 <IoIosArrowBack 
                     className="header-icon"
-                    onClick={()=> navigate(-1)} />
+                    onClick={()=> navigate('/ifuture_react')} />
             }
             center={ <div/> }
             rightIcon={

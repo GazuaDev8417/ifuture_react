@@ -20,8 +20,8 @@ const Login:FC = ()=>{
     const [showPass, setShowPass] = useState<boolean>(false)
     //const [showModal, setShowModal] = useState<boolean>(false)
     const [form, setForm] = useState<FormData>({
-        email:'',
-        password:''
+        email:'visitante@email.com',
+        password:'123456'
     })
 
 
@@ -115,9 +115,9 @@ const Login:FC = ()=>{
                         <button className="login-button" type="submit">Entrar</button>
                     </div>
                 </form>
-                <p>
+                {/* <p>
                     Não possui cadastro? clique <Link to='/ifuture_react/signup'> aqui</Link>
-                </p>
+                </p> */}
             </Container>
         </>
     )
